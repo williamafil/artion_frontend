@@ -1,0 +1,103 @@
+<template>
+  <header
+    class="z-50 w-full h-16 z-thousand sticky top-0 relative px-5 py-3 flex justify-between
+          items-center bg-gray-100"
+  >
+    <div class="absolute inset-0 shadow-lg opacity-50"></div>
+    <div class="flex">
+      <button class="h-8 w-8 sm:hidden">
+        <svg
+          class="w-8 h-8"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          view-box="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="{1.5}"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="z-10 hidden sm:block flex-none w-16">
+      <router-link to="/" class="text-base mx-5">
+        <h1 class="text-xl font-extrabold">artion</h1>
+      </router-link>
+    </div>
+    <div class="z-10 hidden sm:block flex-grow">
+      <div class="flex justify-center">
+        <router-link to="/bid" class="text-base mx-5">競標</router-link>
+        <router-link to="/artists" class="text-base mx-5">藝術家</router-link>
+        <router-link to="/exhibitions" class="text-base mx-5">精選展覽</router-link>
+        <router-link to="/about" class="text-base mx-5">關於我們</router-link>
+        <router-link to="/test" class="text-base mx-5">聯繫我們</router-link>
+      </div>
+    </div>
+    <div class="hidden sm:block flex-none w-68">
+      <div class="flex items-center justify-end">
+
+        <CartIcon class="w-9 h-9 mx-3" />
+
+        <div class="dropdown inline-block relative">
+          <button
+            aria-haspopup="true"
+            class="
+            bg-white flex text-sm rounded-full focus:outline-none
+            focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-white
+        "
+          >
+            <span class="sr-only">Open user menu</span>
+            <img
+              class="h-8 w-8 rounded-full object-cover"
+              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+              alt="Avatar"
+            />
+          </button>
+
+          <ul class="dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
+            <li class="">
+              <a
+                class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                href="#"
+                >控制台</a
+              >
+            </li>
+            <li class="">
+              <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"
+                >個人資訊</a
+              >
+            </li>
+            <li class="">
+              <a
+                class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                href="#"
+              >
+                Three is the magic number
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </header>
+</template>
+
+<script>
+import CartIcon from './icons/CartIcon.vue';
+
+export default {
+  name: 'Navbar',
+  components: { CartIcon },
+};
+</script>
+
+<style lang="scss" scoped>
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+</style>
