@@ -18,13 +18,6 @@ module.exports = {
         ignoreUrls: true,
       },
     ],
-    // 'prettier/prettier': [
-    //   'warn',
-    //   {
-    //     singleQuote: true,
-    //     semi: true,
-    //   },
-    // ],
   },
   overrides: [
     {
