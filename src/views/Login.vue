@@ -14,7 +14,7 @@
           登入
         </h2>
 
-        <form class="mt-10" method="POST">
+        <form class="mt-10" @submit.prevent="login">
           <!-- Email Input -->
           <label for="email" class="block text-xs font-semibold text-gray-600 uppercase"
             >E-mail</label
@@ -23,13 +23,15 @@
             id="email"
             type="email"
             name="email"
+            v-model="email"
             placeholder="e-mail address"
             autocomplete="email"
-            class="block w-full py-3 px-1 mt-2
+            class="block w-full py-3 px-3 mt-2
                     text-gray-800 appearance-none
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
             required
+            autofocus
           />
 
           <!-- Password Input -->
@@ -40,9 +42,10 @@
             id="password"
             type="password"
             name="password"
+            v-model="password"
             placeholder="password"
             autocomplete="current-password"
-            class="block w-full py-3 px-1 mt-2 mb-4
+            class="block w-full py-3 px-3 mt-2 mb-4
                     text-gray-800 appearance-none
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -79,7 +82,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'Login',
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      console.log('login');
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: 'Dashboard' });
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
