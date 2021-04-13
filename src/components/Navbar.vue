@@ -24,9 +24,11 @@
     </div>
 
     <div class="z-10 hidden sm:block flex-none w-16">
-      <router-link to="/" class="text-base mx-5">
-        <h1 class="text-xl font-extrabold">artion</h1>
-      </router-link>
+      <!-- <router-link to="/" class="text-base mx-5"> -->
+      <a href="/" class="text-base mx-5">
+        <h1 class="font-lora text-2xl font-extrabold">artion</h1>
+      </a>
+      <!-- </router-link> -->
     </div>
     <div class="z-10 hidden sm:block flex-grow">
       <div class="flex justify-center">
@@ -37,11 +39,12 @@
         <router-link to="/test" class="text-base mx-5">聯繫我們</router-link>
       </div>
     </div>
-    <div class="hidden sm:block flex-none w-68">
+    <div class="z-10 hidden sm:block flex-none w-68">
       <div class="flex items-center justify-end">
-
-        <CartIcon class="w-9 h-9 mx-3" />
-
+        <router-link :to="{name: 'Login'}" class="px-4 py-2 border-2">
+          登入
+        </router-link>
+        <!-- <CartIcon class="w-9 h-9 mx-3" />
         <div class="dropdown inline-block relative">
           <button
             aria-haspopup="true"
@@ -80,7 +83,8 @@
               </a>
             </li>
           </ul>
-        </div>
+        </div> -->
+
       </div>
     </div>
 
@@ -88,16 +92,53 @@
 </template>
 
 <script>
-import CartIcon from './icons/CartIcon.vue';
+// import CartIcon from './icons/CartIcon.vue';
 
 export default {
   name: 'Navbar',
-  components: { CartIcon },
+  components: { },
 };
 </script>
 
 <style lang="scss" scoped>
+
+#nav {
+  // padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color:dimgray;
+      border-bottom: 3px solid #F6E059;
+      // border-bottom: 3px solid #ccc;
+      // color: #42b983;
+    }
+  }
+}
+
 .dropdown:hover .dropdown-menu {
   display: block;
+}
+
+button,
+.button {
+  margin-left: auto;
+  background: white;
+  text-decoration: none;
+  color: #2c3e50;
+
+  &.router-link-active {
+    color: #2c3e50;
+  }
+}
+
+.logoutButton {
+  cursor: pointer;
+}
+
+.nav-welcome + button {
+  margin-left: 0;
 }
 </style>

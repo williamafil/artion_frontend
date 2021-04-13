@@ -24,6 +24,9 @@ module.exports = {
         Default: 2,
         '1': 1,
       },
+      fontFamily: {
+        'lora': ['Lora', 'serif'],
+      },
     },
   },
   variants: {
