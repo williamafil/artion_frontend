@@ -51,11 +51,14 @@
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
             required
           />
+          <div class="h-5">
+            <p class="text-red-600 text-sm">{{ error }}</p>
+          </div>
 
           <!-- Auth Buttton -->
           <button
             type="submit"
-            class="w-full py-3 mt-10 bg-gray-800 rounded-sm
+            class="w-full py-3 mt-6 bg-gray-800 rounded-sm
                     font-medium text-white uppercase
                     focus:outline-none hover:bg-gray-700 hover:shadow-none"
           >
@@ -88,6 +91,7 @@ export default {
     return {
       email: '',
       password: '',
+      error: null,
     };
   },
   methods: {
@@ -100,6 +104,11 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'Dashboard' });
+        })
+        .catch((error) => {
+          console.log('錯誤: ', error);
+          console.log('錯誤: ', error.response.data.error);
+          this.error = error.response.data.error;
         });
     },
   },
