@@ -35,12 +35,29 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    meta: { requiredAuth: true },
   },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isUserLoggedIn = localStorage.getItem('user');
+  // to.matched.some will return an array containing requiredAuth [false, true, false, ...]
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    // if requiredAuth is TRUE, check if user is logged in
+    if (!isUserLoggedIn) {
+      console.log('使用者未登入，請重新登入！');
+      next('/');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
