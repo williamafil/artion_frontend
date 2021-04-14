@@ -74,9 +74,10 @@
             <p class="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
               or
             </p>
-            <a href="register" class="flex-2 underline">
+
+            <router-link :to="{ name: 'Register' }" class="flex-2 underline">
               建立帳號
-            </a>
+            </router-link>
           </div>
         </form>
       </div>

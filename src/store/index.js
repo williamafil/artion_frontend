@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { apiService, userLogin } from '@/service/api';
+import { apiService, userLogin, userSignup } from '@/service/api';
 
 Vue.use(Vuex);
 
@@ -21,6 +21,19 @@ export default new Vuex.Store({
         console.log('userLogin response: ', res);
         const responseData = {
           ...res.data.data,
+          token: res.headers.authorization,
+        };
+        context.commit('SET_USER_DATA', responseData);
+      });
+    },
+    signup(context, credentialPayload) {
+      console.log('signup credentialPayload: ', credentialPayload);
+      return userSignup({ user: credentialPayload }).then((res) => {
+        console.log('userSignup response: ', res);
+        console.log('userData: ', res.data);
+        console.log('token: ', res.headers.authorization);
+        const responseData = {
+          ...res.data,
           token: res.headers.authorization,
         };
         context.commit('SET_USER_DATA', responseData);

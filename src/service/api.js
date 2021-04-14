@@ -9,3 +9,4 @@ export const apiService = axios.create({
 });
 
 export const userLogin = (credentials) => apiService.post('/login', credentials);
+export const userSignup = (credentials) => apiService.post('/signup', credentials);
