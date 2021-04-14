@@ -18,6 +18,17 @@ module.exports = {
         ignoreUrls: true,
       },
     ],
+    'import/prefer-default-export': 'off',
+    // 'comma-dangle': [
+    //   'error',
+    //   {
+    //     arrays: 'never',
+    //     objects: 'always',
+    //     imports: 'never',
+    //     exports: 'never',
+    //     functions: 'never',
+    //   },
+    // ],
   },
   overrides: [
     {
