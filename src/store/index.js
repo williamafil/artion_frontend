@@ -14,6 +14,11 @@ export default new Vuex.Store({
       localStorage.setItem('user', JSON.stringify(userData));
       apiService.defaults.headers.common.Authorization = userData.token;
     },
+    CLEAR_USER_DATA(state) {
+      state.user = null;
+      localStorage.removeItem('user');
+      apiService.defaults.headers.common.Authorization = null;
+    },
   },
   actions: {
     login(context, credentialPayload) {
@@ -38,6 +43,14 @@ export default new Vuex.Store({
         };
         context.commit('SET_USER_DATA', responseData);
       });
+    },
+    logout(context) {
+      context.commit('CLEAR_USER_DATA');
+    },
+  },
+  getters: {
+    isLoggedIn(state) {
+      return !!state.user;
     },
   },
   modules: {},

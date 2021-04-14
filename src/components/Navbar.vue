@@ -40,18 +40,18 @@
       </div>
     </div>
     <div class="z-10 hidden sm:block flex-none w-68">
-      <div class="flex items-center justify-end">
-        <router-link :to="{name: 'Login'}" class="px-4 py-2 border-2">
-          登入
-        </router-link>
-        <!-- <CartIcon class="w-9 h-9 mx-3" />
+      <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }" class="px-4 py-2 border-2">
+        登入
+      </router-link>
+      <div v-if="isLoggedIn" class="flex items-center justify-end">
+        <CartIcon class="w-9 h-9 mx-3" />
         <div class="dropdown inline-block relative">
           <button
             aria-haspopup="true"
             class="
-            bg-white flex text-sm rounded-full focus:outline-none
-            focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-white
-        "
+              bg-white flex text-sm rounded-full focus:outline-none
+              focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-white
+          "
           >
             <span class="sr-only">Open user menu</span>
             <img
@@ -75,33 +75,41 @@
               >
             </li>
             <li class="">
-              <a
-                class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                href="#"
+              <div
+                class="cursor-pointer rounded-b bg-gray-200 hover:bg-gray-400
+                      py-2 px-4 block whitespace-no-wrap"
+                @click="logout"
               >
-                Three is the magic number
-              </a>
+                登出
+              </div>
             </li>
           </ul>
-        </div> -->
-
+        </div>
       </div>
     </div>
-
   </header>
 </template>
 
 <script>
-// import CartIcon from './icons/CartIcon.vue';
+import { authComputed } from '@/store/helpers';
+import CartIcon from './icons/CartIcon.vue';
 
 export default {
   name: 'Navbar',
-  components: { },
+  components: { CartIcon },
+  computed: {
+    ...authComputed,
+  },
+  methods: {
+    logout() {
+      console.log('logout');
+      this.$store.dispatch('logout');
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 #nav {
   // padding: 30px;
 
@@ -110,8 +118,8 @@ export default {
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color:dimgray;
-      border-bottom: 3px solid #F6E059;
+      color: dimgray;
+      border-bottom: 3px solid #f6e059;
       // border-bottom: 3px solid #ccc;
       // color: #42b983;
     }
