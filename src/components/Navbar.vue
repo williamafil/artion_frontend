@@ -70,9 +70,11 @@
               >
             </li>
             <li class="">
-              <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"
-                >個人資訊</a
-              >
+              <router-link :to="{ name: 'UserProfile' }" class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
+              <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
+                個人資訊
+              </router-link>
+              <!-- </a> -->
             </li>
             <li class="">
               <div
