@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { apiService, userLogin, userSignup } from '@/service/api';
+import { apiService, userLogin, userSignup, userAvatar } from '@/service/api';
 
 Vue.use(Vuex);
 
@@ -18,6 +18,12 @@ export default new Vuex.Store({
       state.user = null;
       localStorage.removeItem('user');
       apiService.defaults.headers.common.Authorization = null;
+    },
+    SET_USER_AVATAR(state, avatarURL) {
+      state.user.avatar = avatarURL;
+      const localStorageData = JSON.parse(localStorage.getItem('user'));
+      localStorageData.avatar = avatarURL;
+      localStorage.setItem('user', JSON.stringify(localStorageData));
     },
   },
   actions: {
@@ -47,10 +53,28 @@ export default new Vuex.Store({
     logout(context) {
       context.commit('CLEAR_USER_DATA');
     },
+    uploadAvatar(context, formDataPayload) {
+      console.log('uploadAvatar ACTION');
+      console.log('context: ', context);
+      console.log('formDataPayload: ', formDataPayload);
+      return userAvatar(formDataPayload).then((res) => {
+        console.log('userAvatar response: ', res.data.avatar);
+        context.commit('SET_USER_AVATAR', res.data.avatar);
+      });
+    },
   },
   getters: {
     isLoggedIn(state) {
       return !!state.user;
+    },
+    avatarUrl(state) {
+      // let url =
+      //   state.user.avatar === null
+      //     ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+      //     : state.user.avatar;
+      return state.user.avatar === null
+        ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+        : state.user.avatar;
     },
   },
   modules: {},

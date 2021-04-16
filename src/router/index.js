@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Dashboard from '../views/dashboard/Dashboard.vue';
-import UserProfile from '../views/dashboard/UserProfile.vue'
+import UserProfile from '../views/dashboard/UserProfile.vue';
 
 Vue.use(VueRouter);
 

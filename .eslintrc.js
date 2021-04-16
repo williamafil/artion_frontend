@@ -13,12 +13,13 @@ module.exports = {
     'max-len': [
       'error',
       {
-        code: 150,
+        code: 250,
         ignoreComments: true,
         ignoreUrls: true,
       },
     ],
     'import/prefer-default-export': 'off',
+    'object-curly-newline': 'off',
     // 'comma-dangle': [
     //   'error',
     //   {

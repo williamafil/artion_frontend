@@ -56,7 +56,7 @@
             <span class="sr-only">Open user menu</span>
             <img
               class="h-8 w-8 rounded-full object-cover"
-              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+              :src="avatarUrl || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
               alt="Avatar"
             />
           </button>
@@ -70,8 +70,11 @@
               >
             </li>
             <li class="">
-              <router-link :to="{ name: 'UserProfile' }" class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
-              <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
+              <router-link
+                :to="{ name: 'UserProfile' }"
+                class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+              >
+                <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
                 個人資訊
               </router-link>
               <!-- </a> -->
