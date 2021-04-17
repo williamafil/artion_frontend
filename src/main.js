@@ -14,7 +14,7 @@ new Vue({
     const userString = localStorage.getItem('user');
     if (userString) {
       const userData = JSON.parse(userString);
-      this.$store.commit('SET_USER_DATA', userData);
+      this.$store.commit('user/SET_USER_DATA', userData);
     }
 
     // AXIOS 攔截器
@@ -30,7 +30,7 @@ new Vue({
         // Do something with response error
         console.log('axios interceptors 錯誤');
         if (error.response.status === 401) {
-          this.$store.dispatch('logout');
+          this.$store.dispatch('user/logout');
         }
 
         return Promise.reject(error);

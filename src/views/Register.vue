@@ -146,9 +146,8 @@ export default {
   },
   methods: {
     register() {
-      console.log('register');
       this.$store
-        .dispatch('signup', {
+        .dispatch('user/signup', {
           name: this.lastname + this.firstname,
           email: this.email,
           password: this.password,
@@ -158,9 +157,6 @@ export default {
           this.$router.push({ name: 'Dashboard' });
         })
         .catch((err) => {
-          // console.log('錯誤: ', err.response);
-          // console.log('錯誤: ', err.response.data.errors);
-          // console.log('錯誤: ', err.response);
           console.log('錯誤: ', err.response.data);
           this.errors = err.response.data.errors;
         });

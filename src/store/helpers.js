@@ -1,4 +1,6 @@
-import { mapGetters } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapGetters } = createNamespacedHelpers('user');
 
 export const authComputed = {
   ...mapGetters(['isLoggedIn', 'avatarUrl']),

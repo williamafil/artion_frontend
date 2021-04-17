@@ -99,7 +99,7 @@ export default {
     login() {
       console.log('login');
       this.$store
-        .dispatch('login', {
+        .dispatch('user/login', {
           email: this.email,
           password: this.password,
         })

@@ -90,7 +90,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
+import { authComputed } from '@/store/helpers';
+import { mapState } from 'vuex';
 
 export default {
   name: 'UserProfile',
@@ -100,25 +102,25 @@ export default {
     };
   },
   created() {
-    this.name = this.$store.state.user.name;
+    this.name = this.user.name;
   },
   methods: {
     onChangeHandler(e) {
       console.log('upload file: ', e);
       console.log('img: ', e.target.files[0]);
-      console.log('user_id: ', this.$store.state.user.id);
+      console.log('user_id: ', this.user.id);
       const formData = new FormData();
-      formData.append('user_id', this.$store.state.user.id);
+      formData.append('user_id', this.user.id);
       formData.append('avatar', e.target.files[0]);
       // uploadHandler(userId, formData, tokenHeader);
 
       console.log('formData', formData);
-      this.$store.dispatch('uploadAvatar', formData);
+      this.$store.dispatch('user/uploadAvatar', formData);
     },
     submitForm() {
       console.log('submit form:', this.name);
       this.$store
-        .dispatch('updateNameField', {
+        .dispatch('user/updateNameField', {
           name: this.name,
         })
         .then(() => {
@@ -130,7 +132,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['avatarUrl']),
+    ...mapState({
+      user: (state) => state.user.user,
+    }),
+    ...authComputed,
+    // ...mapGetters('user', { avatarUrl }),
   },
 };
 </script>
