@@ -12,17 +12,10 @@
                 <img
                   id="image"
                   class="object-cover w-full h-32 rounded-full"
-                  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                  :src="avatarUrl"
                   alt="user's avatar"
                 />
-                <!-- <img
-                  id="image"
-                  class="object-cover w-full h-32 rounded-full"
-                  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                  alt="user's avatar"
-                /> -->
               </div>
-              {{ this.$store.state.user }}
               <label
                 for="fileInput"
                 type="button"
@@ -73,24 +66,21 @@
                 "
               /> -->
             </div>
-
-            <div class="mb-5">
-              <label for="firstname" class="font-bold mb-1 text-gray-700 block">Firstname</label>
-              <input
-                type="text"
-                class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-                placeholder="Enter your firstname..."
-              />
-            </div>
-
-            <div class="mb-5">
-              <label for="email" class="font-bold mb-1 text-gray-700 block">Email</label>
-              <input
-                type="email"
-                class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-                placeholder="Enter your email address..."
-              />
-            </div>
+            <form @submit.prevent="submitForm">
+              <div class="mb-5">
+                <label for="name" class="font-bold mb-1 text-gray-700 block">Name</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+                  v-model="name"
+                />
+              </div>
+              <div class="text-center">
+                <button type="submit" class="py-3 px-5 rounded-lg shadow-sm border-gray-500">
+                  更新
+                </button>
+              </div>
+            </form>
           </div>
         </div>
         <!-- / Step Content -->
@@ -100,8 +90,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'UserProfile',
+  data() {
+    return {
+      name: '',
+    };
+  },
+  created() {
+    this.name = this.$store.state.user.name;
+  },
   methods: {
     onChangeHandler(e) {
       console.log('upload file: ', e);
@@ -115,6 +115,22 @@ export default {
       console.log('formData', formData);
       this.$store.dispatch('uploadAvatar', formData);
     },
+    submitForm() {
+      console.log('submit form:', this.name);
+      this.$store
+        .dispatch('updateNameField', {
+          name: this.name,
+        })
+        .then(() => {
+          console.log('更新成功');
+        })
+        .catch((error) => {
+          console.log('錯誤：', error);
+        });
+    },
+  },
+  computed: {
+    ...mapGetters(['avatarUrl']),
   },
 };
 </script>

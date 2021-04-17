@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { apiService, userLogin, userSignup, userAvatar } from '@/service/api';
+import { apiService, userLogin, userSignup, userAvatar, userUpdateName } from '@/service/api';
 
 Vue.use(Vuex);
 
@@ -23,6 +23,12 @@ export default new Vuex.Store({
       state.user.avatar = avatarURL;
       const localStorageData = JSON.parse(localStorage.getItem('user'));
       localStorageData.avatar = avatarURL;
+      localStorage.setItem('user', JSON.stringify(localStorageData));
+    },
+    SET_USER_NAME(state, name) {
+      state.user.name = name;
+      const localStorageData = JSON.parse(localStorage.getItem('user'));
+      localStorageData.name = name;
       localStorage.setItem('user', JSON.stringify(localStorageData));
     },
   },
@@ -62,6 +68,14 @@ export default new Vuex.Store({
         context.commit('SET_USER_AVATAR', res.data.avatar);
       });
     },
+    updateNameField(context, objPayload) {
+      console.log('context state: ', context.state);
+      console.log('objPayload: ', objPayload);
+      return userUpdateName(context.state.user.id, objPayload).then((res) => {
+        console.log('userUpdateName response: ', res);
+        context.commit('SET_USER_NAME', res.data.data.name);
+      });
+    },
   },
   getters: {
     isLoggedIn(state) {
@@ -75,6 +89,9 @@ export default new Vuex.Store({
       return state.user.avatar === null
         ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
         : state.user.avatar;
+    },
+    userName(state) {
+      return state.user.name;
     },
   },
   modules: {},
