@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import axios from 'axios';
+import { dollarSign, thousandSeparator } from '@/filters/dollar';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
 
 Vue.config.productionTip = false;
+
+Vue.filter('dollar', dollarSign);
+Vue.filter('separator', thousandSeparator);
 
 new Vue({
   router,
