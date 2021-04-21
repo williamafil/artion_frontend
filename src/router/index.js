@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store';
 import Home from '../views/Home.vue';
 import Auction from '../views/Auction.vue';
 import Login from '../views/Login.vue';
@@ -19,6 +20,23 @@ const routes = [
     path: '/auctions/:id',
     name: 'Auction',
     component: Auction,
+    props: true,
+    beforeEnter(routeTo, routeFrom, next) {
+      console.log('routeTo.params.id: ', routeTo.params.id);
+      store.dispatch('auction/getBidDetail', routeTo.params.id).then((res) => {
+        console.log('route response: ', res);
+        console.log('routeTo.params: ', routeTo.params);
+        // routeTo.params.bidDetail = res.data.data;
+        next();
+      });
+      // .catch((error) => {
+      //   if (error.response && error.response.status === 404) {
+      //     next({ name: '404', params: { resource: 'event' } });
+      //   } else {
+      //     next({ name: 'NetworkIssue' });
+      //   }
+      // });
+    },
   },
   {
     path: '/about',

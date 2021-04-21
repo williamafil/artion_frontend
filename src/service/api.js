@@ -15,3 +15,6 @@ export const userAvatar = (formData) => apiService.post('/api/v1/auth/upload_ava
 export const userUpdateName = (id, obj) => apiService.patch(`/api/v1/auth/users/${id}`, obj);
 
 export const fetchAuctions = () => apiService.get('/api/v1/auctions');
+export const fetchAuction = (slug) => apiService.get(`/api/v1/auctions/${slug}`);
+export const fetchBidDetail = (slug) => apiService.get(`/api/v1/auth/auctions/${slug}/bid_detail`);
+export const createBid = (obj) => apiService.post('/api/v1/auth/bid_details', { bid_details: obj });

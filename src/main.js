@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import axios from 'axios';
 import { dollarSign, thousandSeparator } from '@/filters/dollar';
+import dateFilter from '@/filters/date';
+import avatarFilter from '@/filters/avatar';
 
 import App from './App.vue';
 import router from './router';
@@ -11,6 +13,8 @@ Vue.config.productionTip = false;
 
 Vue.filter('dollar', dollarSign);
 Vue.filter('separator', thousandSeparator);
+Vue.filter('date', dateFilter);
+Vue.filter('avatar', avatarFilter);
 
 new Vue({
   router,

@@ -9,7 +9,8 @@ export default {
 
   mutations: {
     SET_USER_DATA(state, userData) {
-      state.user = userData;
+      console.log('userData: ', userData);
+      state.user = { ...userData };
       localStorage.setItem('user', JSON.stringify(userData));
       apiService.defaults.headers.common.Authorization = userData.token;
     },
@@ -71,13 +72,17 @@ export default {
     isLoggedIn(state) {
       return !!state.user;
     },
-    avatarUrl(state) {
-      return state.user.avatar === null
-        ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
-        : state.user.avatar;
-    },
+    // avatarUrl(state) {
+    //   console.log('State: ', state.user.user);
+    //   return state.user.avatar === null
+    //     ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+    //     : state.user.avatar;
+    // },
     userName(state) {
       return state.user.name;
     },
+    // userId(state) {
+    //   return state.user.id;
+    // },
   },
 };

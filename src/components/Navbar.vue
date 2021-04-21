@@ -56,9 +56,14 @@
             <span class="sr-only">Open user menu</span>
             <img
               class="h-8 w-8 rounded-full object-cover"
-              :src="avatarUrl || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
+              :src="user.avatar || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
               alt="Avatar"
             />
+            <!-- <img
+              class="h-8 w-8 rounded-full object-cover"
+              :src="avatarUrl || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
+              alt="Avatar"
+            /> -->
           </button>
 
           <ul class="dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
@@ -96,6 +101,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { authComputed } from '@/store/helpers';
 import CartIcon from './icons/CartIcon.vue';
 
@@ -104,6 +110,7 @@ export default {
   components: { CartIcon },
   computed: {
     ...authComputed,
+    ...mapState('user', ['user']),
   },
   methods: {
     logout() {
