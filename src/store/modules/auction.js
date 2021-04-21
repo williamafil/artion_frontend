@@ -49,7 +49,7 @@ export default {
     createBid(context, objPayload) {
       return createBid(objPayload).then((res) => {
         console.log('createBid response: ', res);
-        context.commit('ADD_BID_DETAIL', res.data.data);
+        // context.commit('ADD_BID_DETAIL', res.data.data);
       });
     },
     receiveMessage(context, data) {
