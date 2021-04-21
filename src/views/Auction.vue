@@ -156,6 +156,14 @@ export default {
     };
   },
   async created() {
+    this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
+      received: (data) => {
+        // this.messages.push(data);
+        console.log('接收 websocket資料：', data.message);
+        this.$store.dispatch('auction/receiveMessage', data.message);
+      },
+    });
+
     console.log('this.getCurrentBid: ', this.getCurrentBid);
     // this.bidPrice = this.getCurrentBid;
     console.log('Number(this.getCurrentBid): ', Number(this.getCurrentBid));
@@ -174,11 +182,17 @@ export default {
       this.selected = tab;
     },
     submitBid() {
-      this.$store.dispatch('auction/createBid', {
-        bid: this.bidPrice,
-        auction_id: this.auction.id,
-        user_id: this.user.id,
-      });
+      this.$store
+        .dispatch('auction/createBid', {
+          bid: this.bidPrice,
+          auction_id: this.auction.id,
+          user_id: this.user.id,
+        })
+        .then((response) => {
+          this.bidChannel.perform('speak', {
+            message: response,
+          });
+        });
       this.toggleModal = false;
     },
   },

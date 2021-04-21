@@ -3,11 +3,15 @@ import axios from 'axios';
 import { dollarSign, thousandSeparator } from '@/filters/dollar';
 import dateFilter from '@/filters/date';
 import avatarFilter from '@/filters/avatar';
+import ActionCable from 'actioncable';
 
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
+
+const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
+Vue.prototype.$cable = cable;
 
 Vue.config.productionTip = false;
 

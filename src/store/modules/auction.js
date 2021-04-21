@@ -18,7 +18,9 @@ export default {
       state.bidDetail = bidDetailPayload;
     },
     ADD_BID_DETAIL(state, bidDetailPayload) {
-      state.bidDetail.push(bidDetailPayload);
+      // state.bidDetail.push(bidDetailPayload);
+      const newArr = [...state.bidDetail, bidDetailPayload];
+      state.bidDetail = newArr;
     },
   },
   actions: {
@@ -49,6 +51,9 @@ export default {
         console.log('createBid response: ', res);
         context.commit('ADD_BID_DETAIL', res.data.data);
       });
+    },
+    receiveMessage(context, data) {
+      context.commit('ADD_BID_DETAIL', data);
     },
   },
   getters: {
