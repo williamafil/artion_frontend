@@ -18,3 +18,4 @@ export const fetchAuctions = () => apiService.get('/api/v1/auctions');
 export const fetchAuction = (slug) => apiService.get(`/api/v1/auctions/${slug}`);
 export const fetchBidDetail = (slug) => apiService.get(`/api/v1/auth/auctions/${slug}/bid_detail`);
 export const createBid = (obj) => apiService.post('/api/v1/auth/bid_details', { bid_details: obj });
+export const userRegArtist = (id, obj) => apiService.put(`/api/v1/auth/users/${id}`, obj);

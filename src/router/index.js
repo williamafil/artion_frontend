@@ -1,3 +1,5 @@
+/* eslint implicit-arrow-linebreak: ["error", "beside"] */
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
@@ -66,6 +68,13 @@ const routes = [
     path: '/profile',
     name: 'UserProfile',
     component: UserProfile,
+    meta: { requiredAuth: true },
+  },
+  {
+    path: '/register-artist',
+    name: 'RegisterArtist',
+    component: () =>
+      import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegisterArtist.vue'),
     meta: { requiredAuth: true },
   },
 ];

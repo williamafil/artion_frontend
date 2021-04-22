@@ -1,5 +1,12 @@
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
-import { apiService, userLogin, userSignup, userAvatar, userUpdateName } from '@/service/api';
+import {
+  apiService,
+  userLogin,
+  userSignup,
+  userAvatar,
+  userUpdateName,
+  userRegArtist,
+} from '@/service/api';
 
 export default {
   namespaced: true,
@@ -29,6 +36,15 @@ export default {
       state.user.name = name;
       const localStorageData = JSON.parse(localStorage.getItem('user'));
       localStorageData.name = name;
+      localStorage.setItem('user', JSON.stringify(localStorageData));
+    },
+    UPDATE_USER_AS_ARTIST(state) {
+      state.user = {
+        ...state.user,
+        is_artist: true,
+      };
+      const localStorageData = JSON.parse(localStorage.getItem('user'));
+      localStorageData.is_artist = true;
       localStorage.setItem('user', JSON.stringify(localStorageData));
     },
   },
@@ -66,11 +82,21 @@ export default {
         context.commit('SET_USER_NAME', res.data.data.name);
       });
     },
+    registerAsArtist(context, objPayload) {
+      console.log('objPayload regArtist: ', objPayload);
+      return userRegArtist(context.state.user.id, objPayload).then((res) => {
+        console.log('register as artist response: ', res);
+        context.commit('UPDATE_USER_AS_ARTIST');
+      });
+    },
   },
 
   getters: {
     isLoggedIn(state) {
       return !!state.user;
+    },
+    isArtist(state) {
+      return !!state.user.is_artist;
     },
     // avatarUrl(state) {
     //   console.log('State: ', state.user.user);

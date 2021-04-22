@@ -66,9 +66,17 @@
                 "
               /> -->
             </div>
+            <div class="mb-5">
+              <label for="name" class="font-bold mb-1 text-gray-700 block">會員身份</label>
+              <h4
+                class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              >
+                {{ userRole }}
+              </h4>
+            </div>
             <form @submit.prevent="submitForm">
               <div class="mb-5">
-                <label for="name" class="font-bold mb-1 text-gray-700 block">Name</label>
+                <label for="name" class="font-bold mb-1 text-gray-700 block">名稱</label>
                 <input
                   type="text"
                   class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
@@ -76,8 +84,13 @@
                 />
               </div>
               <div class="text-center">
-                <button type="submit" class="py-3 px-5 rounded-lg shadow-sm border-gray-500">
-                  更新
+                <router-link v-if="!isArtist" :to="{ name: 'RegisterArtist' }">
+                  <button type="button" class="mx-2 py-3 px-5 rounded-lg shadow-sm bg-gray-50">
+                    登記為藝術家
+                  </button>
+                </router-link>
+                <button type="submit" class="mx-2 py-3 px-5 rounded-lg shadow-sm">
+                  更新資料
                 </button>
               </div>
             </form>
@@ -138,6 +151,9 @@ export default {
     ...mapState('user', ['user']),
     ...authComputed,
     // ...mapGetters('user', { avatarUrl }),
+    userRole() {
+      return this.isArtist ? '藝術家' : '一般會員';
+    },
   },
 };
 </script>

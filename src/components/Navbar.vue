@@ -24,8 +24,8 @@
     </div>
 
     <div class="z-10 hidden sm:block flex-none w-16">
-      <router-link :to="{name: 'Home'}" class="text-base mx-5">
-        <h1 class="font-lora text-2xl font-extrabold">artion</h1>
+      <router-link :to="{ name: 'Home' }" class="text-base mx-5">
+        <h1 class="font-lora text-3xl font-extrabold">artion</h1>
       </router-link>
     </div>
     <div class="z-10 hidden sm:block flex-grow">
@@ -69,18 +69,27 @@
               <a
                 class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
                 href="#"
-                >控制台</a
+                >個人後台</a
               >
+            </li>
+            <li class="">
+              <router-link
+                v-if="isArtist"
+                :to="{ name: 'UserProfile' }"
+                class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+              >
+                <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
+                刊登競標品
+              </router-link>
+              <!-- </a> -->
             </li>
             <li class="">
               <router-link
                 :to="{ name: 'UserProfile' }"
                 class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
               >
-                <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
                 個人資訊
               </router-link>
-              <!-- </a> -->
             </li>
             <li class="">
               <div
@@ -126,12 +135,12 @@ export default {
   // padding: 30px;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    // font-weight: bold;
+    // color: #2c3e50;
 
     &.router-link-exact-active {
-      color: dimgray;
-      border-bottom: 3px solid #f6e059;
+      // color: dimgray;
+      // border-bottom: 3px solid #f6e059;
       // border-bottom: 3px solid #ccc;
       // color: #42b983;
     }
