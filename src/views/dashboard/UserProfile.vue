@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen">
+  <div class="h-full mb-10">
     <div class="max-w-3xl mx-auto px-4 py-10">
       <div>
         <!-- Step Content -->
@@ -12,7 +12,7 @@
                 <img
                   id="image"
                   class="object-cover w-full h-32 rounded-full"
-                  :src="avatarUrl"
+                  :src="user.avatar || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
                   alt="user's avatar"
                 />
               </div>
@@ -132,9 +132,10 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      user: (state) => state.user.user,
-    }),
+    // ...mapState({
+    //   user: (state) => state.user.user,
+    // }),
+    ...mapState('user', ['user']),
     ...authComputed,
     // ...mapGetters('user', { avatarUrl }),
   },

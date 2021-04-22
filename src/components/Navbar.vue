@@ -24,11 +24,9 @@
     </div>
 
     <div class="z-10 hidden sm:block flex-none w-16">
-      <!-- <router-link to="/" class="text-base mx-5"> -->
-      <a href="/" class="text-base mx-5">
+      <router-link :to="{name: 'Home'}" class="text-base mx-5">
         <h1 class="font-lora text-2xl font-extrabold">artion</h1>
-      </a>
-      <!-- </router-link> -->
+      </router-link>
     </div>
     <div class="z-10 hidden sm:block flex-grow">
       <div class="flex justify-center">
