@@ -1,4 +1,11 @@
-import { fetchAuctions, fetchAuction, fetchBidDetail, createBid } from '@/service/api';
+import {
+  apiService,
+  fetchAuctions,
+  fetchAuction,
+  fetchBidDetail,
+  createBid,
+  newAuc,
+} from '@/service/api';
 
 export default {
   namespaced: true,
@@ -54,6 +61,13 @@ export default {
     },
     receiveMessage(context, data) {
       context.commit('ADD_BID_DETAIL', data);
+    },
+    createAuction(context, formData) {
+      console.log(apiService);
+      // apiService.defaults.headers.common['Content-Type'] = 'multipart/form-data';
+      return newAuc(formData).then((res) => {
+        console.log('artist create auction: ', res);
+      });
     },
   },
   getters: {

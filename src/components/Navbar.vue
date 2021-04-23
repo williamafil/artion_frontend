@@ -75,13 +75,11 @@
             <li class="">
               <router-link
                 v-if="isArtist"
-                :to="{ name: 'UserProfile' }"
+                :to="{ name: 'Sell' }"
                 class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
               >
-                <!-- <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#"> -->
                 刊登競標品
               </router-link>
-              <!-- </a> -->
             </li>
             <li class="">
               <router-link

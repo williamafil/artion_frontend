@@ -145,12 +145,8 @@ export default {
     },
   },
   computed: {
-    // ...mapState({
-    //   user: (state) => state.user.user,
-    // }),
     ...mapState('user', ['user']),
     ...authComputed,
-    // ...mapGetters('user', { avatarUrl }),
     userRole() {
       return this.isArtist ? '藝術家' : '一般會員';
     },

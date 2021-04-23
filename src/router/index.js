@@ -73,8 +73,13 @@ const routes = [
   {
     path: '/register-artist',
     name: 'RegisterArtist',
-    component: () =>
-      import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegisterArtist.vue'),
+    component: () => import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegArtist.vue'),
+    meta: { requiredAuth: true },
+  },
+  {
+    path: '/sell',
+    name: 'Sell',
+    component: () => import(/* webpackChunkName: "SellForm" */ '../views/dashboard/Sell.vue'),
     meta: { requiredAuth: true },
   },
 ];
