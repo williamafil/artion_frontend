@@ -4,11 +4,14 @@ import { dollarSign, thousandSeparator } from '@/filters/dollar';
 import dateFilter from '@/filters/date';
 import avatarFilter from '@/filters/avatar';
 import ActionCable from 'actioncable';
+import Vuelidate from 'vuelidate';
 
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
+
+Vue.use(Vuelidate);
 
 const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
 Vue.prototype.$cable = cable;

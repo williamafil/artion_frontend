@@ -20,29 +20,56 @@
             <div class="divide-y divide-gray-200">
               <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 <div class="flex flex-col">
-                  <label class="leading-loose">藝術品名稱</label>
+                  <label class="leading-loose">
+                    藝術品名稱
+                    <span class="text-sm text-red-600" v-if="$v.title.$error">
+                      <div class="inline" v-if="!$v.title.required">x 請填寫名稱</div>
+                    </span>
+                  </label>
                   <input
                     v-model="title"
+                    @blur="$v.title.$touch()"
+                    :class="{ 'border-red-600': $v.title.$error, 'bg-red-50': $v.title.$error }"
                     type="text"
                     class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                   />
                 </div>
                 <div class="flex flex-col">
-                  <label class="leading-loose">描述</label>
+                  <label class="leading-loose">
+                    描述
+                    <span class="text-sm text-red-600" v-if="$v.description.$error">
+                      <div class="inline" v-if="!$v.description.required">x 請填寫描述</div>
+                    </span>
+                  </label>
                   <textarea
                     v-model="description"
+                    @blur="$v.description.$touch()"
                     type="text"
+                    :class="{
+                      'border-red-600': $v.description.$error,
+                      'bg-red-50': $v.description.$error,
+                    }"
                     class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                   />
                 </div>
                 <div class="flex items-center space-x-4">
                   <div class="flex flex-col">
-                    <label class="leading-loose">起始時間</label>
+                    <label class="leading-loose">
+                      起始時間
+                      <span class="text-sm text-red-600" v-if="$v.startTime.$error">
+                        <div class="inline" v-if="!$v.startTime.required">x 請選擇競標開始時間</div>
+                      </span>
+                    </label>
                     <div class="relative focus-within:text-gray-600 text-gray-400">
                       <flatPickr
                         v-model="startTime"
+                        @blur="$v.startTime.$touch()"
                         :config="configs.start"
                         @on-change="onStartChange"
+                        :class="{
+                          'border-red-600': $v.startTime.$error,
+                          'bg-red-50': $v.startTime.$error,
+                        }"
                         class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                       />
                       <div class="absolute left-3 top-2">
@@ -64,12 +91,22 @@
                     </div>
                   </div>
                   <div class="flex flex-col">
-                    <label class="leading-loose">結束時間</label>
+                    <label class="leading-loose">
+                      結束時間
+                      <span class="text-sm text-red-600" v-if="$v.endTime.$error">
+                        <div class="inline" v-if="!$v.endTime.required">x 請選擇競標結束時間</div>
+                      </span>
+                    </label>
                     <div class="relative focus-within:text-gray-600 text-gray-400">
                       <flatPickr
                         v-model="endTime"
+                        @blur="$v.endTime.$touch()"
                         :config="configs.end"
                         @on-change="onEndChange"
+                        :class="{
+                          'border-red-600': $v.endTime.$error,
+                          'bg-red-50': $v.endTime.$error,
+                        }"
                         class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                       />
                       <div class="absolute left-3 top-2">
@@ -93,22 +130,47 @@
                 </div>
                 <div class="flex items-center space-x-4">
                   <div class="flex flex-col w-full">
-                    <label class="leading-loose">起標價格</label>
+                    <label class="leading-loose">
+                      起標價格
+                      <span class="text-sm text-red-600" v-if="$v.biddingPrice.$error">
+                        <div class="inline" v-if="!$v.biddingPrice.required">x 請填寫起標價</div>
+                        <div class="inline" v-if="!$v.biddingPrice.numeric">
+                          x 請輸入數字
+                        </div>
+                      </span>
+                    </label>
                     <div class="focus-within:text-gray-600 text-gray-400">
                       <input
                         v-model="fBiddingPrice"
+                        @blur="$v.biddingPrice.$touch()"
                         type="text"
+                        :class="{
+                          'border-red-600': $v.biddingPrice.$error,
+                          'bg-red-50': $v.biddingPrice.$error,
+                        }"
                         class="pr-4 pl-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                         :placeholder="1000000 | separator | dollar"
                       />
                     </div>
                   </div>
                   <div class="flex flex-col w-full">
-                    <label class="leading-loose">標價間格</label>
+                    <label class="leading-loose">
+                      標價間格
+                      <span class="text-sm text-red-600" v-if="$v.interval.$error">
+                        <div class="inline" v-if="!$v.interval.numeric">
+                          x 請輸入數字
+                        </div>
+                      </span>
+                    </label>
                     <div class="relative focus-within:text-gray-600 text-gray-400">
                       <input
                         v-model="fInterval"
+                        @blur="$v.interval.$touch()"
                         type="text"
+                        :class="{
+                          'border-red-600': $v.interval.$error,
+                          'bg-red-50': $v.interval.$error,
+                        }"
                         class="pr-4 pl-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                         :placeholder="100000 | separator | dollar"
                       />
@@ -117,15 +179,25 @@
                 </div>
 
                 <div class="flex flex-col">
-                  <label class="leading-loose">上傳圖片</label>
+                  <label class="leading-loose">
+                    上傳圖片
+                    <span class="text-sm text-red-600" v-if="$v.files.$error">
+                      <div class="inline" v-if="!$v.files.required">x 至少上傳一張圖片</div>
+                    </span>
+                  </label>
                   <!-- <input name="files" type="file" data-direct-upload-url="/rails/active_storage/direct_uploads" direct_upload="true" /> -->
 
                   <input
                     @change="onChangeHandler"
+                    @blur="$v.files.$touch()"
                     accept="image/png, image/jpeg"
                     name="images[]"
                     id="uploader"
                     type="file"
+                    :class="{
+                      'border-red-600': $v.files.$error,
+                      'bg-red-50': $v.files.$error,
+                    }"
                     class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                     multiple
                   />
@@ -133,11 +205,21 @@
 
                 <div class="flex items-center space-x-4">
                   <div class="flex flex-col w-full">
-                    <label for="genre" class="leading-loose">類別</label>
+                    <label for="genre" class="leading-loose">
+                      類別
+                      <span class="text-sm text-red-600" v-if="$v.genre.$error">
+                        <div class="inline" v-if="!$v.genre.required">x 請選擇類別</div>
+                      </span>
+                    </label>
                     <div class="relative focus-within:text-gray-600 text-gray-400">
                       <select
                         v-model="genre"
+                        @blur="$v.genre.$touch()"
                         id="genre"
+                        :class="{
+                          'border-red-600': $v.genre.$error,
+                          'bg-red-50': $v.genre.$error,
+                        }"
                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                       >
                         <option value="" disabled>請選擇一個分類</option>
@@ -155,7 +237,7 @@
 
               <div class="pt-4 flex items-center space-x-4">
                 <button
-                  class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none"
+                  class="bg-gray-100 flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none"
                 >
                   <svg
                     class="w-6 h-6 mr-3"
@@ -174,12 +256,16 @@
                   取消
                 </button>
                 <button
-                  class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
+                  class="bg-yellow-200 text-yellow-500 flex justify-center items-center w-full px-4 py-3 rounded-md focus:outline-none"
+                  :class="{ 'bg-red-600': $v.$invalid }"
                 >
                   送出
                 </button>
               </div>
             </div>
+            <span class="text-sm text-red-600" v-if="$v.$anyError">
+              x 請填寫所有必填欄位
+            </span>
           </form>
         </div>
       </div>
@@ -193,6 +279,7 @@ import { mapState } from 'vuex';
 // import flatPickrComponent from 'vue-flatpickr-component';
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
+import { required, numeric } from 'vuelidate/lib/validators';
 
 // Override Global settings
 // flatpickr.setDefaults({
@@ -214,7 +301,7 @@ export default {
       title: '',
       description: '',
       biddingPrice: '',
-      interval: '',
+      interval: 0,
       startTime: '',
       endTime: '',
       isActive: false,
@@ -271,31 +358,27 @@ export default {
     },
 
     submit() {
-      console.log('submit');
-      const imgs = document.querySelector('#uploader');
-      console.dir(imgs);
-      console.log(imgs.files);
-      console.log('files[0]: ', imgs.files[0]);
-      console.log('length: ', imgs.files.length);
-      const formData = new FormData();
-      formData.append('title', this.title);
-      formData.append('description', this.description);
-      formData.append('bidding_price', this.biddingPrice);
-      formData.append('interval', this.interval);
-      formData.append('start_time', this.startTime);
-      formData.append('end_time', this.endTime);
-      formData.append('is_active', this.isActive);
-      formData.append('user_id', this.user.id);
-      formData.append('genre_id', this.genre);
-      // formData.append('images[]', imgs.files[0]);
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        console.log('submit');
+        const imgs = document.querySelector('#uploader');
+        const formData = new FormData();
+        formData.append('title', this.title);
+        formData.append('description', this.description);
+        formData.append('bidding_price', this.biddingPrice);
+        formData.append('interval', this.interval);
+        formData.append('start_time', this.startTime);
+        formData.append('end_time', this.endTime);
+        formData.append('is_active', this.isActive);
+        formData.append('user_id', this.user.id);
+        formData.append('genre_id', this.genre);
 
-      for (let i = 0; i < imgs.files.length; i += 1) {
-        formData.append('images[]', imgs.files[i]);
+        for (let i = 0; i < imgs.files.length; i += 1) {
+          formData.append('images[]', imgs.files[i]);
+        }
+
+        this.$store.dispatch('auction/createAuction', formData);
       }
-      // formData.append('images[]', this.files);
-      // formData.append('images', this.files);
-
-      this.$store.dispatch('auction/createAuction', formData);
     },
 
     onChangeHandler(e) {
@@ -311,6 +394,33 @@ export default {
     },
     parseUSD(text) {
       return Number(text.replace('$', '').replace(/,/g, ''));
+    },
+  },
+  validations: {
+    title: {
+      required,
+    },
+    description: {
+      required,
+    },
+    biddingPrice: {
+      required,
+      numeric,
+    },
+    interval: {
+      numeric,
+    },
+    startTime: {
+      required,
+    },
+    endTime: {
+      required,
+    },
+    genre: {
+      required,
+    },
+    files: {
+      required,
     },
   },
 };
