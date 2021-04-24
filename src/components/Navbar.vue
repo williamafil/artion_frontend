@@ -30,7 +30,7 @@
     </div>
     <div class="z-10 hidden sm:block flex-grow">
       <div class="flex justify-center">
-        <router-link to="/bid" class="text-base mx-5">競標</router-link>
+        <router-link :to="{ name: 'AuctionList' }" class="text-base mx-5">競標</router-link>
         <router-link to="/artists" class="text-base mx-5">藝術家</router-link>
         <router-link to="/exhibitions" class="text-base mx-5">精選展覽</router-link>
         <router-link to="/about" class="text-base mx-5">關於我們</router-link>

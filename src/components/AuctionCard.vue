@@ -24,17 +24,23 @@
             />
           </div>
           <header class="flex flex-col items-center justify-between leading-tight p-2 md:p-4">
-            <div class="w-full flex justify-between px-10 py-4">
-              <h4 class="text-lg font-extrabold">{{ item.user.name }}</h4>
-              <h4 class="text-lg font-extrabold">{{ item.genre.name }}</h4>
+            <div class="w-full flex justify-between px-10 py-2">
+              <h4 class="text-lg font-extrabold">
+                <span class="block text-xs text-gray-500">作者</span>
+                {{ item.author_name }}
+              </h4>
+              <h4 class="text-lg font-extrabold">
+                <span class="block text-xs text-gray-500 text-right">{{ item.genre.name }}</span>
+                {{ item.title }}
+              </h4>
             </div>
-            <div class="text-2xl p-10">
+            <div class="text-xl py-6 px-10">
               <img
                 alt="quote"
                 class="float-left mr-1"
                 src="https://assets-global.website-files.com/5b5a66e9f3166b36708705fa/5cf8fb1f994fb7168d0d66fb_quote-intro.svg"
               />
-              {{ item.description }}
+              {{ item.description | truncate(60) }}
             </div>
           </header>
         </article>

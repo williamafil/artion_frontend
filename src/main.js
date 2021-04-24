@@ -2,15 +2,18 @@ import Vue from 'vue';
 import axios from 'axios';
 import { dollarSign, thousandSeparator } from '@/filters/dollar';
 import dateFilter from '@/filters/date';
+import stringTruncate from '@/filters/truncate';
 import avatarFilter from '@/filters/avatar';
 import ActionCable from 'actioncable';
 import Vuelidate from 'vuelidate';
+import vueAwesomeCountdown from 'vue-awesome-countdown';
 
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
 
+Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by default
 Vue.use(Vuelidate);
 
 const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
@@ -22,6 +25,7 @@ Vue.filter('dollar', dollarSign);
 Vue.filter('separator', thousandSeparator);
 Vue.filter('date', dateFilter);
 Vue.filter('avatar', avatarFilter);
+Vue.filter('truncate', stringTruncate);
 
 new Vue({
   router,
