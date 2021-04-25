@@ -14,7 +14,9 @@ export const userLogout = (credentials) => apiService.delete('/logout', credenti
 export const userAvatar = (formData) => apiService.post('/api/v1/auth/upload_avatar', formData);
 export const userUpdateName = (id, obj) => apiService.patch(`/api/v1/auth/users/${id}`, obj);
 
+export const fetchPriceRange = () => apiService.get('/api/v1/auctions/price_range');
 export const fetchGenreList = () => apiService.get('/api/v1/genres');
+export const fetchArtistList = () => apiService.get('/api/v1/artists');
 export const fetchAuctions = () => apiService.get('/api/v1/auctions');
 export const fetchHeroAuction = () => apiService.get('/api/v1/auctions/latest');
 export const fetchAuction = (slug) => apiService.get(`/api/v1/auctions/${slug}`);

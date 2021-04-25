@@ -9,19 +9,19 @@
           <div class="flex w-full">
             <select v-model="conditions.genre" class="border p-2 rounded mx-6 w-2/6">
               <option value="" selected="true" disabled="disabled">藝術品分類</option>
-              <option v-for="genre in genres" :key="genre.id" :value="genre.id">
+              <option v-for="genre in genreList" :key="genre.id" :value="genre.id">
                 {{ genre.name }}
               </option>
             </select>
 
-            <select class="border p-2 rounded mx-6 w-2/6">
-              <option>藝術家</option>
-              <option>Round-trip</option>
-              <option>Missouri</option>
-              <option>texas</option>
+            <select v-model="conditions.artist" class="border p-2 rounded mx-6 w-2/6">
+              <option value="" selected="true" disabled="disabled">藝術家</option>
+              <option v-for="artist in genreList" :key="artist.id" :value="artist.id">
+                {{ artist.artist_info.name }}
+              </option>
             </select>
 
-            <select class="border p-2 rounded mx-6 w-2/6">
+            <select v-model="priceRange" class="border p-2 rounded mx-6 w-2/6">
               <option>價格</option>
               <option>Round-trip</option>
               <option>Missouri</option>
@@ -59,16 +59,23 @@
 <script>
 import { mapState } from 'vuex';
 import AuctionCard from '@/components/AuctionCard.vue';
+import { fetchGenreList, fetchArtistList } from '@/service/api';
 
 export default {
   name: 'AuctionList',
   components: { AuctionCard },
   data() {
     return {
+      genreList: [],
+      artistList: [],
       conditions: {
         genre: '',
         artist: '',
         price: '',
+        priceRange: {
+          min: 1000,
+          max: 5000,
+        },
         keyword: '',
       },
     };
@@ -78,11 +85,19 @@ export default {
       console.log('在 vuex state 沒有存放 auctions');
       this.$store.dispatch('auction/getAuctions');
     }
-    this.$store.dispatch('getGenreList');
+    // this.$store.dispatch('getPriceRange');
+    // this.$store.dispatch('getGenreList');
+    // this.$store.dispatch('getArtistList');
+    fetchGenreList().then((res) => {
+      this.genreList = res.data.data;
+    });
+    fetchArtistList().then((res) => {
+      this.artistList = res.data.data;
+    });
   },
   computed: {
     ...mapState('auction', ['auctions']),
-    ...mapState(['genres']),
+    // ...mapState(['genres', 'artists']),
     filteredAuctions() {
       return this.auctions;
     },
