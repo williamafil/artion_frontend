@@ -7,11 +7,11 @@
       <div class="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
         <article class="absolute -bottom-20 w-3/4 bg-gray-100 rounded-lg p-6">
           <div class="flex w-full">
-            <select class="border p-2 rounded mx-6 w-2/6">
-              <option>藝術品分類</option>
-              <option>Round-trip</option>
-              <option>Missouri</option>
-              <option>texas</option>
+            <select v-model="conditions.genre" class="border p-2 rounded mx-6 w-2/6">
+              <option value="" selected="true" disabled="disabled">藝術品分類</option>
+              <option v-for="genre in genres" :key="genre.id" :value="genre.id">
+                {{ genre.name }}
+              </option>
             </select>
 
             <select class="border p-2 rounded mx-6 w-2/6">
@@ -78,9 +78,11 @@ export default {
       console.log('在 vuex state 沒有存放 auctions');
       this.$store.dispatch('auction/getAuctions');
     }
+    this.$store.dispatch('getGenreList');
   },
   computed: {
     ...mapState('auction', ['auctions']),
+    ...mapState(['genres']),
     filteredAuctions() {
       return this.auctions;
     },
