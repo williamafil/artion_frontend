@@ -20,6 +20,16 @@ module.exports = {
     ],
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
+    'no-confusing-arrow': ['error', { allowParens: true }],
+    'operator-linebreak': [
+      'error',
+      'after',
+      {
+        overrides: {
+          ':': 'before',
+        },
+      },
+    ],
     // 'comma-dangle': [
     //   'error',
     //   {
