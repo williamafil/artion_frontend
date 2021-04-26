@@ -17,11 +17,11 @@
           <div
             class="flex flex-col items-start justify-center h-36 w-3/6 bg-gray-100 rounded-r-lg px-10"
           >
-            <h3 class="">
+            <h3 class="text-3xl font-extrabold">
               <vac :end-time="auction.end_time">
                 <template v-slot:process="{ timeObj }">
                   <h2 class="text-3xl font-extrabold">
-                    {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}s` }}
+                    {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
                   </h2>
                 </template>
                 <template v-slot:finish>
@@ -48,11 +48,11 @@
           <!-- 第一個 tab -->
           <div v-if="!isLoggedIn" class="my-10 ml-2">
             請
-            <router-link :to="{ name: 'Login' }" class="mx-2 p-2 border rounded-sm"
+            <router-link :to="{ name: 'Login' }" class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
               >登入</router-link
             >
             或
-            <router-link :to="{ name: 'Register' }" class="mx-2 p-2 border rounded-sm"
+            <router-link :to="{ name: 'Register' }" class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
               >註冊</router-link
             >
             來進行競標或查看目前競標狀態！
@@ -134,13 +134,13 @@ export default {
     // this.bidPrice = this.getCurrentBid;
     // console.log('Number(this.getCurrentBid): ', Number(this.getCurrentBid));
     // console.log('Number(this.auction.interval: ', Number(this.auction.interval));
-    this.bidPrice = Number(this.getCurrentBid);
+    // this.bidPrice = Number(this.getCurrentBid);
     // this.bidPrice = Number(this.getCurrentBid) + Number(this.auction.interval);
     // console.log('使用者登入狀態：', this.isLoggedIn);
 
-    if (Object.entries(this.auction).length === 0) {
-      this.$store.dispatch('auction/getAuction', this.id);
-    }
+    // if (Object.entries(this.auction).length === 0) {
+    this.$store.dispatch('auction/getAuction', this.id);
+    // }
 
     // if (this.isLoggedIn) {
     //   await this.$store.dispatch('auction/getBidDetail', this.id);

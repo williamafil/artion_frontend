@@ -38,3 +38,8 @@ export const createBid = (obj) => apiService.post('/api/v1/auth/bid_details', { 
 // 藝術家
 export const fetchArtists = () => apiService.get('/api/v1/artists_info');
 export const fetchArtistInfo = (nameId) => apiService.get(`api/v1/artist_infos/${nameId}`);
+
+// 關注
+export const likeState = (uid, aid) => apiService.get(`/api/v1/auth/likes/like_state?uid=${uid}&aid=${aid}`);
+export const createLike = (paramsObj) => apiService.post('/api/v1/auth/likes', { like: paramsObj });
+export const removeLike = (likeId) => apiService.delete(`/api/v1/auth/likes/${likeId}`);

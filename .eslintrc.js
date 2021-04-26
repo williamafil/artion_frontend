@@ -30,6 +30,12 @@ module.exports = {
         },
       },
     ],
+    // 'vue/no-parsing-error': [
+    //   'error',
+    //   {
+    //     'control-character-in-input-stream': true,
+    //   },
+    // ],
     // 'comma-dangle': [
     //   'error',
     //   {

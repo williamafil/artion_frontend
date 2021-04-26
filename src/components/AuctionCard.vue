@@ -4,12 +4,15 @@
       <div class="mt-2 shadow-xl">
         <article class="overflow-hidden shadow-lg">
           <div class="relative">
+            <div v-if="isLoggedIn" class="absolute right-4 top-4">
+              <Heart :auctionId="item.id" :userId="user.id" />
+            </div>
             <div class="absolute bottom-4 w-full flex justify-center items-center">
               <div class="flex items-center justify-center h-16 w-32 bg-gray-100 rounded-l-lg">
                 <vac :end-time="item.end_time">
                   <template v-slot:process="{ timeObj }">
                     <h2 class="text-sm font-semibold">
-                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m` }}
+                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
                     </h2>
                   </template>
                   <template v-slot:finish>
@@ -59,12 +62,23 @@
 </template>
 
 <script>
+import { authComputed } from '@/store/helpers';
+import { mapState } from 'vuex';
+import Heart from '@/components/Follow.vue';
+
 export default {
+  components: {
+    Heart,
+  },
   props: {
     item: {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    ...authComputed,
+    ...mapState('user', ['user']),
   },
 };
 </script>
