@@ -5,6 +5,8 @@ import VueRouter from 'vue-router';
 import store from '@/store';
 // import { authComputed } from '@/store/helpers';
 import Home from '../views/Home.vue';
+import ArtistList from '../views/ArtistList.vue';
+import Artist from '../views/Artist.vue';
 import AuctionList from '../views/AuctionList.vue';
 import Auction from '../views/Auction.vue';
 import Login from '../views/Login.vue';
@@ -64,6 +66,17 @@ const routes = [
       //   }
       // });
     },
+  },
+  {
+    path: '/artists',
+    name: 'ArtistList',
+    component: ArtistList,
+  },
+  {
+    path: '/artists/:id',
+    name: 'Artist',
+    component: Artist,
+    props: true,
   },
   {
     path: '/about',
