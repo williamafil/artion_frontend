@@ -6,7 +6,16 @@
           <div class="relative">
             <div class="absolute bottom-4 w-full flex justify-center items-center">
               <div class="flex items-center justify-center h-16 w-32 bg-gray-100 rounded-l-lg">
-                2d 23h 57m
+                <vac :end-time="item.end_time">
+                  <template v-slot:process="{ timeObj }">
+                    <h2 class="text-sm font-semibold">
+                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m` }}
+                    </h2>
+                  </template>
+                  <template v-slot:finish>
+                    <span>結束</span>
+                  </template>
+                </vac>
               </div>
               <div class="flex items-center justify-center h-16 w-40 bg-gray-200 rounded-r-lg">
                 <div class="flex flex-col justify-start ">

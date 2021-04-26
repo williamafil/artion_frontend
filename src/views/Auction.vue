@@ -17,7 +17,18 @@
           <div
             class="flex flex-col items-start justify-center h-36 w-3/6 bg-gray-100 rounded-r-lg px-10"
           >
-            <h3 class="text-3xl font-extrabold">2d 23h 57m</h3>
+            <h3 class="">
+              <vac :end-time="auction.end_time">
+                <template v-slot:process="{ timeObj }">
+                  <h2 class="text-3xl font-extrabold">
+                    {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}s` }}
+                  </h2>
+                </template>
+                <template v-slot:finish>
+                  <span>結束</span>
+                </template>
+              </vac>
+            </h3>
             <label class="font-bold text-sm">競標結束時間</label>
           </div>
         </article>
@@ -28,7 +39,7 @@
       class="relative container mt-40 mb-2 flex flex-col mx-auto w-full items-center justify-center"
     >
       <div class="w-4/6 px-10 mb-10 -bottom-20 flex justify-between items-center">
-        <h3 class="text-3xl font-extrabold">{{ auction.user.name }}</h3>
+        <h3 class="text-3xl font-extrabold">{{ auction.author_name }}</h3>
         <h3 class="text-3xl font-extrabold">{{ auction.title }}</h3>
       </div>
 
@@ -108,15 +119,18 @@ export default {
     };
   },
   created() {
-    this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
-      received: (data) => {
-        // this.messages.push(data);
-        console.log('接收 websocket資料：', data.message);
-        this.$store.dispatch('auction/receiveMessage', data.message);
-      },
-    });
+    console.log('使用者登入狀態：', this.isLoggedIn);
+    if (this.isLoggedIn) {
+      console.log('使用者有登入');
+      this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
+        received: (data) => {
+          // this.messages.push(data);
+          console.log('接收 websocket資料：', data.message);
+          this.$store.dispatch('auction/receiveMessage', data.message);
+        },
+      });
+    }
 
-    console.log('this.getCurrentBid: ', this.getCurrentBid);
     // this.bidPrice = this.getCurrentBid;
     // console.log('Number(this.getCurrentBid): ', Number(this.getCurrentBid));
     // console.log('Number(this.auction.interval: ', Number(this.auction.interval));
@@ -161,7 +175,7 @@ export default {
     ...mapState('auction', ['auction', 'bidDetail']),
     ...mapState('user', ['user']),
     // ...mapState(['auction']),
-    ...mapGetters('auction', ['getCurrentBid', 'getBidDetailLength']),
+    ...mapGetters('auction', ['getBidDetailLength']),
     ...authComputed,
   },
 };
