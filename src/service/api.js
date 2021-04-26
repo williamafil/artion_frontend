@@ -37,3 +37,4 @@ export const createBid = (obj) => apiService.post('/api/v1/auth/bid_details', { 
 
 // 藝術家
 export const fetchArtists = () => apiService.get('/api/v1/artists_info');
+export const fetchArtistInfo = (nameId) => apiService.get(`api/v1/artist_infos/${nameId}`);

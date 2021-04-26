@@ -87,6 +87,7 @@
           </span>
 
           <input
+            v-model="keyword"
             class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="搜尋"
@@ -101,7 +102,7 @@
           class="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
         >
           <router-link
-            v-for="artist in artistList"
+            v-for="artist in filteredArtist"
             :key="artist.id"
             class="bg-gray-100 flex justify-center"
             :to="{ name: 'Artist', params: { id: artist.artist_info.name } }"
@@ -156,6 +157,7 @@ export default {
   name: 'ArtistList',
   data() {
     return {
+      keyword: '',
       artistList: [],
     };
   },
@@ -171,6 +173,12 @@ export default {
         .catch((error) => {
           console.error('fetchArtistList錯誤：', error);
         });
+    },
+  },
+  computed: {
+    filteredArtist() {
+      return this.artistList
+        .filter((x) => x.artist_info.name.includes(this.keyword));
     },
   },
 };
