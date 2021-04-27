@@ -101,24 +101,32 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     meta: { requiredAuth: true },
-  },
-  {
-    path: '/profile',
-    name: 'UserProfile',
-    component: UserProfile,
-    meta: { requiredAuth: true },
-  },
-  {
-    path: '/register-artist',
-    name: 'RegisterArtist',
-    component: () => import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegArtist.vue'),
-    meta: { requiredAuth: true },
-  },
-  {
-    path: '/sell',
-    name: 'Sell',
-    component: () => import(/* webpackChunkName: "SellForm" */ '../views/dashboard/Sell.vue'),
-    meta: { requiredAuth: true },
+    children: [
+      {
+        path: '.',
+        name: 'DashHome',
+        component: () => import(/* webpackChunkName: "DashHome" */ '../views/dashboard/DashHome.vue'),
+      },
+      {
+        path: '/profile',
+        name: 'UserProfile',
+        component: UserProfile,
+        meta: { requiredAuth: true },
+      },
+      {
+        path: '/register-artist',
+        name: 'RegisterArtist',
+        component: () =>
+          import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegArtist.vue'),
+        meta: { requiredAuth: true },
+      },
+      {
+        path: '/sell',
+        name: 'Sell',
+        component: () => import(/* webpackChunkName: "SellForm" */ '../views/dashboard/Sell.vue'),
+        meta: { requiredAuth: true },
+      },
+    ],
   },
 ];
 

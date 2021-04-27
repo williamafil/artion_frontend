@@ -6,7 +6,7 @@
     <div class="h-full">
       <router-view />
     </div>
-    <div id="footer" class="mt-20">
+    <div id="footer" class="">
       <Footer />
     </div>
   </div>
