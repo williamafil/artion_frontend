@@ -12,7 +12,10 @@ import Auction from '../views/Auction.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Dashboard from '../views/dashboard/Dashboard.vue';
+import DashHome from '../views/dashboard/DashHome.vue';
+import RegArt from '../views/dashboard/RegArt.vue';
 import UserProfile from '../views/dashboard/UserProfile.vue';
+import Sell from '../views/dashboard/Sell.vue';
 
 Vue.use(VueRouter);
 
@@ -98,32 +101,37 @@ const routes = [
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
     component: Dashboard,
     meta: { requiredAuth: true },
     children: [
       {
-        path: '.',
-        name: 'DashHome',
-        component: () => import(/* webpackChunkName: "DashHome" */ '../views/dashboard/DashHome.vue'),
+        path: '',
+        name: 'Dashboard',
+        component: DashHome,
+        meta: { requiredAuth: true },
       },
       {
-        path: '/profile',
+        path: '/follows',
+        name: 'Follows',
+        component: () => import(/* webpackChunkName: "Follows" */ '../views/dashboard/Follows.vue'),
+        meta: { requiredAuth: true },
+      },
+      {
+        path: 'profile',
         name: 'UserProfile',
         component: UserProfile,
         meta: { requiredAuth: true },
       },
       {
-        path: '/register-artist',
+        path: 'register-artist',
         name: 'RegisterArtist',
-        component: () =>
-          import(/* webpackChunkName: "RegArtist" */ '../views/dashboard/RegArtist.vue'),
+        component: RegArt,
         meta: { requiredAuth: true },
       },
       {
-        path: '/sell',
+        path: 'sell',
         name: 'Sell',
-        component: () => import(/* webpackChunkName: "SellForm" */ '../views/dashboard/Sell.vue'),
+        component: Sell,
         meta: { requiredAuth: true },
       },
     ],

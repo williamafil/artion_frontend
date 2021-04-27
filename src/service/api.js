@@ -20,6 +20,8 @@ export const userAvatar = (formData) => apiService.post('/api/v1/auth/upload_ava
 export const userUpdateName = (id, obj) => apiService.patch(`/api/v1/auth/users/${id}`, obj);
 export const userRegArtist = (id, obj) => apiService.put(`/api/v1/auth/users/${id}`, obj);
 export const newAuc = (formData) => apiService.post('/api/v1/auth/auctions', formData);
+export const userData = (userId) => apiService.get(`/api/v1/auth/users/${userId}/user_data`);
+export const follows = (userId) => apiService.get(`/api/v1/auth/users/${userId}`);
 
 // 拍賣
 export const fetchPriceRange = () => apiService.get('/api/v1/auctions/price_range');
@@ -40,6 +42,6 @@ export const fetchArtists = () => apiService.get('/api/v1/artists_info');
 export const fetchArtistInfo = (nameId) => apiService.get(`api/v1/artist_infos/${nameId}`);
 
 // 關注
-export const likeState = (uid, aid) => apiService.get(`/api/v1/auth/likes/like_state?uid=${uid}&aid=${aid}`);
+export const like = (uid, aid) => apiService.get(`/api/v1/auth/likes/state?uid=${uid}&aid=${aid}`);
 export const createLike = (paramsObj) => apiService.post('/api/v1/auth/likes', { like: paramsObj });
 export const removeLike = (likeId) => apiService.delete(`/api/v1/auth/likes/${likeId}`);
