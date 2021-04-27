@@ -22,6 +22,7 @@ export const userRegArtist = (id, obj) => apiService.put(`/api/v1/auth/users/${i
 export const newAuc = (formData) => apiService.post('/api/v1/auth/auctions', formData);
 export const userData = (userId) => apiService.get(`/api/v1/auth/users/${userId}/user_data`);
 export const follows = (userId) => apiService.get(`/api/v1/auth/users/${userId}`);
+export const aucs = (userId) => apiService.get(`/api/v1/auth/users/${userId}/artist_auctions`);
 
 // 拍賣
 export const fetchPriceRange = () => apiService.get('/api/v1/auctions/price_range');

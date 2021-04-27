@@ -117,6 +117,18 @@ const routes = [
         meta: { requiredAuth: true },
       },
       {
+        path: '/bids',
+        name: 'Bids',
+        component: () => import(/* webpackChunkName: "Bids" */ '../views/dashboard/Bids.vue'),
+        meta: { requiredAuth: true },
+      },
+      {
+        path: '/my-auctions',
+        name: 'ArtistAuction',
+        component: () => import(/* webpackChunkName: "Aucs" */ '../views/dashboard/Aucs.vue'),
+        meta: { requiredAuth: true },
+      },
+      {
         path: 'profile',
         name: 'UserProfile',
         component: UserProfile,

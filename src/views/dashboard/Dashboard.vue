@@ -24,18 +24,21 @@
           >
             個人資訊
           </router-link>
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'Bids' }"
+            active-class="bg-yellow-200"
             class="mt-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-200 rounded"
           >
             我的競標
-          </a>
-          <a
-            href="#"
+          </router-link>
+          <router-link
+            v-if="isArtist"
+            :to="{ name: 'ArtistAuction' }"
+            active-class="bg-yellow-200"
             class="mt-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-200 rounded"
           >
             我的拍賣
-          </a>
+          </router-link>
           <router-link
             :to="{ name: 'Follows' }"
             active-class="bg-yellow-200"
@@ -153,7 +156,13 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters('user', ['isArtist']),
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
