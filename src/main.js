@@ -16,7 +16,8 @@ import '@/assets/css/tailwind.css';
 Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by default
 Vue.use(Vuelidate);
 
-const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
+// const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
+const cable = ActionCable.createConsumer('ws:192.168.1.245:3000/cable');
 Vue.prototype.$cable = cable;
 
 Vue.config.productionTip = false;

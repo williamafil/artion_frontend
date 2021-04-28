@@ -57,6 +57,54 @@
             >
             來進行競標或查看目前競標狀態！
           </div>
+                    <div v-else>
+            <ul class="flex w-full flex-col p-4">
+              <li
+                v-for="(bid, index) in bidDetail"
+                :key="index"
+                class="border-gray-400 flex flex-row mb-2"
+              >
+                <div
+                  class="select-none flex flex-1 items-center p-4 transition
+                        duration-300 ease-in-out transform hover:-translate-y-1
+                        border-dashed border-b-2 border-light-blue-500 p-6 hover:shadow-lg"
+                >
+                  <div class="flex flex-col justify-center items-center mr-4">
+                    <img
+                      class="h-8 w-8 rounded-full object-cover"
+                      src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="flex flex-col justify-center items-start mr-4">
+                    <h3 class="text-lg font-bold">名稱：{{ bid.user.name }}</h3>
+                    <p class="text-sm">{{ bid.created_at | date }}</p>
+                    <!-- <p class="text-sm">02h 01m 前下標</p> -->
+                  </div>
+
+                  <div class="flex-1 flex-col justify-start self-start pl-1 mr-16">
+                    <div class="font-medium"></div>
+                  </div>
+                  <div
+                    class="w-1/4 text-wrap text-center flex text-yellow-500 text-bold
+                          flex-col rounded-md bg-white border-2 border-yellow-400 justify-center items-center p-2"
+                  >
+                    {{ bid.bid | separator | dollar }}
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <button
+              type="button"
+              @click="toggleModal = !toggleModal"
+              class="z-100 w-full bg-yellow-400 p-2 rounded-md mt-6 mb-4 hover:bg-yellow-300 outline-none
+                active:outline-none focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-50"
+            >
+              我要下標
+            </button>
+          </div>
+
         </Tab>
         <Tab :isSelected="selected === '藝術品詳情'">
           <!-- 第二個 tab -->
@@ -122,13 +170,30 @@ export default {
     console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
       console.log('使用者有登入');
-      this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
+      console.log('this.id: ', this.id);
+      console.log('this.auction.id: ', this.auction.id);
+      console.log('$store auction id', this.$store.state.auction.auction.id);
+
+      this.$store.dispatch('auction/getBidDetail', this.id);
+
+      this.bidChannel = this.$cable.subscriptions.create({
+        channel: 'BidChannel',
+        // auction: this.auction.id,
+        auction_id: this.auction.id,
+      }, {
         received: (data) => {
           // this.messages.push(data);
           console.log('接收 websocket資料：', data.message);
           this.$store.dispatch('auction/receiveMessage', data.message);
         },
       });
+      // this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
+      //   received: (data) => {
+      //     // this.messages.push(data);
+      //     console.log('接收 websocket資料：', data.message);
+      //     this.$store.dispatch('auction/receiveMessage', data.message);
+      //   },
+      // });
     }
 
     // this.bidPrice = this.getCurrentBid;
@@ -152,6 +217,12 @@ export default {
       this.selected = tab;
     },
     submitBid() {
+      // this.$store
+      //   .dispatch('auction/createBid', {
+      //     bid: this.bidPrice,
+      //     auction_id: this.auction.id,
+      //     user_id: this.user.id,
+      //   });
       this.$store
         .dispatch('auction/createBid', {
           bid: this.bidPrice,
@@ -163,6 +234,7 @@ export default {
             message: response,
           });
         });
+
       this.toggleModal = false;
     },
   },
