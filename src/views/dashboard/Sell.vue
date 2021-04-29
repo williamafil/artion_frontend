@@ -309,10 +309,12 @@ export default {
       files: [],
       configs: {
         start: {
+          enableTime: true,
           minDate: tomorrow,
           maxDate: null,
         },
         end: {
+          enableTime: true,
           minDate: tomorrow,
         },
       },
