@@ -11,6 +11,7 @@ import AuctionList from '../views/AuctionList.vue';
 import Auction from '../views/Auction.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import NotFound from '../views/NotFound.vue';
 import Dashboard from '../views/dashboard/Dashboard.vue';
 import DashHome from '../views/dashboard/DashHome.vue';
 import RegArt from '../views/dashboard/RegArt.vue';
@@ -147,6 +148,15 @@ const routes = [
         meta: { requiredAuth: true },
       },
     ],
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+  },
+  {
+    path: '*',
+    redirect: { name: '404' },
   },
 ];
 
