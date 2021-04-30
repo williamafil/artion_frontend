@@ -57,8 +57,9 @@
             >
             來進行競標或查看目前競標狀態！
           </div>
-                    <div v-else>
-            <ul class="flex w-full flex-col p-4">
+          <div v-else>
+            <div v-if="bidDetail.length === 0" class="text-center mt-4">目前沒有人參與競標</div>
+            <ul v-else class="flex w-full flex-col p-4">
               <li
                 v-for="(bid, index) in bidDetail"
                 :key="index"
@@ -67,7 +68,7 @@
                 <div
                   class="select-none flex flex-1 items-center p-4 transition
                         duration-300 ease-in-out transform hover:-translate-y-1
-                        border-dashed border-b-2 border-light-blue-500 p-6 hover:shadow-lg"
+                        border-b border-b-1 border-light-blue-500 p-6 hover:shadow-lg"
                 >
                   <div class="flex flex-col justify-center items-center mr-4">
                     <img
@@ -86,7 +87,7 @@
                     <div class="font-medium"></div>
                   </div>
                   <div
-                    class="w-1/4 text-wrap text-center flex text-yellow-500 text-bold
+                    class="w-2/5 text-wrap text-center flex text-xs md:text-lg text-yellow-500 text-bold
                           flex-col rounded-md bg-white border-2 border-yellow-400 justify-center items-center p-2"
                   >
                     {{ bid.bid | separator | dollar }}
@@ -95,14 +96,36 @@
               </li>
             </ul>
 
-            <button
-              type="button"
-              @click="toggleModal = !toggleModal"
-              class="z-100 w-full bg-yellow-400 p-2 rounded-md mt-6 mb-4 hover:bg-yellow-300 outline-none
-                active:outline-none focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-50"
-            >
-              我要下標
-            </button>
+            <div v-if="isWithinTime && auction.is_active">
+              <button
+                type="button"
+                @click="toggleModal = !toggleModal"
+                class="z-100 w-full bg-yellow-400 p-2 rounded-md mt-6 mb-4 hover:bg-yellow-300 outline-none
+                  active:outline-none focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-50"
+              >
+                我要下標
+              </button>
+            </div>
+
+            <!-- {{ new Date()}}
+            <br/>
+            {{ auction.start_time }}
+            <br/>
+            {{new Date(auction.start_time)}}
+            <br/><br/>
+            {{ new Date() > new Date(auction.start_time) }}
+            <br/>
+            isPassedStartTime: {{isPassedStartTime}}
+            <br />
+            isWithinTime: {{isWithinTime}} -->
+
+            <!--
+              isPassedStartTime: false && isActive: false
+              isPassedStartTime: false && isActive: true
+              isPassedStartTime: true && isActive: false
+              isPassedStartTime: true && is&& isActive: true -> 可以看到按鈕
+
+             -->
           </div>
 
         </Tab>
@@ -244,6 +267,13 @@ export default {
     //     return this.$store.state.bidDetail[this.$store.state.bidDetail.length - 1].bid
     //   },
     // },
+    isPassedStartTime() {
+      console.log('what is this: ', this);
+      return new Date() > new Date(this.auction.start_time);
+    },
+    isWithinTime() {
+      return (new Date() > new Date(this.auction.start_time) && new Date() < new Date(this.auction.end_time));
+    },
     ...mapState('auction', ['auction', 'bidDetail']),
     ...mapState('user', ['user']),
     // ...mapState(['auction']),

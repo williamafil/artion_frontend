@@ -310,7 +310,8 @@ export default {
       configs: {
         start: {
           enableTime: true,
-          minDate: tomorrow,
+          minDate: today,
+          // minDate: tomorrow,
           maxDate: null,
         },
         end: {
