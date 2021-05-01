@@ -380,7 +380,19 @@ export default {
           formData.append('images[]', imgs.files[i]);
         }
 
-        this.$store.dispatch('auction/createAuction', formData);
+        this.$store
+          .dispatch('auction/createAuction', formData)
+          .then((res) => {
+            console.log('router redirect to newly created auction');
+            console.log('response: ', res);
+            this.$router.push({
+              name: 'Auction',
+              params: { id: res.slug },
+            });
+          })
+          .catch(() => {
+            // console.log('建立新的拍賣失敗');
+          });
       }
     },
 

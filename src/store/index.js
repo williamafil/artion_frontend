@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 // import * as user from '@/store/modules/user';
 import user from '@/store/modules/user';
 import auction from '@/store/modules/auction';
+import notification from '@/store/modules/notification';
 
 Vue.use(Vuex);
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     user,
     auction,
+    notification,
   },
   state: {
     // genres: [],

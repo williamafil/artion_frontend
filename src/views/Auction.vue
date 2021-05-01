@@ -8,28 +8,39 @@
       <div class="flex items-center justify-center w-full">
         <article class="absolute w-4/6 px-10  -bottom-20 flex justify-center items-center">
           <div
-            class="flex flex-col items-end justify-center h-36 w-3/6 bg-gray-200 rounded-l-lg px-10"
+            class="flex flex-col justify-center items-end h-36 w-3/6 bg-gray-200 rounded-l-lg px-10"
           >
-            <h3 class="text-3xl font-extrabold">$ 1,420,000</h3>
-            <label class="font-bold text-sm">目前競標價格</label>
+            <div v-if="isAnyBid" class="flex flex-col justify-center items-end">
+              <h3 class="text-3xl font-extrabold">{{ currentHighestBid | separator | dollar }}</h3>
+              <label class="font-bold text-sm">目前競標價格</label>
+            </div>
+            <div v-else  class="flex flex-col justify-center items-end">
+              <h3 class="text-3xl font-extrabold">{{ auction.bidding_price | separator | dollar }}</h3>
+              <label class="font-bold text-sm">此拍賣起標價</label>
+            </div>
           </div>
 
           <div
             class="flex flex-col items-start justify-center h-36 w-3/6 bg-gray-100 rounded-r-lg px-10"
           >
             <h3 class="text-3xl font-extrabold">
-              <vac :end-time="auction.end_time">
-                <template v-slot:process="{ timeObj }">
-                  <h2 class="text-3xl font-extrabold">
-                    {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
-                  </h2>
-                </template>
-                <template v-slot:finish>
-                  <span>結束</span>
-                </template>
-              </vac>
+              <div v-if="!isPassedStartTime">
+                競標時間未開始
+              </div>
+              <div v-else>
+                <vac :end-time="auction.end_time">
+                  <template v-slot:process="{ timeObj }">
+                    <h2 class="text-3xl font-extrabold">
+                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
+                    </h2>
+                  </template>
+                  <template v-slot:finish>
+                    <span>結束</span>
+                  </template>
+                </vac>
+              </div>
             </h3>
-            <label class="font-bold text-sm">競標結束時間</label>
+            <label v-if="isPassedStartTime" class="font-bold text-sm">競標結束時間</label>
           </div>
         </article>
       </div>
@@ -240,12 +251,6 @@ export default {
       this.selected = tab;
     },
     submitBid() {
-      // this.$store
-      //   .dispatch('auction/createBid', {
-      //     bid: this.bidPrice,
-      //     auction_id: this.auction.id,
-      //     user_id: this.user.id,
-      //   });
       this.$store
         .dispatch('auction/createBid', {
           bid: this.bidPrice,
@@ -256,6 +261,12 @@ export default {
           this.bidChannel.perform('speak', {
             message: response,
           });
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.$store.dispatch('user/logout');
+            this.$router.push({ name: 'Login' });
+          }
         });
 
       this.toggleModal = false;
@@ -267,6 +278,12 @@ export default {
     //     return this.$store.state.bidDetail[this.$store.state.bidDetail.length - 1].bid
     //   },
     // },
+    isAnyBid() {
+      return !!this.bidDetail.length;
+    },
+    currentHighestBid() {
+      return this.bidDetail.slice(-1)[0].bid;
+    },
     isPassedStartTime() {
       console.log('what is this: ', this);
       return new Date() > new Date(this.auction.start_time);

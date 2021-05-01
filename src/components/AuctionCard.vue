@@ -9,16 +9,19 @@
             </div>
             <div class="absolute bottom-4 w-full flex justify-center items-center">
               <div class="flex items-center justify-center h-16 w-32 bg-gray-100 rounded-l-lg">
-                <vac :end-time="item.end_time">
-                  <template v-slot:process="{ timeObj }">
-                    <h2 class="text-sm font-semibold">
-                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
-                    </h2>
-                  </template>
-                  <template v-slot:finish>
-                    <span>結束</span>
-                  </template>
-                </vac>
+                <div v-if="!isPassedStartTime" class="text-base font-semibold">即將開始</div>
+                <div v-else>
+                  <vac :end-time="item.end_time">
+                    <template v-slot:process="{ timeObj }">
+                      <h2 class="text-sm font-semibold">
+                        {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
+                      </h2>
+                    </template>
+                    <template v-slot:finish>
+                      <span>結束</span>
+                    </template>
+                  </vac>
+                </div>
               </div>
               <div class="flex items-center justify-center h-16 w-40 bg-gray-200 rounded-r-lg">
                 <div class="flex flex-col justify-start ">
@@ -79,6 +82,10 @@ export default {
   computed: {
     ...authComputed,
     ...mapState('user', ['user']),
+    isPassedStartTime() {
+      console.log('what is this: ', this);
+      return new Date() > new Date(this.start_time);
+    },
   },
 };
 </script>

@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import store from '@/store';
 // import { authComputed } from '@/store/helpers';
 import Home from '../views/Home.vue';
+import Exhibition from '../views/Exhibition.vue';
 import ArtistList from '../views/ArtistList.vue';
 import Artist from '../views/Artist.vue';
 import AuctionList from '../views/AuctionList.vue';
@@ -83,12 +84,22 @@ const routes = [
     props: true,
   },
   {
+    path: '/exhibitions',
+    name: 'Exhibition',
+    component: Exhibition,
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue'),
   },
   {
     path: '/login',
@@ -171,8 +182,12 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiredAuth)) {
     // if requiredAuth is TRUE, check if user is logged in
     if (!isUserLoggedIn) {
-      console.log('使用者未登入，請重新登入！');
-      next('/');
+      const notification = {
+        type: 'ERROR',
+        message: '使用者未登入，請重新登入！',
+      };
+      store.dispatch('notification/add_notification', notification);
+      next('/login');
     } else {
       next();
     }

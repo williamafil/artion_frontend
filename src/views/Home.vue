@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!--  HERO begin  -->
-    <div class="flex bg-white mb-4" style="height:600px;">
+    <div v-if="heroAuction" class="flex bg-white mb-4" style="height:600px;">
       <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
         <div class=" mx-20">
           <h2 class="uppercase text-3xl font-semibold text-gray-800 md:text-4xl">
@@ -25,17 +25,18 @@
             </template>
           </vac>
           <div class="flex justify-center lg:justify-start mt-6">
-            <a
-              class="px-4 py-3 bg-gray-900 text-gray-200 text-xs
-              font-semibold rounded hover:bg-gray-800"
-              href="#"
-              >詳細資料</a
+            <div
+              class="px-4 py-3 bg-gray-700 text-gray-200 text-xs
+              font-semibold rounded hover:bg-gray-900 cursor-pointer"
+              @click="follow"
             >
+              關注此競標
+            </div>
             <a
               class="mx-4 px-4 py-3 bg-yellow-300 text-gray-900 text-xs
                 font-semibold rounded hover:bg-yellow-400"
               href="#"
-              >加入競標</a
+              >了解詳情</a
             >
           </div>
         </div>
@@ -74,16 +75,43 @@
 <script>
 import { mapState } from 'vuex';
 import AuctionCard from '@/components/AuctionCard.vue';
+import { fetchHeroAuction } from '@/service/api';
 
 export default {
   name: 'Home',
   components: { AuctionCard },
+  data() {
+    return {
+      heroAuction: null,
+    };
+  },
   created() {
-    this.$store.dispatch('auction/getHeroAuction');
-    this.$store.dispatch('auction/getAuctions');
+    // this.$store.dispatch('auction/getHeroAuction');
+    fetchHeroAuction()
+      .then((res) => {
+        console.log('hero auction response: ', res);
+        this.heroAuction = res.data.data;
+        // context.commit('SET_HERO_AUCTION', res.data.data);
+      })
+      .catch((error) => {
+        console.log('錯誤: ', error);
+        const notification = {
+          type: 'ERROR',
+          message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
+        };
+        this.$store.dispatch('notification/add_notification', notification, { root: true });
+      });
+
+    this.$store.dispatch('auction/getRecentAuctions');
+    // this.$store.dispatch('auction/getAuctions');
+  },
+  methods: {
+    follow() {
+      console.log('follow');
+    },
   },
   computed: {
-    ...mapState('auction', ['auctions', 'heroAuction']),
+    ...mapState('auction', ['auctions']),
   },
 };
 </script>

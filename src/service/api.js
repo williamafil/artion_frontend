@@ -32,6 +32,7 @@ export const fetchArtistList = () => apiService.get('/api/v1/artists');
 export const fetchAuction = (slug) => apiService.get(`/api/v1/auctions/${slug}`);
 
 // 首頁
+export const recentAuctions = () => apiService.get('/api/v1/auctions/recent');
 export const fetchAuctions = () => apiService.get('/api/v1/auctions');
 export const fetchHeroAuction = () => apiService.get('/api/v1/auctions/latest');
 

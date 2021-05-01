@@ -1,7 +1,7 @@
 import {
   apiService,
   fetchAuctions,
-  fetchHeroAuction,
+  recentAuctions,
   fetchAuction,
   fetchBidDetail,
   createBid,
@@ -36,18 +36,51 @@ export default {
     },
   },
   actions: {
-    async getAuctions(context) {
-      await fetchAuctions().then((res) => {
-        console.log('getAuctions response: ', res);
-        context.commit('SET_AUCTIONS', res.data.data);
-      });
+    getAuctions(context) {
+      fetchAuctions()
+        .then((res) => {
+          console.log('getAuctions response: ', res);
+          context.commit('SET_AUCTIONS', res.data.data);
+        })
+        .catch((error) => {
+          console.log('錯誤: ', error);
+          const notification = {
+            type: 'ERROR',
+            message: `無法取得所有拍賣資料: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
-    async getHeroAuction(context) {
-      await fetchHeroAuction().then((res) => {
-        console.log('hero auction response: ', res);
-        context.commit('SET_HERO_AUCTION', res.data.data);
-      });
+    getRecentAuctions(context) {
+      recentAuctions()
+        .then((res) => {
+          console.log('getAuctions response: ', res);
+          context.commit('SET_AUCTIONS', res.data.data);
+        })
+        .catch((error) => {
+          console.log('錯誤: ', error);
+          const notification = {
+            type: 'ERROR',
+            message: `無法取得即將開始的拍賣: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
+    // getHeroAuction(context) {
+    //   fetchHeroAuction()
+    //     .then((res) => {
+    //       console.log('hero auction response: ', res);
+    //       context.commit('SET_HERO_AUCTION', res.data.data);
+    //     })
+    //     .catch((error) => {
+    //       console.log('錯誤: ', error);
+    //       const notification = {
+    //         type: 'ERROR',
+    //         message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
+    //       };
+    //       context.dispatch('notification/add_notification', notification, { root: true });
+    //     });
+    // },
     getAuction(context, slug) {
       const auction = context.getters.getAuctionBySlugId(slug);
       if (auction) {
@@ -69,10 +102,28 @@ export default {
       });
     },
     createBid(context, objPayload) {
-      return createBid(objPayload).then((res) => {
-        console.log('createBid response: ', res);
-        // context.commit('ADD_BID_DETAIL', res.data.data);
-      });
+      return createBid(objPayload)
+        .then((res) => {
+          console.log('createBid response: ', res);
+          const notification = {
+            type: 'SUCCESS',
+            message: '競標出價成功！',
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+          // context.commit('ADD_BID_DETAIL', res.data.data);
+        })
+        .catch((error) => {
+          // console.log('錯誤: ', error);
+          // console.log('錯誤response: ', error.response);
+          // console.dir('錯誤status: ', error);
+          const notification = {
+            type: 'ERROR',
+            message: error.response.status === 401 ? `競標出價失敗: ${error.response.data.error}，請重新登入。` : `錯誤 ${error.response.statusText} -  ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+
+          throw error;
+        });
     },
     receiveMessage(context, data) {
       context.commit('ADD_BID_DETAIL', data);
@@ -80,9 +131,26 @@ export default {
     createAuction(context, formData) {
       console.log(apiService);
       // apiService.defaults.headers.common['Content-Type'] = 'multipart/form-data';
-      return newAuc(formData).then((res) => {
-        console.log('artist create auction: ', res);
-      });
+
+      return newAuc(formData)
+        .then((res) => {
+          console.log('artist create auction: ', res);
+          const notification = {
+            type: 'SUCCESS',
+            message: '新的拍賣建立成功！',
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+          return { slug: res.data.data.slug };
+        })
+        .catch((error) => {
+          console.log('錯誤: ', error);
+          const notification = {
+            type: 'ERROR',
+            message: `新建拍賣失敗: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+          throw error;
+        });
     },
   },
   getters: {

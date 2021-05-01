@@ -23,18 +23,51 @@
       </button>
     </div>
 
-    <div class="z-10 hidden sm:block flex-none w-16">
-      <router-link :to="{ name: 'Home' }" class="text-base mx-5">
-        <h1 class="font-lora text-3xl font-extrabold">artion</h1>
+    <div class="z-10 hidden sm:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
+      <router-link
+        :to="{ name: 'Home' }"
+        class="font-lora text-4xl font-extrabold mx-5 my-1 p-1"
+      >
+        <h1>artion</h1>
       </router-link>
     </div>
     <div class="z-10 hidden sm:block flex-grow">
       <div class="flex justify-center">
-        <router-link :to="{ name: 'AuctionList' }" class="text-base mx-5">拍賣</router-link>
-        <router-link to="/artists" class="text-base mx-5">藝術家</router-link>
-        <router-link to="/exhibitions" class="text-base mx-5">精選展覽</router-link>
-        <router-link to="/about" class="text-base mx-5">關於我們</router-link>
-        <router-link to="/test" class="text-base mx-5">聯繫我們</router-link>
+        <router-link
+          :to="{ name: 'AuctionList' }"
+          active-class="border-b-4 border-gray-500"
+          class="text-base font-semibold mx-5 hover:text-yellow-400"
+        >
+          拍賣
+        </router-link>
+        <router-link
+          :to="{ name: 'ArtistList' }"
+          active-class="border-b-4 border-gray-500"
+          class="text-base font-semibold mx-5 hover:text-yellow-400"
+        >
+          藝術家
+        </router-link>
+        <router-link
+          :to="{ name: 'Exhibition' }"
+          active-class="border-b-4 border-gray-500"
+          class="text-base font-semibold mx-5 hover:text-yellow-400"
+        >
+          精選展覽
+        </router-link>
+        <router-link
+          :to="{ name: 'About' }"
+          active-class="border-b-4 border-gray-500"
+          class="text-base font-semibold mx-5 hover:text-yellow-400"
+        >
+          關於我們
+        </router-link>
+        <router-link
+          :to="{ name: 'Contact' }"
+          active-class="border-b-4 border-gray-500"
+          class="text-base font-semibold mx-5 hover:text-yellow-400"
+        >
+          聯繫我們
+        </router-link>
       </div>
     </div>
     <div class="z-10 hidden sm:block flex-none w-68">
