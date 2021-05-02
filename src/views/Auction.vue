@@ -2,8 +2,8 @@
   <div>
     <div
       class="w-full bg-cover bg-center relative"
-      style="height:32rem;
-            background-image: url(https://images.unsplash.com/photo-1572450732467-5eb1311e7bc8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2534&q=80);"
+      style="height:32rem;"
+      :style="{ 'background-image': 'url(' + auction.images_url[randomBgImage] + ')' }"
     >
       <div class="flex items-center justify-center w-full">
         <article class="absolute w-4/6 px-10  -bottom-20 flex justify-center items-center">
@@ -160,14 +160,31 @@
       class="fixed overflow-x-hidden overflow-y-hidden inset-0 flex justify-center items-center z-50"
     >
       <div class="relative mx-auto w-auto max-w-2xl">
-        <div class="bg-yellow-300 h-60 w-full px-8 py-10">
+        <div class="bg-yellow-300 h-52 w-full px-8 py-10 border-2 border-gray-50 rounded-md">
           <form @submit.prevent="submitBid">
-            <input v-model.number="bidPrice" />
-            <button type="submit">出價</button>
+            <input
+              type="number"
+              class="my-4 w-full h-14 bg-gray-200 text-2xl rounded p-2"
+              v-model.number="bidPrice"
+            />
+            <div
+              v-if="isCreator"
+              class="text-center text-red-500 text-sm"
+            >
+              拍賣建立者無法投標
+            </div>
+            <button
+              v-else
+              type="submit"
+              class="w-full h-10 bg-white rounded cursor-pointer font-semibhold tracking-wider hover:bg-gray-100"
+            >
+              投標送出
+            </button>
           </form>
+
           <button
             @click="toggleModal = false"
-            class="absolute top-2 right-2 rounded-full border-2 text-gray-300 bg-white text-white w-8 h-8"
+            class="absolute top-2 right-2 rounded-full border-2 text-gray-300 bg-white text-white w-6 h-6 flex justify-center items-center"
           >
             Ｘ
           </button>
@@ -208,7 +225,22 @@ export default {
       console.log('this.auction.id: ', this.auction.id);
       console.log('$store auction id', this.$store.state.auction.auction.id);
 
-      this.$store.dispatch('auction/getBidDetail', this.id);
+      this.$store
+        .dispatch('auction/getBidDetail', this.id)
+        .catch((error) => {
+          console.log(error);
+          console.log(error.response);
+          if (error.response.status === 401) {
+            const notification = {
+              type: 'ERROR',
+              message: '請重新登入！',
+            };
+            this.$store.dispatch('notification/add_notification', notification);
+
+            this.$store.dispatch('user/logout');
+            this.$router.push({ name: 'Login' });
+          }
+        });
 
       this.bidChannel = this.$cable.subscriptions.create({
         channel: 'BidChannel',
@@ -258,9 +290,14 @@ export default {
           user_id: this.user.id,
         })
         .then((response) => {
-          this.bidChannel.perform('speak', {
-            message: response,
-          });
+          if (response.type === 'FAIL') {
+            this.$store.dispatch('notification/add_notification', response);
+          } else {
+            this.$store.dispatch('notification/add_notification', response);
+            this.bidChannel.perform('speak', {
+              message: response,
+            });
+          }
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -278,6 +315,18 @@ export default {
     //     return this.$store.state.bidDetail[this.$store.state.bidDetail.length - 1].bid
     //   },
     // },
+    randomBgImage() {
+      const maxNum = this.auction.images_url.length;
+      return Math.floor(Math.random() * maxNum);
+    },
+    isCreator() {
+      const auctionCreator = this.auction.user_id;
+      const myUserId = this.user.id;
+      console.log('auctionCreator: ', this.auction.user_id);
+      console.log('myUserId: ', this.user.id);
+      console.log('等於：', this.auction.user_id === this.user.id);
+      return myUserId === auctionCreator;
+    },
     isAnyBid() {
       return !!this.bidDetail.length;
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed pr-4 top-20 right-2">
+  <div class="fixed pr-4 bottom-10 right-4">
     <NotificationBox
       v-for="notification in notifications"
       :key="notification.id"

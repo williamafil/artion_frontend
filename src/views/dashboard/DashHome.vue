@@ -5,9 +5,8 @@
         <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
           <div class="col-span-12">
             <div class="grid grid-cols-12 gap-6">
-              <a
-                class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
-                href="#"
+              <div
+                class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-yellow-50 cursor-pointer"
               >
                 <div class="p-5">
                   <div class="flex justify-between">
@@ -21,41 +20,43 @@
                   </div>
                   <div class="ml-2 w-full flex justify-center">
                     <div class="mb-3 text-6xl font-bold leading-8">{{ numberOfFollows }}</div>
-
-                    <!-- <div class="mt-1 text-lg font-bold text-gray-600">關注</div> -->
                   </div>
                 </div>
-              </a>
-              <a
-                class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
-                href="#"
+              </div>
+              <div
+                class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-yellow-50 cursor-pointer"
               >
                 <div class="p-5">
                   <div class="flex justify-between">
                     <AuctionFill class="text-2xl text-pink-600" />
                     <div class="mt-1 text-lg font-bold text-gray-600">競標</div>
-                    <!-- <div
-                      class="bg-green-500 rounded-full h-6 px-2 flex justify-items-center text-white font-semibold text-sm"
-                    >
-                      <span class="flex items-center">30%</span>
-                    </div> -->
                   </div>
                   <div class="ml-2 w-full flex justify-center">
                     <div class="mb-3 text-6xl font-bold leading-8">{{ numberOfBids }}</div>
-
-                    <!-- <div class="mt-1 text-lg font-bold text-gray-600">關注</div> -->
                   </div>
                 </div>
-              </a>
-              <a
+              </div>
+              <div
                 v-if="isArtist"
-                class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
-                href="#"
+                class="transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-yellow-50 cursor-pointer"
               >
                 <div class="p-5">
                   <div class="flex justify-between">
                     <SellFill class="text-2xl text-pink-600" />
                     <div class="mt-1 text-lg font-bold text-gray-600">拍賣</div>
+                  </div>
+                  <div class="ml-2 w-full flex justify-center">
+                    <div class="mb-3 text-6xl font-bold leading-8">{{ numberOfAuctions }}</div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-yellow-50 cursor-pointer"
+              >
+                <div class="p-5">
+                  <div class="flex justify-between">
+                    <Cart class="text-2xl text-pink-600" />
+                    <div class="mt-1 text-lg font-bold text-gray-600">得標</div>
                     <!-- <div
                       class="bg-green-500 rounded-full h-6 px-2 flex justify-items-center text-white font-semibold text-sm"
                     >
@@ -63,12 +64,12 @@
                     </div> -->
                   </div>
                   <div class="ml-2 w-full flex justify-center">
-                    <div class="mb-3 text-6xl font-bold leading-8">{{ numberOfAuctions }}</div>
+                    <div class="mb-3 text-6xl font-bold leading-8">{{ numberOfUnpaidOrders }}</div>
 
                     <!-- <div class="mt-1 text-lg font-bold text-gray-600">關注</div> -->
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
           <div class="col-span-12 mt-5">
@@ -226,6 +227,7 @@ import { mapState, mapGetters } from 'vuex';
 import MultipleHeart from '@/components/icons/MultipleHeart.vue';
 import AuctionFill from '@/components/icons/AuctionFill.vue';
 import SellFill from '@/components/icons/SellFill.vue';
+import Cart from '@/components/icons/Cart.vue';
 
 export default {
   name: 'DashHome',
@@ -233,12 +235,14 @@ export default {
     MultipleHeart,
     AuctionFill,
     SellFill,
+    Cart,
   },
   data() {
     return {
       numberOfFollows: 0,
       numberOfBids: 0,
       numberOfAuctions: 0,
+      numberOfUnpaidOrders: 0,
     };
   },
   created() {
@@ -247,6 +251,7 @@ export default {
       this.numberOfFollows = res.data.data.number_of_follows;
       this.numberOfBids = res.data.data.number_of_bids;
       this.numberOfAuctions = res.data.data.number_of_auctions;
+      this.numberOfUnpaidOrders = res.data.data.number_of_unpaid_orders;
     });
   },
   computed: {

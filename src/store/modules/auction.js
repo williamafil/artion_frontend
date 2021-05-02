@@ -104,13 +104,23 @@ export default {
     createBid(context, objPayload) {
       return createBid(objPayload)
         .then((res) => {
+          if (res.data.status === 'FAIL') {
+            return {
+              type: 'ERROR',
+              message: res.data.message,
+            };
+          }
           console.log('createBid response: ', res);
-          const notification = {
-            type: 'SUCCESS',
-            message: '競標出價成功！',
-          };
-          context.dispatch('notification/add_notification', notification, { root: true });
+          // const notification = {
+          //   type: 'SUCCESS',
+          //   message: '競標出價成功！',
+          // };
+          // context.dispatch('notification/add_notification', notification, { root: true });
           // context.commit('ADD_BID_DETAIL', res.data.data);
+          return {
+            type: 'SUCCESS',
+            message: res.data.message,
+          };
         })
         .catch((error) => {
           // console.log('錯誤: ', error);

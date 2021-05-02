@@ -32,12 +32,13 @@
             >
               關注此競標
             </div>
-            <a
+            <router-link
+              :to="{ name:'Auction', params: {id: this.heroAuction.id} }"
               class="mx-4 px-4 py-3 bg-yellow-300 text-gray-900 text-xs
-                font-semibold rounded hover:bg-yellow-400"
-              href="#"
-              >了解詳情</a
-            >
+                    font-semibold rounded hover:bg-yellow-400"
+              >
+                了解詳情
+            </router-link>
           </div>
         </div>
       </div>
@@ -61,7 +62,7 @@
         <div class="container my-3 mx-auto px-4 md:px-12">
           <div class="flex flex-wrap">
             <!--  CARD  -->
-            <AuctionCard v-for="item in auctions" :key="item.id" :item="item" />
+            <AuctionCard v-for="item in recentAuctions" :key="item.id" :item="item" />
             <!--  CARD  -->
           </div>
         </div>
@@ -74,8 +75,9 @@
 
 <script>
 import { mapState } from 'vuex';
+import { authComputed } from '@/store/helpers';
 import AuctionCard from '@/components/AuctionCard.vue';
-import { fetchHeroAuction } from '@/service/api';
+import { fetchHeroAuction, recentAuctions, createLike } from '@/service/api';
 
 export default {
   name: 'Home',
@@ -83,6 +85,7 @@ export default {
   data() {
     return {
       heroAuction: null,
+      recentAuctions: null,
     };
   },
   created() {
@@ -102,16 +105,52 @@ export default {
         this.$store.dispatch('notification/add_notification', notification, { root: true });
       });
 
-    this.$store.dispatch('auction/getRecentAuctions');
-    // this.$store.dispatch('auction/getAuctions');
+    recentAuctions()
+      .then((res) => {
+        console.log('hero auction response: ', res);
+        this.recentAuctions = res.data.data;
+        // context.commit('SET_HERO_AUCTION', res.data.data);
+      })
+      .catch((error) => {
+        console.log('錯誤: ', error);
+        const notification = {
+          type: 'ERROR',
+          message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
+        };
+        this.$store.dispatch('notification/add_notification', notification, { root: true });
+      });
+
+    this.$store.dispatch('auction/getAuctions');
   },
   methods: {
     follow() {
       console.log('follow');
+      if (!this.isLoggedIn) {
+        const notification = {
+          type: 'ERROR',
+          message: '欲關注此競標，請先登入！',
+        };
+        this.$store.dispatch('notification/add_notification', notification);
+      } else {
+        console.log('我的user id: ', this.user.id);
+        console.log('this.heroAuction.id: ', this.heroAuction.id);
+
+        createLike({ user_id: this.user.id, auction_id: this.heroAuction.id }).then((res) => {
+          if (res.status === 200) {
+            const notification = {
+              type: 'SUCCESS',
+              message: '關注成功！',
+            };
+            this.$store.dispatch('notification/add_notification', notification);
+          }
+        });
+      }
     },
   },
   computed: {
     ...mapState('auction', ['auctions']),
+    ...mapState('user', ['user']),
+    ...authComputed,
   },
 };
 </script>

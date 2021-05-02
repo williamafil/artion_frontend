@@ -147,6 +147,12 @@ const routes = [
         meta: { requiredAuth: true },
       },
       {
+        path: 'order',
+        name: 'Order',
+        component: () => import(/* webpackChunkName: "Order" */ '../views/dashboard/Order.vue'),
+        meta: { requiredAuth: true },
+      },
+      {
         path: 'register-artist',
         name: 'RegisterArtist',
         component: RegArt,

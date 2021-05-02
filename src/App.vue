@@ -1,10 +1,10 @@
 <template>
   <div>
+    <NotificationContainer class="z-50" />
     <div id="nav">
       <Navbar />
     </div>
     <div class="h-full">
-      <NotificationContainer class="z-50" />
       <router-view />
     </div>
     <div id="footer" class="">

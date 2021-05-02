@@ -99,32 +99,34 @@
 
           <ul class="dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
             <li class="">
-              <a
-                class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+              <router-link
+                :to="{ name: 'Dashboard' }"
+                class="rounded-t bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
                 href="#"
-                >個人後台</a
               >
+                控制台
+              </router-link>
             </li>
             <li class="">
               <router-link
                 v-if="isArtist"
                 :to="{ name: 'Sell' }"
-                class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                class="bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
               >
-                刊登競標品
+                刊登拍賣
               </router-link>
             </li>
-            <li class="">
+            <!-- <li class="">
               <router-link
                 :to="{ name: 'UserProfile' }"
-                class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                class="bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
               >
                 個人資訊
               </router-link>
-            </li>
+            </li> -->
             <li class="">
               <div
-                class="cursor-pointer rounded-b bg-gray-200 hover:bg-gray-400
+                class="cursor-pointer rounded-b bg-gray-200 hover:bg-yellow-200
                       py-2 px-4 block whitespace-no-wrap"
                 @click="logout"
               >
