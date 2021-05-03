@@ -16,7 +16,7 @@
             </div>
             <div v-else  class="flex flex-col justify-center items-end">
               <h3 class="text-3xl font-extrabold">{{ auction.bidding_price | separator | dollar }}</h3>
-              <label class="font-bold text-sm">此拍賣起標價</label>
+              <label class="font-light text-sm">此拍賣起標價</label>
             </div>
           </div>
 
@@ -40,7 +40,7 @@
                 </vac>
               </div>
             </h3>
-            <label v-if="isPassedStartTime" class="font-bold text-sm">競標結束時間</label>
+            <label v-if="isPassedStartTime" class="font-light text-sm">競標結束時間</label>
           </div>
         </article>
       </div>
@@ -49,6 +49,13 @@
     <div
       class="relative container mt-40 mb-2 flex flex-col mx-auto w-full items-center justify-center"
     >
+      <div class="w-4/6 px-10 -bottom-20 flex justify-between items-center">
+        <h3 class=""></h3>
+        <h3 class="text-sm font-extralight leading-none">
+          <span class="block my-1">開始：{{ new Date(auction.start_time).toLocaleString('zh-TW') }}</span>
+          <span class="block my-1">結束：{{ new Date(auction.end_time).toLocaleString('zh-TW') }}</span>
+        </h3>
+      </div>
       <div class="w-4/6 px-10 mb-10 -bottom-20 flex justify-between items-center">
         <h3 class="text-3xl font-extrabold">{{ auction.author_name }}</h3>
         <h3 class="text-3xl font-extrabold">{{ auction.title }}</h3>

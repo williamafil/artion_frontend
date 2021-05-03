@@ -85,10 +85,10 @@ export default {
     isPassedStartTime() {
       console.log('new Date(): ', new Date());
       console.log('大於');
-      console.log('this.start_time: ', this.start_time);
-      console.log('new Date(this.start_time: ', new Date(this.start_time));
-      console.log('Date.parse(this.start_time): ', Date.parse(this.start_time));
-      return new Date() > new Date(this.start_time);
+      // console.log('this.item.start_time: ', this.item.start_time);
+      // console.log('new Date(this.start_time: ', new Date(this.item.start_time));
+      // console.log('Date.parse(this.start_time): ', Date.parse(this.item.start_time));
+      return new Date() > new Date(this.item.start_time);
     },
   },
 };

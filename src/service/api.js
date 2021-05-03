@@ -36,6 +36,7 @@ export const fetchAuction = (slug) => apiService.get(`/api/v1/auctions/${slug}`)
 export const recentAuctions = () => apiService.get('/api/v1/auctions/recent');
 export const fetchAuctions = () => apiService.get('/api/v1/auctions');
 export const fetchHeroAuction = () => apiService.get('/api/v1/auctions/latest');
+export const fetchProgress = () => apiService.get('/api/v1/auctions/in_progress');
 
 // 拍賣 卡片 component
 export const fetchBidDetail = (slug) => apiService.get(`/api/v1/auth/auctions/${slug}/bid_detail`);

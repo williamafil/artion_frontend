@@ -97,11 +97,16 @@
             /> -->
           </button>
 
-          <ul class="dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
+          <ul class="text-sm dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
+            <li class="">
+              <div class="rounded-t bg-gray-300 border-b py-2 border-gray-400 px-4 block whitespace-no-wrap">
+                嗨，{{ user.name }}
+              </div>
+            </li>
             <li class="">
               <router-link
                 :to="{ name: 'Dashboard' }"
-                class="rounded-t bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
+                class=" bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
                 href="#"
               >
                 控制台

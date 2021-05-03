@@ -84,18 +84,26 @@ export default {
     },
   },
   created() {
-    like(this.userId, this.auctionId).then((res) => {
-      console.log('user id:', this.userId);
-      console.log('auction id:', this.auctionId);
-      console.log('LIKE res: ', res);
+    like(this.userId, this.auctionId)
+      .then((res) => {
+        console.log('user id:', this.userId);
+        console.log('auction id:', this.auctionId);
+        console.log('LIKE res: ', res);
 
-      if (res.data.data === false) {
-        this.state = false;
-      } else {
+        if (res.data.data === false) {
+          this.state = false;
+        }
         this.id = res.data.data.id;
         this.state = true;
-      }
-    });
+      })
+      .catch((error) => {
+        console.log('error.response: ', error.response);
+        this.$store.dispatch('notification/add_notification', {
+          type: 'ERROR',
+          message: `${error.response.status} ${error.response.data.error}，請重新登入`,
+        });
+        this.$router.push({ name: 'Login' });
+      });
   },
 };
 </script>

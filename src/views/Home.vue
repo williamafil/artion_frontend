@@ -57,11 +57,27 @@
     <!--  HERO end  -->
 
     <!--  CARDS begin  -->
-    <div class="my-10 flex justify-center bg-gray-50">
+    <div class="mb-10 flex justify-center bg-gray-50">
       <section class="flex flex-col w-full">
         <!-- <hr class="bg-black h-0.5 w-3/4  mx-auto" /> -->
-        <h2 class="mt-6 text-center text-5xl text-gray-700 font-extrabold ">即將開始</h2>
         <div class="container my-8 mx-auto px-4 md:px-12">
+          <h2 class="mt-6 ml-4 text-2xl text-gray-700 font-bold italic font-serif">進行中</h2>
+          <div class="flex flex-wrap">
+            <!--  CARD  -->
+            <AuctionCard v-for="item in inProgress" :key="item.id" :item="item" />
+            <!--  CARD  -->
+          </div>
+        </div>
+      </section>
+    </div>
+    <!--  CARDS end  -->
+
+    <!--  CARDS begin  -->
+    <div class="mb-10 flex justify-center">
+      <section class="flex flex-col w-full">
+        <!-- <hr class="bg-black h-0.5 w-3/4  mx-auto" /> -->
+        <div class="container my-8 mx-auto px-4 md:px-12">
+          <h2 class="mt-6 ml-4 text-2xl text-gray-700 font-bold italic font-serif">即將開始</h2>
           <div class="flex flex-wrap">
             <!--  CARD  -->
             <AuctionCard v-for="item in recentAuctions" :key="item.id" :item="item" />
@@ -79,7 +95,7 @@
 import { mapState } from 'vuex';
 import { authComputed } from '@/store/helpers';
 import AuctionCard from '@/components/AuctionCard.vue';
-import { fetchHeroAuction, recentAuctions, createLike } from '@/service/api';
+import { fetchHeroAuction, recentAuctions, createLike, fetchProgress } from '@/service/api';
 
 export default {
   name: 'Home',
@@ -87,6 +103,7 @@ export default {
   data() {
     return {
       heroAuction: null,
+      inProgress: null,
       recentAuctions: null,
     };
   },
@@ -104,7 +121,21 @@ export default {
           type: 'ERROR',
           message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
         };
-        this.$store.dispatch('notification/add_notification', notification, { root: true });
+        this.$store.dispatch('notification/add_notification', notification);
+      });
+
+    fetchProgress()
+      .then((res) => {
+        console.log('inProgress response: ', res);
+        this.inProgress = res.data.data;
+      })
+      .catch((error) => {
+        console.log('錯誤: ', error);
+        const notification = {
+          type: 'ERROR',
+          message: `無法取得目前進行中的拍賣資料: ${error.message}`,
+        };
+        this.$store.dispatch('notification/add_notification', notification);
       });
 
     recentAuctions()
@@ -119,7 +150,7 @@ export default {
           type: 'ERROR',
           message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
         };
-        this.$store.dispatch('notification/add_notification', notification, { root: true });
+        this.$store.dispatch('notification/add_notification', notification);
       });
 
     this.$store.dispatch('auction/getAuctions');
