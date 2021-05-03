@@ -17,8 +17,8 @@ Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by
 Vue.use(Vuelidate);
 
 // const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
-const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-// const cable = ActionCable.createConsumer('ws://artion.balliiballii.com/cable');
+// const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+const cable = ActionCable.createConsumer('ws://artion.balliiballii.com/cable');
 Vue.prototype.$cable = cable;
 
 Vue.config.productionTip = false;
