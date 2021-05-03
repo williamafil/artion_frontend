@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const apiService = axios.create({
   // baseURL: 'http://localhost:3000',
-  baseURL: 'http://artion.balliiballii.com',
+  baseURL: 'https://artion.balliiballii.com',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
