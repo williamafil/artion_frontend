@@ -218,12 +218,34 @@ export default {
     };
   },
   created() {
+    this.$store.dispatch('auction/getAuction', this.id);
+
+    // this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
+    //   received: (data) => {
+    //     // this.messages.push(data);
+    //     console.log('接收 websocket資料：', data.message);
+    //     this.$store.dispatch('auction/receiveMessage', data.message);
+    //   },
+    // });
+
     console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
       console.log('使用者有登入');
       console.log('this.id: ', this.id);
       console.log('this.auction.id: ', this.auction.id);
       console.log('$store auction id', this.$store.state.auction.auction.id);
+
+      this.bidChannel = this.$cable.subscriptions.create({
+        channel: 'BidChannel',
+        // auction: this.auction.id,
+        auction_id: this.auction.id,
+      }, {
+        received: (data) => {
+          // this.messages.push(data);
+          console.log('接收 websocket資料：', data.message);
+          this.$store.dispatch('auction/receiveMessage', data.message);
+        },
+      });
 
       this.$store
         .dispatch('auction/getBidDetail', this.id)
@@ -242,17 +264,6 @@ export default {
           }
         });
 
-      this.bidChannel = this.$cable.subscriptions.create({
-        channel: 'BidChannel',
-        // auction: this.auction.id,
-        auction_id: this.auction.id,
-      }, {
-        received: (data) => {
-          // this.messages.push(data);
-          console.log('接收 websocket資料：', data.message);
-          this.$store.dispatch('auction/receiveMessage', data.message);
-        },
-      });
       // this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
       //   received: (data) => {
       //     // this.messages.push(data);
@@ -270,7 +281,7 @@ export default {
     // console.log('使用者登入狀態：', this.isLoggedIn);
 
     // if (Object.entries(this.auction).length === 0) {
-    this.$store.dispatch('auction/getAuction', this.id);
+
     // }
 
     // if (this.isLoggedIn) {
@@ -291,8 +302,10 @@ export default {
         })
         .then((response) => {
           if (response.type === 'FAIL') {
+            console.log('createBid response type = FAIL');
             this.$store.dispatch('notification/add_notification', response);
           } else {
+            console.log('response 成功 開始 broadcast');
             this.$store.dispatch('notification/add_notification', response);
             this.bidChannel.perform('speak', {
               message: response,
@@ -334,7 +347,6 @@ export default {
       return this.bidDetail.slice(-1)[0].bid;
     },
     isPassedStartTime() {
-      console.log('what is this: ', this);
       return new Date() > new Date(this.auction.start_time);
     },
     isWithinTime() {

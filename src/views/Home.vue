@@ -33,7 +33,7 @@
               關注此競標
             </div>
             <router-link
-              :to="{ name:'Auction', params: {id: this.heroAuction.id} }"
+              :to="{ name:'Auction', params: {id: this.heroAuction.slug} }"
               class="mx-4 px-4 py-3 bg-yellow-300 text-gray-900 text-xs
                     font-semibold rounded hover:bg-yellow-400"
               >
@@ -57,9 +57,11 @@
     <!--  HERO end  -->
 
     <!--  CARDS begin  -->
-    <div class="my-10 flex justify-center">
+    <div class="my-10 flex justify-center bg-gray-50">
       <section class="flex flex-col w-full">
-        <div class="container my-3 mx-auto px-4 md:px-12">
+        <!-- <hr class="bg-black h-0.5 w-3/4  mx-auto" /> -->
+        <h2 class="mt-6 text-center text-5xl text-gray-700 font-extrabold ">即將開始</h2>
+        <div class="container my-8 mx-auto px-4 md:px-12">
           <div class="flex flex-wrap">
             <!--  CARD  -->
             <AuctionCard v-for="item in recentAuctions" :key="item.id" :item="item" />
