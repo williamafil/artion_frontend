@@ -88,10 +88,11 @@ export default {
       .then((res) => {
         console.log('user id:', this.userId);
         console.log('auction id:', this.auctionId);
-        console.log('LIKE res: ', res);
+        console.log('LIKE回應: ', res);
 
         if (res.data.data === false) {
           this.state = false;
+          return;
         }
         this.id = res.data.data.id;
         this.state = true;
