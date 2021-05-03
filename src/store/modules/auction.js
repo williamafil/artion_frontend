@@ -116,7 +116,7 @@ export default {
           //   message: '競標出價成功！',
           // };
           // context.dispatch('notification/add_notification', notification, { root: true });
-          context.commit('ADD_BID_DETAIL', res.data.data);
+          // context.commit('ADD_BID_DETAIL', res.data.data);
           return {
             type: 'SUCCESS',
             message: res.data.message,

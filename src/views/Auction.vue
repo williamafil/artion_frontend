@@ -218,22 +218,14 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('auction/getAuction', this.id);
-
-    // this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
-    //   received: (data) => {
-    //     // this.messages.push(data);
-    //     console.log('接收 websocket資料：', data.message);
-    //     this.$store.dispatch('auction/receiveMessage', data.message);
-    //   },
-    // });
-
     console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
       console.log('使用者有登入');
-      console.log('this.id: ', this.id);
-      console.log('this.auction.id: ', this.auction.id);
-      console.log('$store auction id', this.$store.state.auction.auction.id);
+      // console.log('this.id: ', this.id);
+      // console.log('this.auction.id: ', this.auction.id);
+      // console.log('$store auction id', this.$store.state.auction.auction.id);
+
+      this.$store.dispatch('auction/getBidDetail', this.id);
 
       this.bidChannel = this.$cable.subscriptions.create({
         channel: 'BidChannel',
@@ -246,47 +238,9 @@ export default {
           this.$store.dispatch('auction/receiveMessage', data.message);
         },
       });
-
-      this.$store
-        .dispatch('auction/getBidDetail', this.id)
-        .catch((error) => {
-          console.log(error);
-          console.log(error.response);
-          if (error.response.status === 401) {
-            const notification = {
-              type: 'ERROR',
-              message: '請重新登入！',
-            };
-            this.$store.dispatch('notification/add_notification', notification);
-
-            this.$store.dispatch('user/logout');
-            this.$router.push({ name: 'Login' });
-          }
-        });
-
-      // this.bidChannel = this.$cable.subscriptions.create('BidChannel', {
-      //   received: (data) => {
-      //     // this.messages.push(data);
-      //     console.log('接收 websocket資料：', data.message);
-      //     this.$store.dispatch('auction/receiveMessage', data.message);
-      //   },
-      // });
     }
 
-    // this.bidPrice = this.getCurrentBid;
-    // console.log('Number(this.getCurrentBid): ', Number(this.getCurrentBid));
-    // console.log('Number(this.auction.interval: ', Number(this.auction.interval));
-    // this.bidPrice = Number(this.getCurrentBid);
-    // this.bidPrice = Number(this.getCurrentBid) + Number(this.auction.interval);
-    // console.log('使用者登入狀態：', this.isLoggedIn);
-
-    // if (Object.entries(this.auction).length === 0) {
-
-    // }
-
-    // if (this.isLoggedIn) {
-    //   await this.$store.dispatch('auction/getBidDetail', this.id);
-    // }
+    this.$store.dispatch('auction/getAuction', this.id);
   },
   methods: {
     setSelected(tab) {
