@@ -86,10 +86,6 @@ export default {
   created() {
     like(this.userId, this.auctionId)
       .then((res) => {
-        console.log('user id:', this.userId);
-        console.log('auction id:', this.auctionId);
-        console.log('LIKE回應: ', res);
-
         if (res.data.data === false) {
           this.state = false;
           return;
@@ -103,6 +99,7 @@ export default {
           type: 'ERROR',
           message: `${error.response.status} ${error.response.data.error}，請重新登入`,
         });
+        this.$store.dispatch('user/logout');
         this.$router.push({ name: 'Login' });
       });
   },

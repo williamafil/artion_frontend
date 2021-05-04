@@ -7,14 +7,14 @@
             <div v-if="isLoggedIn" class="absolute right-4 top-4">
               <Heart :auctionId="item.id" :userId="user.id" />
             </div>
-            <div class="absolute bottom-4 w-full flex justify-center items-center">
+            <div class="absolute bottom-4 left-0 right-0 mx-auto sm:w-10/12 flex justify-center items-center">
               <div class="flex items-center justify-center h-16 w-32 bg-gray-100 rounded-l-lg">
                 <div v-if="!isPassedStartTime" class="text-base font-semibold">即將開始</div>
                 <div v-else>
                   <vac :end-time="item.end_time">
                     <template v-slot:process="{ timeObj }">
                       <h2 class="text-sm font-semibold">
-                        {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
+                        {{ `${timeObj.d}天 ${timeObj.h}時 ${timeObj.m}分` }}
                       </h2>
                     </template>
                     <template v-slot:finish>
@@ -25,7 +25,7 @@
               </div>
               <div class="flex items-center justify-center h-16 w-40 bg-gray-200 rounded-r-lg">
                 <div class="flex flex-col justify-start ">
-                  <label class="leading-4 text-sm font-bold">起標價</label>
+                  <label class="leading-4 text-xs font-medium">起標價</label>
                   <h3 class="leading-4 text-lg font-extrabold">
                     {{ item.bidding_price | separator | dollar }}
                   </h3>
@@ -39,7 +39,7 @@
             />
           </div>
           <header class="flex flex-col items-center justify-between leading-tight p-2 md:p-4">
-            <div class="w-full flex justify-between px-10 py-2">
+            <div class="w-full flex justify-between px-2 py-2">
               <h4 class="text-lg font-extrabold">
                 <span class="block text-xs text-gray-500">作者</span>
                 {{ item.author_name }}
@@ -49,7 +49,7 @@
                 {{ item.title }}
               </h4>
             </div>
-            <div class="text-xl py-6 px-10">
+            <div class="text-lg sm:text-base lg:text-lg py-6 px-6">
               <img
                 alt="quote"
                 class="float-left mr-1"

@@ -48,22 +48,8 @@
                 />
               </div>
             </div>
-
-            <!-- <input v-model="genreList[0].name" type="text" class="border p-2 rounded mx-6 w-2/6" /> -->
-            <!-- <select v-model="priceRange" class="border p-2 rounded mx-6 w-2/6">
-              <option>價格</option>
-              <option>Round-trip</option>
-              <option>Missouri</option>
-              <option>texas</option>
-            </select> -->
-
-            <!-- <input type="text" class="border p-2 rounded mx-6 w-2/6" placeholder="輸入關鍵字" /> -->
           </div>
-          <!-- <div class="flex justify-center mt-6">
-            <button class="p-2 border w-20 rounded-md bg-gray-800 text-white tracking-widest">
-              搜尋
-            </button>
-          </div> -->
+
         </article>
       </div>
     </div>

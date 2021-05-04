@@ -193,6 +193,7 @@ router.beforeEach((to, from, next) => {
         message: '使用者未登入，請重新登入！',
       };
       store.dispatch('notification/add_notification', notification);
+      store.dispatch('user/logout');
       next('/login');
     } else {
       next();

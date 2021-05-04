@@ -11,11 +11,11 @@
             class="flex flex-col justify-center items-end h-36 w-3/6 bg-gray-200 rounded-l-lg px-10"
           >
             <div v-if="isAnyBid" class="flex flex-col justify-center items-end">
-              <h3 class="text-3xl font-extrabold">{{ currentHighestBid | separator | dollar }}</h3>
-              <label class="font-bold text-sm">目前競標價格</label>
+              <h3 class="text-2xl font-extrabold">{{ currentHighestBid | separator | dollar }}</h3>
+              <label class="font-light text-sm">目前競標價格</label>
             </div>
             <div v-else  class="flex flex-col justify-center items-end">
-              <h3 class="text-3xl font-extrabold">{{ auction.bidding_price | separator | dollar }}</h3>
+              <h3 class="text-2xl font-extrabold">{{ auction.bidding_price | separator | dollar }}</h3>
               <label class="font-light text-sm">此拍賣起標價</label>
             </div>
           </div>
@@ -23,19 +23,19 @@
           <div
             class="flex flex-col items-start justify-center h-36 w-3/6 bg-gray-100 rounded-r-lg px-10"
           >
-            <h3 class="text-3xl font-extrabold">
+            <h3 class="text-2xl font-extrabold">
               <div v-if="!isPassedStartTime">
                 競標時間未開始
               </div>
               <div v-else>
                 <vac :end-time="auction.end_time">
                   <template v-slot:process="{ timeObj }">
-                    <h2 class="text-3xl font-extrabold">
+                    <h2 class="text-2xl font-extrabold">
                       {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
                     </h2>
                   </template>
                   <template v-slot:finish>
-                    <span>結束</span>
+                    <span>拍賣已結束</span>
                   </template>
                 </vac>
               </div>
@@ -77,7 +77,7 @@
           </div>
           <div v-else>
             <div v-if="bidDetail.length === 0" class="text-center mt-4">目前沒有人參與競標</div>
-            <ul v-else class="flex w-full flex-col p-4">
+            <ul v-else class="flex w-full flex-col">
               <li
                 v-for="(bid, index) in bidDetail"
                 :key="index"
@@ -86,26 +86,26 @@
                 <div
                   class="select-none flex flex-1 items-center p-4 transition
                         duration-300 ease-in-out transform hover:-translate-y-1
-                        border-b border-b-1 border-light-blue-500 p-6 hover:shadow-lg"
+                        border-b border-b-1 border-light-blue-500 hover:shadow-lg"
+                  :class="{'bg-red-100 rounded-t': isEnd && index === bidDetail.length - 1 }"
                 >
-                  <div class="flex flex-col justify-center items-center mr-4">
+                  <div class="flex flex-col justify-center items-center mr-2 w-1/5">
                     <img
                       class="h-8 w-8 rounded-full object-cover"
-                      src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                      alt=""
+                      :src="bid.user.avatar_url"
+                      alt="頭像"
                     />
                   </div>
-                  <div class="flex flex-col justify-center items-start mr-4">
-                    <h3 class="text-lg font-bold">名稱：{{ bid.user.name }}</h3>
-                    <p class="text-sm">{{ bid.created_at | date }}</p>
-                    <!-- <p class="text-sm">02h 01m 前下標</p> -->
+                  <div class="flex flex-col justify-center items-start mr-4 w-2/5">
+                    <h3 class="text-md font-semibold">{{ bid.user.name }}</h3>
+                    <p class="text-xs font-extralight">{{ bid.created_at | date }}</p>
                   </div>
 
                   <div class="flex-1 flex-col justify-start self-start pl-1 mr-16">
                     <div class="font-medium"></div>
                   </div>
                   <div
-                    class="w-2/5 text-wrap text-center flex text-xs md:text-lg text-yellow-500 text-bold
+                    class="w-2/5 text-wrap text-center flex text-xs md:text-sm text-yellow-500 text-bold
                           flex-col rounded-md bg-white border-2 border-yellow-400 justify-center items-center p-2"
                   >
                     {{ bid.bid | separator | dollar }}
@@ -124,26 +124,6 @@
                 我要下標
               </button>
             </div>
-
-            <!-- {{ new Date()}}
-            <br/>
-            {{ auction.start_time }}
-            <br/>
-            {{new Date(auction.start_time)}}
-            <br/><br/>
-            {{ new Date() > new Date(auction.start_time) }}
-            <br/>
-            isPassedStartTime: {{isPassedStartTime}}
-            <br />
-            isWithinTime: {{isWithinTime}} -->
-
-            <!--
-              isPassedStartTime: false && isActive: false
-              isPassedStartTime: false && isActive: true
-              isPassedStartTime: true && isActive: false
-              isPassedStartTime: true && is&& isActive: true -> 可以看到按鈕
-
-             -->
           </div>
 
         </Tab>
@@ -156,11 +136,6 @@
         </Tab>
       </TabNav>
     </div>
-
-    <!--  MODAL  -->
-    <!-- <article v-show="toggleModal" class="absolute top-0 left-0 min-h-full w-full inset-0 bg-black opacity-60">
-        <div class="fixed overflow-x-hidden overflow-y-hidden inset-0"></div>
-      </article> -->
 
     <div
       v-if="toggleModal"
@@ -306,6 +281,9 @@ export default {
     },
     currentHighestBid() {
       return this.bidDetail.slice(-1)[0].bid;
+    },
+    isEnd() {
+      return new Date() > new Date(this.auction.end_time);
     },
     isPassedStartTime() {
       return new Date() > new Date(this.auction.start_time);

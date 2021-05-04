@@ -131,7 +131,7 @@ export default {
             message: error.response.status === 401 ? `競標出價失敗: ${error.response.data.error}，請重新登入。` : `錯誤 ${error.response.statusText} -  ${error.message}`,
           };
           context.dispatch('notification/add_notification', notification, { root: true });
-
+          context.dispatch('user/logout');
           throw error;
         });
     },

@@ -50,7 +50,7 @@
           class="h-full object-cover"
           :style="{ backgroundImage: `url(${heroAuction.images_url[0]})` }"
         >
-          <div class="h-full bg-black opacity-25"></div>
+          <div class="h-full bg-black opacity-10"></div>
         </div>
       </div>
     </div>
