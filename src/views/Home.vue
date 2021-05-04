@@ -14,17 +14,19 @@
             {{ heroAuction.description | truncate(110) }}
           </p>
           <h4 class="mt-14 text-lg font-bold">競標結束時間</h4>
-          <vac :end-time="heroAuction.end_time">
-            <template v-slot:process="{ timeObj }">
-              <h2 class="text-5xl font-extrabold">
-                {{ `${timeObj.d}:${timeObj.h}:${timeObj.m}:${timeObj.s}` }}
-              </h2>
-            </template>
-            <template v-slot:finish>
-              <span>Done!</span>
-            </template>
-          </vac>
-          <div class="flex justify-center lg:justify-start mt-6">
+          <div class="p-1 relative">
+            <vac :end-time="heroAuction.end_time" class="absolute top-0 left-0 right-0 mx-auto">
+              <template v-slot:process="{ timeObj }">
+                <h2 class="text-5xl font-extrabold">
+                  {{ `${timeObj.d}:${timeObj.h}:${timeObj.m}:${timeObj.s}` }}
+                </h2>
+              </template>
+              <template v-slot:finish>
+                <span>Done!</span>
+              </template>
+            </vac>
+          </div>
+          <div class="flex justify-center lg:justify-start mt-20">
             <div
               class="px-4 py-3 bg-gray-700 text-gray-200 text-xs
               font-semibold rounded hover:bg-gray-900 cursor-pointer"
@@ -46,10 +48,12 @@
         class="hidden md:block md:w-full"
         style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)"
       >
-        <div
+        <div class="h-full object-cover">
+        <!-- <div
           class="h-full object-cover"
           :style="{ backgroundImage: `url(${heroAuction.images_url[0]})` }"
-        >
+        > -->
+          <img :src="heroAuction.images_url[0]" alt="hero image" class="h-full object-cover w-full" />
           <div class="h-full bg-black opacity-10"></div>
         </div>
       </div>

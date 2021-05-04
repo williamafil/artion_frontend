@@ -12,7 +12,7 @@
     <agile :navButtons="false" :initial-slide="3" :autoplay="true" :autoplay-speed="4000" :fade="true" :speed="1000" :timing="ease">
       <!-- <template slot="prevButton"></template>
       <template slot="nextButton"></template> -->
-      <div class="slide" v-for="(img, index) in auction.images_url" :key="index">
+      <div class="block w-full h-500px object-cover" v-for="(img, index) in auction.images_url" :key="index">
         <img :src="img" alt="image">
       </div>
       <!-- <div class="slide">

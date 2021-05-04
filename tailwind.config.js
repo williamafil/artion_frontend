@@ -18,6 +18,7 @@ module.exports = {
     extend: {
       height: {
         '2000px': '2000px',
+        '500px': '500px',
       },
       flexGrow: {
         '0': 0,
