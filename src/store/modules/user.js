@@ -73,9 +73,23 @@ export default {
       context.commit('CLEAR_USER_DATA');
     },
     uploadAvatar(context, formDataPayload) {
-      return userAvatar(formDataPayload).then((res) => {
-        context.commit('SET_USER_AVATAR', res.data.avatar);
-      });
+      return userAvatar(formDataPayload)
+        .then((res) => {
+          const notification = {
+            type: 'SUCCESS',
+            message: '成功上傳頭像！',
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+
+          context.commit('SET_USER_AVATAR', res.data.avatar);
+        })
+        .catch((error) => {
+          const notification = {
+            type: 'ERROR',
+            message: `頭像上傳失敗: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
     updateNameField(context, objPayload) {
       return userUpdateName(context.state.user.id, objPayload).then((res) => {
@@ -84,10 +98,25 @@ export default {
     },
     registerAsArtist(context, objPayload) {
       console.log('objPayload regArtist: ', objPayload);
-      return userRegArtist(context.state.user.id, objPayload).then((res) => {
-        console.log('register as artist response: ', res);
-        context.commit('UPDATE_USER_AS_ARTIST');
-      });
+
+      return userRegArtist(context.state.user.id, objPayload)
+        .then((res) => {
+          console.log('register as artist response: ', res);
+          const notification = {
+            type: 'SUCCESS',
+            message: '成功註冊為藝術家！',
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+
+          context.commit('UPDATE_USER_AS_ARTIST');
+        })
+        .catch((error) => {
+          const notification = {
+            type: 'ERROR',
+            message: `註冊為藝術家失敗: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
   },
 
@@ -98,17 +127,8 @@ export default {
     isArtist(state) {
       return !!state.user.is_artist;
     },
-    // avatarUrl(state) {
-    //   console.log('State: ', state.user.user);
-    //   return state.user.avatar === null
-    //     ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
-    //     : state.user.avatar;
-    // },
     userName(state) {
       return state.user.name;
     },
-    // userId(state) {
-    //   return state.user.id;
-    // },
   },
 };

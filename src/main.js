@@ -8,6 +8,7 @@ import ActionCable from 'actioncable';
 import Vuelidate from 'vuelidate';
 import vueAwesomeCountdown from 'vue-awesome-countdown';
 import VueAgile from 'vue-agile';
+import 'nprogress/nprogress.css';
 
 import App from './App.vue';
 import router from './router';
@@ -18,9 +19,8 @@ Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by
 Vue.use(Vuelidate);
 Vue.use(VueAgile);
 
-// const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
-const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-// const cable = ActionCable.createConsumer('wss://artion.balliiballii.com/cable');
+// const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+const cable = ActionCable.createConsumer('wss://artion.balliiballii.com/cable');
 Vue.prototype.$cable = cable;
 
 Vue.config.productionTip = false;

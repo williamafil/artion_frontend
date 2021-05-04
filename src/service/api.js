@@ -1,13 +1,24 @@
 import axios from 'axios';
+import NProgress from 'nprogress';
 
 export const apiService = axios.create({
-  baseURL: 'http://localhost:3000',
-  // baseURL: 'https://artion.balliiballii.com',
+  // baseURL: 'http://localhost:3000',
+  baseURL: 'https://artion.balliiballii.com',
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+});
+
+apiService.interceptors.request.use((config) => {
+  NProgress.start();
+  return config;
+});
+
+apiService.interceptors.response.use((response) => {
+  NProgress.done();
+  return response;
 });
 
 // 註冊、登入、登出
