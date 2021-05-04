@@ -7,6 +7,7 @@ import avatarFilter from '@/filters/avatar';
 import ActionCable from 'actioncable';
 import Vuelidate from 'vuelidate';
 import vueAwesomeCountdown from 'vue-awesome-countdown';
+import VueAgile from 'vue-agile';
 
 import App from './App.vue';
 import router from './router';
@@ -15,6 +16,7 @@ import '@/assets/css/tailwind.css';
 
 Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by default
 Vue.use(Vuelidate);
+Vue.use(VueAgile);
 
 // const cable = ActionCable.createConsumer('ws:localhost:3000/cable');
 const cable = ActionCable.createConsumer('ws://localhost:3000/cable');

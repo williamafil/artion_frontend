@@ -2,8 +2,8 @@
   <div class="home">
     <!--  HERO begin  -->
     <div v-if="heroAuction" class="flex bg-white mb-4" style="height:600px;">
-      <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
-        <div class=" mx-20">
+      <div class="flex items-center text-center lg:text-left px-8 md:px-12 md:w-1/2">
+        <div class=" mx-16">
           <h2 class="uppercase text-3xl font-semibold text-gray-800 md:text-4xl">
             {{ heroAuction.title }}
             <span class="capitalize text-indigo-600 text-base"
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div
-        class="hidden lg:block lg:w-1/2"
+        class="hidden md:block md:w-full"
         style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)"
       >
         <div
