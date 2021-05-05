@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div
-                v-if="isArtist"
+                v-if="isLoggedIn && isArtist"
                 class="transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-yellow-50 cursor-pointer"
               >
                 <div class="p-5">
@@ -222,6 +222,7 @@
 </template>
 
 <script>
+import { authComputed } from '@/store/helpers';
 import { userData } from '@/service/api';
 import { mapState, mapGetters } from 'vuex';
 import MultipleHeart from '@/components/icons/MultipleHeart.vue';
@@ -255,6 +256,7 @@ export default {
     });
   },
   computed: {
+    ...authComputed,
     ...mapState('user', ['user']),
     ...mapGetters('user', ['isArtist']),
   },

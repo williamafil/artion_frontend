@@ -25,7 +25,7 @@
             個人資訊
           </router-link>
           <router-link
-            v-if="isArtist"
+            v-if="isLoggedIn && isArtist"
             :to="{ name: 'Sell' }"
             active-class="bg-yellow-200"
             class="mt-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-200 rounded"
@@ -40,7 +40,7 @@
             我的競標
           </router-link>
           <router-link
-            v-if="isArtist"
+            v-if="isLoggedIn && isArtist"
             :to="{ name: 'ArtistAuction' }"
             active-class="bg-yellow-200"
             class="mt-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-200 rounded"
@@ -100,10 +100,12 @@
 </template>
 
 <script>
+import { authComputed } from '@/store/helpers';
 import { mapGetters } from 'vuex';
 
 export default {
   computed: {
+    ...authComputed,
     ...mapGetters('user', ['isArtist']),
   },
 };

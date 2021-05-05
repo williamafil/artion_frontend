@@ -114,7 +114,7 @@
             </li>
             <li class="">
               <router-link
-                v-if="isArtist"
+                v-if="isLoggedIn && isArtist"
                 :to="{ name: 'Sell' }"
                 class="bg-gray-200 hover:bg-yellow-200 py-2 px-4 block whitespace-no-wrap"
               >
