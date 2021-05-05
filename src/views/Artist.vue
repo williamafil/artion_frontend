@@ -40,7 +40,7 @@ export default {
   },
   created() {
     fetchArtistInfo(this.$route.params.id).then((res) => {
-      console.log(res);
+      // console.log(res);
       this.info = res.data.data;
     });
   },

@@ -236,9 +236,9 @@ export default {
     this.$store.dispatch('auction/getAuction', this.id);
     this.$store.dispatch('auction/getBidDetail', this.id);
 
-    console.log('使用者登入狀態：', this.isLoggedIn);
+    // console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
-      console.log('使用者有登入');
+      // console.log('使用者有登入');
 
       this.bidChannel = this.$cable.subscriptions.create({
         channel: 'BidChannel',
@@ -247,7 +247,7 @@ export default {
       }, {
         received: (data) => {
           // this.messages.push(data);
-          console.log('接收 websocket資料：', data.message);
+          // console.log('接收 websocket資料：', data.message);
           this.$store.dispatch('auction/receiveMessage', data.message);
         },
       });
@@ -255,7 +255,7 @@ export default {
   },
   methods: {
     setSelected(tab) {
-      console.log('setSelected event listener: ', tab);
+      // console.log('setSelected event listener: ', tab);
       this.selected = tab;
     },
     submitBid() {
@@ -267,10 +267,10 @@ export default {
         })
         .then((response) => {
           if (response.type === 'FAIL') {
-            console.log('createBid response type = FAIL');
+            // console.log('createBid response type = FAIL');
             this.$store.dispatch('notification/add_notification', response);
           } else {
-            console.log('response 成功 開始 broadcast');
+            // console.log('response 成功 開始 broadcast');
             this.$store.dispatch('notification/add_notification', response);
             this.bidChannel.perform('speak', {
               message: response,
@@ -300,9 +300,9 @@ export default {
     isCreator() {
       const auctionCreator = this.auction.user_id;
       const myUserId = this.user.id;
-      console.log('auctionCreator: ', this.auction.user_id);
-      console.log('myUserId: ', this.user.id);
-      console.log('等於：', this.auction.user_id === this.user.id);
+      // console.log('auctionCreator: ', this.auction.user_id);
+      // console.log('myUserId: ', this.user.id);
+      // console.log('等於：', this.auction.user_id === this.user.id);
       return myUserId === auctionCreator;
     },
     isAnyBid() {

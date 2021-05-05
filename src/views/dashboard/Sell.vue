@@ -351,19 +351,19 @@ export default {
     },
   },
   methods: {
-    onStartChange(selectedDates, dateStr, instance) {
-      console.log('instance: ', instance);
+    onStartChange(selectedDates, dateStr) {
+      // console.log('instance: ', instance);
       this.$set(this.configs.end, 'minDate', dateStr);
     },
-    onEndChange(selectedDates, dateStr, instance) {
-      console.log('instance: ', instance);
+    onEndChange(selectedDates, dateStr) {
+      // console.log('instance: ', instance);
       this.$set(this.configs.start, 'maxDate', dateStr);
     },
 
     submit() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        console.log('submit');
+        // console.log('submit');
         const imgs = document.querySelector('#uploader');
         const formData = new FormData();
         formData.append('title', this.title);
@@ -383,8 +383,8 @@ export default {
         this.$store
           .dispatch('auction/createAuction', formData)
           .then((res) => {
-            console.log('router redirect to newly created auction');
-            console.log('response: ', res);
+            // console.log('router redirect to newly created auction');
+            // console.log('response: ', res);
             this.$router.push({
               name: 'Auction',
               params: { id: res.slug },

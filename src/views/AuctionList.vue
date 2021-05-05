@@ -99,7 +99,7 @@ export default {
   },
   created() {
     if (this.auctions.length === 0) {
-      console.log('在 vuex state 沒有存放 auctions');
+      // console.log('在 vuex state 沒有存放 auctions');
       this.$store.dispatch('auction/getAuctions');
     }
     this.getGenres();
@@ -138,7 +138,7 @@ export default {
     ...mapState('auction', ['auctions']),
     // ...mapState(['genres', 'artists']),
     filteredAuctions() {
-      console.log('this.conditions.genre:', this.conditions.genre);
+      // console.log('this.conditions.genre:', this.conditions.genre);
       return this.auctions
         .filter((x) => x.genre.name.includes(this.conditions.genre))
         .filter((x) => x.author_name.includes(this.conditions.artist))

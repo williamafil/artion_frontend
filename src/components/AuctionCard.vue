@@ -83,8 +83,8 @@ export default {
     ...authComputed,
     ...mapState('user', ['user']),
     isPassedStartTime() {
-      console.log('new Date(): ', new Date());
-      console.log('大於');
+      // console.log('new Date(): ', new Date());
+      // console.log('大於');
       // console.log('this.item.start_time: ', this.item.start_time);
       // console.log('new Date(this.start_time: ', new Date(this.item.start_time));
       // console.log('Date.parse(this.start_time): ', Date.parse(this.item.start_time));

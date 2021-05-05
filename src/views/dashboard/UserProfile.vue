@@ -119,29 +119,27 @@ export default {
   },
   methods: {
     onChangeHandler(e) {
-      console.log('upload file: ', e);
-      console.log('img: ', e.target.files[0]);
-      console.log('user_id: ', this.user.id);
+      // console.log('upload file: ', e);
+      // console.log('img: ', e.target.files[0]);
+      // console.log('user_id: ', this.user.id);
       const formData = new FormData();
       formData.append('user_id', this.user.id);
       formData.append('avatar', e.target.files[0]);
       // uploadHandler(userId, formData, tokenHeader);
 
-      console.log('formData', formData);
+      // console.log('formData', formData);
       this.$store.dispatch('user/uploadAvatar', formData);
     },
     submitForm() {
-      console.log('submit form:', this.name);
+      // console.log('submit form:', this.name);
       this.$store
         .dispatch('user/updateNameField', {
           name: this.name,
         })
         .then(() => {
-          console.log('更新成功');
+          // console.log('更新成功');
         })
-        .catch((error) => {
-          console.log('錯誤：', error);
-        });
+        .catch((error) => error);
     },
   },
   computed: {

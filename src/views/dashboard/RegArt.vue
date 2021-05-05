@@ -78,7 +78,7 @@ export default {
           },
         })
         .then(() => {
-          console.log('更新成藝術家成功');
+          // console.log('更新成藝術家成功');
           this.$router.push({ name: 'UserProfile' });
         });
     },

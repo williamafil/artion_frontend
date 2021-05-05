@@ -154,9 +154,9 @@ export default {
       removeLike(likeId).then((res) => {
         // console.log('this.auctionId: ', this.auctionId);
         if (res.status === 200) {
-          console.log('移除 愛心成功：', res);
+          // console.log('移除 愛心成功：', res);
           const removedItemIdx = this.followedAuctions.findIndex((item) => item.id === auctionId);
-          console.log('removedItem Index: ', removedItemIdx);
+          // console.log('removedItem Index: ', removedItemIdx);
           this.followedAuctions.splice(removedItemIdx, 1);
         }
       });

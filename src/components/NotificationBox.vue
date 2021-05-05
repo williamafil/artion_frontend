@@ -39,7 +39,7 @@ export default {
   methods: {
     ...mapActions('notification', ['remove_notification']),
     close() {
-      console.log('close btn clicked');
+      // console.log('close btn clicked');
       this.remove_notification(this.notification);
     },
   },

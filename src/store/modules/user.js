@@ -16,7 +16,7 @@ export default {
 
   mutations: {
     SET_USER_DATA(state, userData) {
-      console.log('userData: ', userData);
+      // console.log('userData: ', userData);
       state.user = { ...userData };
       localStorage.setItem('user', JSON.stringify(userData));
       apiService.defaults.headers.common.Authorization = userData.token;
@@ -60,7 +60,7 @@ export default {
       });
     },
     signup(context, credentialPayload) {
-      console.log('signup credentialPayload: ', credentialPayload);
+      // console.log('signup credentialPayload: ', credentialPayload);
       return userSignup({ user: credentialPayload }).then((res) => {
         const responseData = {
           ...res.data,
@@ -97,11 +97,11 @@ export default {
       });
     },
     registerAsArtist(context, objPayload) {
-      console.log('objPayload regArtist: ', objPayload);
+      // console.log('objPayload regArtist: ', objPayload);
 
       return userRegArtist(context.state.user.id, objPayload)
         .then((res) => {
-          console.log('register as artist response: ', res);
+          // console.log('register as artist response: ', res);
           const notification = {
             type: 'SUCCESS',
             message: '成功註冊為藝術家！',
@@ -109,6 +109,7 @@ export default {
           context.dispatch('notification/add_notification', notification, { root: true });
 
           context.commit('UPDATE_USER_AS_ARTIST');
+          return res;
         })
         .catch((error) => {
           const notification = {

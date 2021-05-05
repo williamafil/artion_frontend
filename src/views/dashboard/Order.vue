@@ -136,7 +136,7 @@ export default {
   },
   created() {
     fetchOrders(this.user.id).then((res) => {
-      console.log('fetch Orders', res);
+      // console.log('fetch Orders', res);
       this.orders = res.data.data.orders;
     });
   },

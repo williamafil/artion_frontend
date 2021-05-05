@@ -115,12 +115,12 @@ export default {
     // this.$store.dispatch('auction/getHeroAuction');
     fetchHeroAuction()
       .then((res) => {
-        console.log('hero auction response: ', res);
+        // console.log('hero auction response: ', res);
         this.heroAuction = res.data.data;
         // context.commit('SET_HERO_AUCTION', res.data.data);
       })
       .catch((error) => {
-        console.log('錯誤: ', error);
+        // console.log('錯誤: ', error);
         const notification = {
           type: 'ERROR',
           message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
@@ -130,11 +130,11 @@ export default {
 
     fetchProgress()
       .then((res) => {
-        console.log('inProgress response: ', res);
+        // console.log('inProgress response: ', res);
         this.inProgress = res.data.data;
       })
       .catch((error) => {
-        console.log('錯誤: ', error);
+        // console.log('錯誤: ', error);
         const notification = {
           type: 'ERROR',
           message: `無法取得目前進行中的拍賣資料: ${error.message}`,
@@ -144,12 +144,12 @@ export default {
 
     recentAuctions()
       .then((res) => {
-        console.log('hero auction response: ', res);
+        // console.log('hero auction response: ', res);
         this.recentAuctions = res.data.data;
         // context.commit('SET_HERO_AUCTION', res.data.data);
       })
       .catch((error) => {
-        console.log('錯誤: ', error);
+        // console.log('錯誤: ', error);
         const notification = {
           type: 'ERROR',
           message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     follow() {
-      console.log('follow');
+      // console.log('follow');
       if (!this.isLoggedIn) {
         const notification = {
           type: 'ERROR',
@@ -169,8 +169,8 @@ export default {
         };
         this.$store.dispatch('notification/add_notification', notification);
       } else {
-        console.log('我的user id: ', this.user.id);
-        console.log('this.heroAuction.id: ', this.heroAuction.id);
+        // console.log('我的user id: ', this.user.id);
+        // console.log('this.heroAuction.id: ', this.heroAuction.id);
 
         createLike({ user_id: this.user.id, auction_id: this.heroAuction.id }).then((res) => {
           if (res.status === 200) {

@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     heartHandler() {
-      console.log('heartHandler');
+      // console.log('heartHandler');
       const paramsObj = {
         user_id: this.userId,
         auction_id: this.auctionId,
@@ -66,7 +66,7 @@ export default {
         // 建立
         createLike(paramsObj).then((res) => {
           if (res.status === 200) {
-            console.log('新增愛心成功：', res);
+            // console.log('新增愛心成功：', res);
             this.state = true;
             this.id = res.data.data.id;
           }
@@ -75,7 +75,7 @@ export default {
         // 移除
         removeLike(this.id).then((res) => {
           if (res.status === 200) {
-            console.log('移除 愛心成功：', res);
+            // console.log('移除 愛心成功：', res);
             this.state = false;
             this.id = '';
           }

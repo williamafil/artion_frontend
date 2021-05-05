@@ -39,11 +39,11 @@ export default {
     getAuctions(context) {
       fetchAuctions()
         .then((res) => {
-          console.log('getAuctions response: ', res);
+          // console.log('getAuctions response: ', res);
           context.commit('SET_AUCTIONS', res.data.data);
         })
         .catch((error) => {
-          console.log('錯誤: ', error);
+          // console.log('錯誤: ', error);
           const notification = {
             type: 'ERROR',
             message: `無法取得所有拍賣資料: ${error.message}`,
@@ -54,11 +54,11 @@ export default {
     getRecentAuctions(context) {
       recentAuctions()
         .then((res) => {
-          console.log('getAuctions response: ', res);
+          // console.log('getAuctions response: ', res);
           context.commit('SET_AUCTIONS', res.data.data);
         })
         .catch((error) => {
-          console.log('錯誤: ', error);
+          // console.log('錯誤: ', error);
           const notification = {
             type: 'ERROR',
             message: `無法取得即將開始的拍賣: ${error.message}`,
@@ -92,8 +92,8 @@ export default {
     },
     getBidDetail(context, slug) {
       return fetchBidDetail(slug).then((res) => {
-        console.log('fetchBidDetail response: ', res);
-        console.log('context');
+        // console.log('fetchBidDetail response: ', res);
+        // console.log('context');
         if (res.data.data.bid_details !== 0) {
           context.commit('SET_BID_DETAIL', res.data.data.bid_details);
         } else {
@@ -110,7 +110,7 @@ export default {
               message: res.data.message,
             };
           }
-          console.log('createBid response: ', res);
+          // console.log('createBid response: ', res);
           // const notification = {
           //   type: 'SUCCESS',
           //   message: '競標出價成功！',
@@ -144,7 +144,7 @@ export default {
 
       return newAuc(formData)
         .then((res) => {
-          console.log('artist create auction: ', res);
+          // console.log('artist create auction: ', res);
           const notification = {
             type: 'SUCCESS',
             message: '新的拍賣建立成功！',
@@ -153,7 +153,7 @@ export default {
           return { slug: res.data.data.slug };
         })
         .catch((error) => {
-          console.log('錯誤: ', error);
+          // console.log('錯誤: ', error);
           const notification = {
             type: 'ERROR',
             message: `新建拍賣失敗: ${error.message}`,

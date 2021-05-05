@@ -157,7 +157,7 @@ export default {
           this.$router.push({ name: 'Dashboard' });
         })
         .catch((err) => {
-          console.log('錯誤: ', err.response.data);
+          // console.log('錯誤: ', err.response.data);
           this.errors = err.response.data.errors;
         });
     },

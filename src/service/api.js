@@ -2,8 +2,9 @@ import axios from 'axios';
 import NProgress from 'nprogress';
 
 export const apiService = axios.create({
+  baseURL: process.env.VUE_APP_API_BASE_URL,
   // baseURL: 'http://localhost:3000',
-  baseURL: 'https://artion.balliiballii.com',
+  // baseURL: 'https://artion.balliiballii.com',
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',

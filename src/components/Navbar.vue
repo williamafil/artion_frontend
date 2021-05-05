@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     logout() {
-      console.log('logout');
+      // console.log('logout');
       this.$store.dispatch('user/logout').then(() => {
         this.$router.push('/');
       });

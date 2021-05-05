@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     setTab(tab) {
-      console.log('click: $emit', tab);
+      // console.log('click: $emit', tab);
       this.$emit('selected', tab);
     },
   },
