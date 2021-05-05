@@ -246,7 +246,7 @@ export default {
     };
   },
   created() {
-    console.log('USER ID: ', this.user.id);
+    // console.log('USER ID: ', this.user.id);
     userData(this.user.id).then((res) => {
       this.numberOfFollows = res.data.data.number_of_follows;
       this.numberOfBids = res.data.data.number_of_bids;

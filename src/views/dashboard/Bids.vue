@@ -129,7 +129,7 @@ export default {
   },
   created() {
     follows(this.user.id).then((res) => {
-      console.log('followed auctions: ', res);
+      // console.log('followed auctions: ', res);
       this.bids = res.data.data.bid_details;
     });
   },

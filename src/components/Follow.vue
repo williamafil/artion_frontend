@@ -94,7 +94,7 @@ export default {
         this.state = true;
       })
       .catch((error) => {
-        console.log('error.response: ', error.response);
+        // console.log('error.response: ', error.response);
         this.$store.dispatch('notification/add_notification', {
           type: 'ERROR',
           message: `${error.response.status} ${error.response.data.error}，請重新登入`,
