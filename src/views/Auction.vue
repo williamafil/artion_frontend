@@ -233,14 +233,12 @@ export default {
     };
   },
   created() {
+    this.$store.dispatch('auction/getAuction', this.id);
+    this.$store.dispatch('auction/getBidDetail', this.id);
+
     console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
       console.log('使用者有登入');
-      // console.log('this.id: ', this.id);
-      // console.log('this.auction.id: ', this.auction.id);
-      // console.log('$store auction id', this.$store.state.auction.auction.id);
-
-      this.$store.dispatch('auction/getBidDetail', this.id);
 
       this.bidChannel = this.$cable.subscriptions.create({
         channel: 'BidChannel',
@@ -254,8 +252,6 @@ export default {
         },
       });
     }
-
-    this.$store.dispatch('auction/getAuction', this.id);
   },
   methods: {
     setSelected(tab) {
