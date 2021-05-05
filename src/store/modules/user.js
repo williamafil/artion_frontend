@@ -126,7 +126,7 @@ export default {
       return !!state.user;
     },
     isArtist(state) {
-      return !!state.user.is_artist;
+      return state.user.is_artist;
     },
     userName(state) {
       return state.user.name;
