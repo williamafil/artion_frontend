@@ -1,42 +1,30 @@
 <template>
   <div>
-    <div
-      class="w-full bg-cover bg-center relative"
-      style="height:32rem;"
-    >
-    <!-- <div
+    <div class="w-full bg-cover bg-center relative" style="height:32rem;">
+      <!-- <div
       class="w-full bg-cover bg-center relative"
       style="height:32rem;"
       :style="{ 'background-image': 'url(' + auction.images_url[randomBgImage] + ')' }"
     > -->
-    <agile :navButtons="false" :initial-slide="3" :autoplay="true" :autoplay-speed="4000" :fade="true" :speed="1000" :timing="ease">
-      <!-- <template slot="prevButton"></template>
+      <agile
+        :navButtons="false"
+        :initial-slide="3"
+        :autoplay="true"
+        :autoplay-speed="4000"
+        :fade="true"
+        :speed="1000"
+        timing="ease"
+      >
+        <!-- <template slot="prevButton"></template>
       <template slot="nextButton"></template> -->
-      <div class="block w-full h-500px object-cover" v-for="(img, index) in auction.images_url" :key="index">
-        <img :src="img" alt="image">
-      </div>
-      <!-- <div class="slide">
-        <img src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1524260855046-f743b3cdad07?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1526080676457-4544bf0ebba9?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1426170042593-200f250dfdaf?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1529815481058-55e5b656f6d6?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-      </div> -->
-    </agile>
+        <div
+          class="block w-full h-500px object-cover"
+          v-for="(img, index) in auction.images_url"
+          :key="index"
+        >
+          <img :src="img" alt="image" />
+        </div>
+      </agile>
 
       <div class="flex items-center justify-center w-full">
         <article class="absolute w-4/6 px-10  -bottom-20 flex justify-center items-center">
@@ -47,8 +35,10 @@
               <h3 class="text-2xl font-extrabold">{{ currentHighestBid | separator | dollar }}</h3>
               <label class="font-light text-sm">目前競標價格</label>
             </div>
-            <div v-else  class="flex flex-col justify-center items-end">
-              <h3 class="text-2xl font-extrabold">{{ auction.bidding_price | separator | dollar }}</h3>
+            <div v-else class="flex flex-col justify-center items-end">
+              <h3 class="text-2xl font-extrabold">
+                {{ parseInt(auction.bidding_price) | separator | dollar }}
+              </h3>
               <label class="font-light text-sm">此拍賣起標價</label>
             </div>
           </div>
@@ -85,8 +75,12 @@
       <div class="w-4/6 px-10 -bottom-20 flex justify-between items-center">
         <h3 class=""></h3>
         <h3 class="text-sm font-extralight leading-none">
-          <span class="block my-1">開始：{{ new Date(auction.start_time).toLocaleString('zh-TW') }}</span>
-          <span class="block my-1">結束：{{ new Date(auction.end_time).toLocaleString('zh-TW') }}</span>
+          <span class="block my-1">
+            開始：{{ new Date(auction.start_time).toLocaleString('zh-TW') }}
+          </span>
+          <span class="block my-1">
+            結束：{{ new Date(auction.end_time).toLocaleString('zh-TW') }}
+          </span>
         </h3>
       </div>
       <div class="w-4/6 px-10 mb-10 -bottom-20 flex justify-between items-center">
@@ -99,11 +93,15 @@
           <!-- 第一個 tab -->
           <div v-if="!isLoggedIn" class="my-10 ml-2">
             請
-            <router-link :to="{ name: 'Login' }" class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
+            <router-link
+              :to="{ name: 'Login' }"
+              class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
               >登入</router-link
             >
             或
-            <router-link :to="{ name: 'Register' }" class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
+            <router-link
+              :to="{ name: 'Register' }"
+              class="mx-2 p-2 border rounded-sm hover:bg-yellow-200"
               >註冊</router-link
             >
             來進行競標或查看目前競標狀態！
@@ -120,12 +118,16 @@
                   class="select-none flex flex-1 items-center p-4 transition
                         duration-300 ease-in-out transform hover:-translate-y-1
                         border-b border-b-1 border-light-blue-500 hover:shadow-lg"
-                  :class="{'bg-red-100 rounded-t': isEnd && index === bidDetail.length - 1 }"
+                  :class="{ 'bg-red-100 rounded-t': isEnd && index === bidDetail.length - 1 }"
                 >
                   <div class="flex flex-col justify-center items-center mr-2 w-1/5">
                     <img
                       class="h-8 w-8 rounded-full object-cover"
-                      :src="!bid.user.avatar_url ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png' : bid.user.avatar_url"
+                      :src="
+                        !bid.user.avatar_url
+                          ? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+                          : bid.user.avatar_url
+                      "
                       alt="頭像"
                     />
                   </div>
@@ -141,7 +143,7 @@
                     class="w-2/5 text-wrap text-center flex text-xs md:text-sm text-yellow-500 text-bold
                           flex-col rounded-md bg-white border-2 border-yellow-400 justify-center items-center p-2"
                   >
-                    {{ bid.bid | separator | dollar }}
+                    {{ parseInt(bid.bid) | separator | dollar }}
                   </div>
                 </div>
               </li>
@@ -158,7 +160,6 @@
               </button>
             </div>
           </div>
-
         </Tab>
         <Tab :isSelected="selected === '藝術品詳情'">
           <!-- 第二個 tab -->
@@ -182,10 +183,7 @@
               class="my-4 w-full h-14 bg-gray-200 text-2xl rounded p-2"
               v-model.number="bidPrice"
             />
-            <div
-              v-if="isCreator"
-              class="text-center text-red-500 text-sm"
-            >
+            <div v-if="isCreator" class="text-center text-red-500 text-sm">
               拍賣建立者無法投標
             </div>
             <button
@@ -238,19 +236,44 @@ export default {
 
     // console.log('使用者登入狀態：', this.isLoggedIn);
     if (this.isLoggedIn) {
-      // console.log('使用者有登入');
-
-      this.bidChannel = this.$cable.subscriptions.create({
-        channel: 'BidChannel',
-        // auction: this.auction.id,
-        auction_id: this.auction.id,
-      }, {
-        received: (data) => {
-          // this.messages.push(data);
-          // console.log('接收 websocket資料：', data.message);
-          this.$store.dispatch('auction/receiveMessage', data.message);
+      this.bidChannel = this.$cable.subscriptions.create(
+        {
+          channel: 'BidChannel',
+          // auction: this.auction.id,
+          auction_id: this.auction.id,
         },
-      });
+        {
+          connected: () => {
+            console.log('客戶端連線成功！');
+          },
+          disconnected: () => {
+            console.log('客戶端斷線!');
+          },
+          received: (data) => {
+            console.group('從伺服端取得資料...');
+            console.log(data);
+            console.groupEnd();
+            this.$store.dispatch('auction/receiveMessage', data.message);
+          },
+        },
+      );
+
+      // =======================================================================
+
+      // this.bidChannel = this.$cable.subscriptions.create(
+      //   {
+      //     channel: 'BidChannel',
+      //     // auction: this.auction.id,
+      //     auction_id: this.auction.id,
+      //   },
+      //   {
+      //     received: (data) => {
+      //       // this.messages.push(data);
+      //       // console.log('接收 websocket資料：', data.message);
+      //       this.$store.dispatch('auction/receiveMessage', data.message);
+      //     },
+      //   },
+      // );
     }
   },
   methods: {
@@ -318,7 +341,10 @@ export default {
       return new Date() > new Date(this.auction.start_time);
     },
     isWithinTime() {
-      return (new Date() > new Date(this.auction.start_time) && new Date() < new Date(this.auction.end_time));
+      return (
+        new Date() > new Date(this.auction.start_time) &&
+        new Date() < new Date(this.auction.end_time)
+      );
     },
     ...mapState('auction', ['auction', 'bidDetail']),
     ...mapState('user', ['user']),
@@ -375,7 +401,8 @@ export default {
   transition-duration: 0.3s;
   width: 10px;
 }
-.agile__dot--current button, .agile__dot:hover button {
+.agile__dot--current button,
+.agile__dot:hover button {
   background-color: #fff;
 }
 
@@ -383,7 +410,7 @@ export default {
   display: block;
   height: 500px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 100%;
 }
 </style>

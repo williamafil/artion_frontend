@@ -60,14 +60,28 @@ export default {
       });
     },
     signup(context, credentialPayload) {
-      // console.log('signup credentialPayload: ', credentialPayload);
-      return userSignup({ user: credentialPayload }).then((res) => {
-        const responseData = {
-          ...res.data,
-          token: res.headers.authorization,
-        };
-        context.commit('SET_USER_DATA', responseData);
-      });
+      return userSignup({ user: credentialPayload })
+        .then((res) => {
+          console.log('註冊後res: ', res);
+          const responseData = {
+            ...res.data,
+            token: res.headers.authorization,
+          };
+          context.commit('SET_USER_DATA', responseData);
+
+          const notification = {
+            type: 'SUCCESS',
+            message: '註冊成功！',
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        })
+        .catch((error) => {
+          const notification = {
+            type: 'ERROR',
+            message: `註冊失敗: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
     logout(context) {
       context.commit('CLEAR_USER_DATA');
@@ -75,13 +89,12 @@ export default {
     uploadAvatar(context, formDataPayload) {
       return userAvatar(formDataPayload)
         .then((res) => {
+          context.commit('SET_USER_AVATAR', res.data.avatar);
           const notification = {
             type: 'SUCCESS',
             message: '成功上傳頭像！',
           };
           context.dispatch('notification/add_notification', notification, { root: true });
-
-          context.commit('SET_USER_AVATAR', res.data.avatar);
         })
         .catch((error) => {
           const notification = {
@@ -92,9 +105,26 @@ export default {
         });
     },
     updateNameField(context, objPayload) {
-      return userUpdateName(context.state.user.id, objPayload).then((res) => {
-        context.commit('SET_USER_NAME', res.data.data.name);
-      });
+      return userUpdateName(context.state.user.id, objPayload)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit('SET_USER_NAME', res.data.data.name);
+            const notification = {
+              type: 'SUCCESS',
+              message: '使用者名稱更新成功！',
+            };
+            context.dispatch('notification/add_notification', notification, { root: true });
+          } else {
+            throw new Error('使用者名稱更新失敗');
+          }
+        })
+        .catch((error) => {
+          const notification = {
+            type: 'ERROR',
+            message: `使用者名稱更新失敗: ${error.message}`,
+          };
+          context.dispatch('notification/add_notification', notification, { root: true });
+        });
     },
     registerAsArtist(context, objPayload) {
       // console.log('objPayload regArtist: ', objPayload);

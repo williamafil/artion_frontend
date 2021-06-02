@@ -40,8 +40,8 @@
                 瀏覽照片
               </label>
 
-              <div class="mx-auto w-48 text-gray-500 text-xs text-center mt-1">
-                Click to add profile picture
+              <div class="mt-3 mx-auto w-48 text-gray-500 text-xs text-center mt-1">
+                點擊後可以選取要上傳的頭像
               </div>
 
               <input
@@ -52,19 +52,6 @@
                 type="file"
                 @change="onChangeHandler"
               />
-              <!-- <input
-                name="photo"
-                id="fileInput"
-                accept="image/*"
-                class="hidden"
-                type="file"
-                @change="
-                  let file = document.getElementById('fileInput').files[0];
-                  var reader = new FileReader();
-                  reader.onload = (e) => (image = e.target.result);
-                  reader.readAsDataURL(file);
-                "
-              /> -->
             </div>
             <div class="mb-5">
               <label for="name" class="font-bold mb-1 text-gray-700 block">會員身份</label>
@@ -85,25 +72,29 @@
               </div>
               <div class="text-center">
                 <router-link v-if="!isArtist" :to="{ name: 'RegisterArtist' }">
-                  <button type="button" class="mx-2 py-3 px-5 rounded-lg shadow-sm bg-gray-50">
+                  <button
+                    type="button"
+                    class="mx-2 py-3 px-5 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-200"
+                  >
                     登記為藝術家
                   </button>
                 </router-link>
-                <button type="submit" class="mx-2 py-3 px-5 rounded-lg shadow-sm">
+                <button
+                  type="submit"
+                  class="mx-2 py-3 px-5 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-200"
+                >
                   更新資料
                 </button>
               </div>
             </form>
           </div>
         </div>
-        <!-- / Step Content -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
 import { authComputed } from '@/store/helpers';
 import { mapState } from 'vuex';
 
@@ -119,26 +110,17 @@ export default {
   },
   methods: {
     onChangeHandler(e) {
-      // console.log('upload file: ', e);
-      // console.log('img: ', e.target.files[0]);
-      // console.log('user_id: ', this.user.id);
       const formData = new FormData();
       formData.append('user_id', this.user.id);
       formData.append('avatar', e.target.files[0]);
-      // uploadHandler(userId, formData, tokenHeader);
-
-      // console.log('formData', formData);
       this.$store.dispatch('user/uploadAvatar', formData);
     },
     submitForm() {
-      // console.log('submit form:', this.name);
       this.$store
         .dispatch('user/updateNameField', {
           name: this.name,
         })
-        .then(() => {
-          // console.log('更新成功');
-        })
+        .then(() => {})
         .catch((error) => error);
     },
   },

@@ -19,8 +19,8 @@ Vue.use(vueAwesomeCountdown, 'vac'); // Component name, `countdown` and `vac` by
 Vue.use(Vuelidate);
 Vue.use(VueAgile);
 
+console.log('process.env.VUE_APP_WEBSOCKET_URL: ', process.env.VUE_APP_WEBSOCKET_URL);
 const cable = ActionCable.createConsumer(process.env.VUE_APP_WEBSOCKET_URL);
-// const cable = ActionCable.createConsumer('wss://artion.balliiballii.com/cable');
 Vue.prototype.$cable = cable;
 
 Vue.config.productionTip = false;
@@ -42,7 +42,8 @@ new Vue({
     }
 
     // AXIOS 攔截器
-    axios.interceptors.response.use((response) => response,
+    axios.interceptors.response.use(
+      (response) => response,
       (error) => {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
@@ -52,7 +53,8 @@ new Vue({
         }
 
         return Promise.reject(error);
-      });
+      },
+    );
   },
   render: (h) => h(App),
 }).$mount('#app');

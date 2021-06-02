@@ -66,21 +66,6 @@ export default {
           context.dispatch('notification/add_notification', notification, { root: true });
         });
     },
-    // getHeroAuction(context) {
-    //   fetchHeroAuction()
-    //     .then((res) => {
-    //       console.log('hero auction response: ', res);
-    //       context.commit('SET_HERO_AUCTION', res.data.data);
-    //     })
-    //     .catch((error) => {
-    //       console.log('錯誤: ', error);
-    //       const notification = {
-    //         type: 'ERROR',
-    //         message: `無法取得首頁抬頭拍賣資料: ${error.message}`,
-    //       };
-    //       context.dispatch('notification/add_notification', notification, { root: true });
-    //     });
-    // },
     getAuction(context, slug) {
       const auction = context.getters.getAuctionBySlugId(slug);
       if (auction) {
@@ -92,8 +77,6 @@ export default {
     },
     getBidDetail(context, slug) {
       return fetchBidDetail(slug).then((res) => {
-        // console.log('fetchBidDetail response: ', res);
-        // console.log('context');
         if (res.data.data.bid_details !== 0) {
           context.commit('SET_BID_DETAIL', res.data.data.bid_details);
         } else {
@@ -104,6 +87,7 @@ export default {
     createBid(context, objPayload) {
       return createBid(objPayload)
         .then((res) => {
+          console.log('成功下標後的res：', res);
           if (res.data.status === 'FAIL') {
             return {
               type: 'ERROR',
@@ -128,7 +112,10 @@ export default {
           // console.dir('錯誤status: ', error);
           const notification = {
             type: 'ERROR',
-            message: error.response.status === 401 ? `競標出價失敗: ${error.response.data.error}，請重新登入。` : `錯誤 ${error.response.statusText} -  ${error.message}`,
+            message:
+              error.response.status === 401
+                ? `競標出價失敗: ${error.response.data.error}，請重新登入。`
+                : `錯誤 ${error.response.statusText} -  ${error.message}`,
           };
           context.dispatch('notification/add_notification', notification, { root: true });
           context.dispatch('user/logout');

@@ -21,15 +21,27 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
     'no-confusing-arrow': ['error', { allowParens: true }],
+    // 'operator-linebreak': [
+    //   'error',
+    //   'after',
+    //   {
+    //     overrides: {
+    //       ':': 'before',
+    //     },
+    //   },
+    // ],
+    // 'operator-linebreak': [2, 'before', { overrides: { '?': 'before', ':': 'before' } }],
     'operator-linebreak': [
-      'error',
+      2,
       'after',
       {
         overrides: {
+          '?': 'before',
           ':': 'before',
         },
       },
     ],
+    // 'operator-linebreak': [2, 'before', { overrides: { '?': 'after', '+=': 'none' } }],
     // 'vue/no-parsing-error': [
     //   'error',
     //   {

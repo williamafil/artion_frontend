@@ -24,10 +24,7 @@
     </div>
 
     <div class="z-10 hidden sm:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
-      <router-link
-        :to="{ name: 'Home' }"
-        class="font-lora text-4xl font-extrabold mx-5 my-1 p-1"
-      >
+      <router-link :to="{ name: 'Home' }" class="font-lora text-4xl font-extrabold mx-5 my-1 p-1">
         <h1>artion</h1>
       </router-link>
     </div>
@@ -75,7 +72,7 @@
         登入
       </router-link>
       <div v-if="isLoggedIn" class="flex items-center justify-end">
-        <CartIcon class="w-9 h-9 mx-3" />
+        <!-- <CartIcon class="w-9 h-9 mx-3" /> -->
         <div class="dropdown inline-block relative">
           <button
             aria-haspopup="true"
@@ -97,9 +94,13 @@
             /> -->
           </button>
 
-          <ul class="text-sm dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28">
+          <ul
+            class="text-sm dropdown-menu absolute mt-8 top-0 right-0 hidden text-gray-700 pt-1 w-28"
+          >
             <li class="">
-              <div class="rounded-t bg-gray-300 border-b py-2 border-gray-400 px-4 block whitespace-no-wrap">
+              <div
+                class="rounded-t bg-gray-300 border-b py-2 border-gray-400 px-4 block whitespace-no-wrap"
+              >
                 嗨，{{ user.name }}
               </div>
             </li>
@@ -148,11 +149,11 @@
 <script>
 import { mapState } from 'vuex';
 import { authComputed } from '@/store/helpers';
-import CartIcon from './icons/CartIcon.vue';
+// import CartIcon from './icons/CartIcon.vue';
 
 export default {
   name: 'Navbar',
-  components: { CartIcon },
+  // components: { CartIcon },
   computed: {
     ...authComputed,
     ...mapState('user', ['user']),

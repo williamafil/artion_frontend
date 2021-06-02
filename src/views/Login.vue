@@ -10,7 +10,7 @@
             bg-white rounded-lg shadow-md lg:shadow-lg"
       >
         <!-- Card Title -->
-        <h2 class="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
+        <h2 class="text-center font-semibold text-3xl lg:text-3xl text-gray-800">
           登入
         </h2>
 
@@ -67,13 +67,13 @@
 
           <!-- Another Auth Routes -->
           <div class="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-            <a href="forgot-password" class="flex-2 underline">
+            <!-- <a href="forgot-password" class="flex-2 underline">
               忘記密碼?
             </a>
 
             <p class="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
               or
-            </p>
+            </p> -->
 
             <router-link :to="{ name: 'Register' }" class="flex-2 underline">
               建立帳號
