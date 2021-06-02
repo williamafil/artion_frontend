@@ -82,14 +82,10 @@
           "
           >
             <span class="sr-only">Open user menu</span>
-            <img
-              class="h-8 w-8 rounded-full object-cover"
-              :src="user.avatar || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
-              alt="Avatar"
-            />
+            <img class="h-8 w-8 rounded-full object-cover" :src="user.avatar" alt="Avatar" />
             <!-- <img
               class="h-8 w-8 rounded-full object-cover"
-              :src="avatarUrl || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
+              :src="user.avatar || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
               alt="Avatar"
             /> -->
           </button>

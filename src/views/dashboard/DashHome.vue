@@ -248,12 +248,18 @@ export default {
   },
   created() {
     // console.log('USER ID: ', this.user.id);
-    userData(this.user.id).then((res) => {
-      this.numberOfFollows = res.data.data.number_of_follows;
-      this.numberOfBids = res.data.data.number_of_bids;
-      this.numberOfAuctions = res.data.data.number_of_auctions;
-      this.numberOfUnpaidOrders = res.data.data.number_of_unpaid_orders;
-    });
+    userData(this.user.id)
+      .then((res) => {
+        this.numberOfFollows = res.data.data.number_of_follows;
+        this.numberOfBids = res.data.data.number_of_bids;
+        this.numberOfAuctions = res.data.data.number_of_auctions;
+        this.numberOfUnpaidOrders = res.data.data.number_of_unpaid_orders;
+      })
+      .catch((error) => {
+        console.error('error: ', error.response);
+        this.$store.dispatch('logout');
+        this.$router.push({ name: 'Login' });
+      });
   },
   computed: {
     ...authComputed,

@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     login() {
-      // console.log('login');
       this.$store
         .dispatch('user/login', {
           email: this.email,
@@ -107,8 +106,6 @@ export default {
           this.$router.push({ name: 'Dashboard' });
         })
         .catch((error) => {
-          // console.log('錯誤: ', error);
-          // console.log('錯誤: ', error.response.data.error);
           this.error = error.response.data.error;
         });
     },
