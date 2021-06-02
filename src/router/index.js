@@ -187,6 +187,7 @@ router.beforeEach((to, from, next) => {
   // to.matched.some will return an array containing requiredAuth [false, true, false, ...]
   if (to.matched.some((record) => record.meta.requiredAuth)) {
     // if requiredAuth is TRUE, check if user is logged in
+    console.log('isUserLoggedIn: ', isUserLoggedIn);
     if (!isUserLoggedIn) {
       const notification = {
         type: 'ERROR',
