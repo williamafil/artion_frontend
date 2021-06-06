@@ -4,7 +4,7 @@
     <div id="nav">
       <Navbar />
     </div>
-    <div class="h-full">
+    <div class="h-full container mx-auto">
       <router-view />
     </div>
     <div id="footer" class="">
@@ -25,7 +25,6 @@ export default {
     Footer,
   },
 };
-
 </script>
 
 <style lang="scss">
@@ -36,5 +35,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>

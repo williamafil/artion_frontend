@@ -129,7 +129,7 @@ export default {
   },
   created() {
     aucs(this.user.id).then((res) => {
-      console.log('followed auctions: ', res);
+      // console.log('followed auctions: ', res);
       this.auctions = res.data.data.auctions;
     });
   },

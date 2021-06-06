@@ -2,22 +2,27 @@
   <div class="home">
     <!--  HERO begin  -->
     <div v-if="heroAuction" class="flex bg-white mb-4" style="height:600px;">
-      <div class="flex items-center text-center lg:text-left px-8 md:px-12 md:w-1/2">
-        <div class=" mx-16">
-          <h2 class="uppercase text-3xl font-semibold text-gray-800 md:text-4xl">
+      <div
+        class="mx-auto flex justify-center text-center items-center lg:text-left px-8 md:px-12 md:w-1/2"
+      >
+        <div class="w-72">
+          <h2
+            class="uppercase text-3xl font-semibold text-gray-800 md:text-3xl xl:text-4xl xl:font-extrabold"
+          >
             {{ heroAuction.title }}
-            <span class="capitalize text-indigo-600 text-base"
+            <span
+              class="md:block  md:text-lg capitalize text-indigo-600 text-base xl:text-2xl xl:font-bold"
               >by {{ heroAuction.author_name }}</span
             >
           </h2>
-          <p class="mt-2 text-sm text-gray-500 md:text-base">
+          <p class="mt-2 text-base text-gray-500 md:text-base xl:text-lg xl:mt-4">
             {{ heroAuction.description | truncate(110) }}
           </p>
-          <h4 class="mt-14 text-lg font-bold">競標結束時間</h4>
+          <h4 class="mt-14 text-lg font-medium xl:text-xl">競標結束時間</h4>
           <div class="p-1 relative">
             <vac :end-time="heroAuction.end_time" class="absolute top-0 left-0 right-0 mx-auto">
               <template v-slot:process="{ timeObj }">
-                <h2 class="text-5xl font-extrabold">
+                <h2 class="text-5xl font-extrabold md:text-4xl md:mt-2 xl:text-5xl">
                   {{ `${timeObj.d}:${timeObj.h}:${timeObj.m}:${timeObj.s}` }}
                 </h2>
               </template>
@@ -28,18 +33,16 @@
           </div>
           <div class="flex justify-center lg:justify-start mt-20">
             <div
-              class="px-4 py-3 bg-gray-700 text-gray-200 text-xs
-              font-semibold rounded hover:bg-gray-900 cursor-pointer"
+              class="px-4 py-3 bg-gray-700 text-gray-200 font-extralight text-sm lg:text-sm lg:font-light xl:text-base xl:font-light rounded hover:bg-gray-900 cursor-pointer"
               @click="follow"
             >
               關注此競標
             </div>
             <router-link
-              :to="{ name:'Auction', params: {id: this.heroAuction.slug} }"
-              class="mx-4 px-4 py-3 bg-yellow-300 text-gray-900 text-xs
-                    font-semibold rounded hover:bg-yellow-400"
-              >
-                了解詳情
+              :to="{ name: 'Auction', params: { id: this.heroAuction.slug } }"
+              class="mx-4 px-4 py-3 bg-yellow-300 text-gray-900 font-extralight text-sm lg:text-sm lg:font-light xl:text-base xl:font-light rounded hover:bg-yellow-400"
+            >
+              了解詳情
             </router-link>
           </div>
         </div>
@@ -49,11 +52,15 @@
         style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)"
       >
         <div class="h-full object-cover">
-        <!-- <div
+          <!-- <div
           class="h-full object-cover"
           :style="{ backgroundImage: `url(${heroAuction.images_url[0]})` }"
         > -->
-          <img :src="heroAuction.images_url[0]" alt="hero image" class="h-full object-cover w-full" />
+          <img
+            :src="heroAuction.images_url[0]"
+            alt="hero image"
+            class="h-full object-cover w-full"
+          />
           <div class="h-full bg-black opacity-10"></div>
         </div>
       </div>

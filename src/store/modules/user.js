@@ -16,7 +16,7 @@ export default {
 
   mutations: {
     SET_USER_DATA(state, userData) {
-      console.log('userData: ', userData);
+      // console.log('userData: ', userData);
       state.user = { ...userData };
       localStorage.setItem('user', JSON.stringify(userData));
       apiService.defaults.headers.common.Authorization = userData.token;
@@ -92,7 +92,7 @@ export default {
     uploadAvatar(context, formDataPayload) {
       return userAvatar(formDataPayload)
         .then((res) => {
-          console.log('上傳頭像res: ', res);
+          // console.log('上傳頭像res: ', res);
           context.commit('SET_USER_AVATAR', res.data.avatar);
           const notification = {
             type: 'SUCCESS',
