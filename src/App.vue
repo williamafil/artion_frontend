@@ -4,7 +4,7 @@
     <div id="nav">
       <Navbar />
     </div>
-    <div class="h-full container mx-auto">
+    <div class="h-full">
       <router-view />
     </div>
     <div id="footer" class="">

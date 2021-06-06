@@ -6,12 +6,12 @@
           items-center container mx-auto"
     >
       <div class="flex">
-        <button class="h-8 w-8 sm:hidden">
+        <button class="h-8 w-8 md:hidden">
           <svg
-            class="w-8 h-8"
+            class="w-10 h-10 outline-none"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            view-box="0 0 24 24"
+            view-box="0 0 20 20"
             stroke="currentColor"
           >
             <path
@@ -24,12 +24,12 @@
         </button>
       </div>
 
-      <div class="z-10 hidden sm:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
+      <div class="z-10 hidden md:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
         <router-link :to="{ name: 'Home' }" class="font-lora text-4xl font-extrabold mx-5 my-1 p-1">
           <h1>artion</h1>
         </router-link>
       </div>
-      <div class="z-10 hidden sm:block flex-grow">
+      <div class="z-10 hidden md:block flex-grow">
         <div class="flex justify-center">
           <router-link
             :to="{ name: 'AuctionList' }"
