@@ -1,29 +1,100 @@
 <template>
-  <div class="w-full bg-gray-100  relative">
-    <div class="absolute inset-0 shadow-lg opacity-50"></div>
+  <div class="z-50 w-full bg-gray-100 fixed md:relative">
+    <div
+      :class="{ 'hidden bg-blue-100': !isMenuOpen }"
+      class="z-20 fixed top-16 bottom-0 left-0 right-0 md:hidden bg-gray-50 h-screen w-full"
+    >
+      <ul class="text-center mt-10">
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'Home' }"
+            active-class=""
+            exact-active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            首頁
+          </router-link>
+        </li>
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'AuctionList' }"
+            active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            拍賣
+          </router-link>
+        </li>
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'ArtistList' }"
+            active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            藝術家
+          </router-link>
+        </li>
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'Exhibition' }"
+            active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            精選展覽
+          </router-link>
+        </li>
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'About' }"
+            active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            關於我們
+          </router-link>
+        </li>
+        <li class="my-16">
+          <router-link
+            :to="{ name: 'Contact' }"
+            active-class="border-b-8 border-gray-500"
+            class="text-4xl tracking-widest font-semibold hover:text-yellow-400"
+          >
+            聯繫我們
+          </router-link>
+        </li>
+        <li>
+          <button
+            @click.prevent="toggleMenu"
+            class="font-medium text-md p-2 rounded-lg border-2 border-gray-200 tracking-wide"
+          >
+            關閉選單
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="absolute inset-0 shadow-lg opacity-50 z-40"></div>
+
     <header
       class="z-50 w-full h-16 z-thousand sticky top-0 px-5 py-3 flex justify-between
           items-center container mx-auto"
     >
       <div class="flex">
-        <button class="h-8 w-8 md:hidden">
+        <button class="md:hidden" @click="toggleMenu">
           <svg
-            class="w-10 h-10 outline-none"
             xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
             fill="none"
-            view-box="0 0 20 20"
+            viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="{1.5}"
+              stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
         </button>
       </div>
-      <div class="md:hidden bg-pink-100 h-full"></div>
+
       <div class="z-10 hidden md:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
         <router-link :to="{ name: 'Home' }" class="font-lora text-4xl font-extrabold mx-5 my-1 p-1">
           <h1>artion</h1>
@@ -152,11 +223,21 @@ import { authComputed } from '@/store/helpers';
 export default {
   name: 'Navbar',
   // components: { CartIcon },
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
   computed: {
     ...authComputed,
     ...mapState('user', ['user']),
   },
   methods: {
+    toggleMenu() {
+      console.log('toggle menu');
+      this.isMenuOpen = !this.isMenuOpen;
+      console.log('isMenuOpen:', this.isMenuOpen);
+    },
     logout() {
       // console.log('logout');
       this.$store.dispatch('user/logout').then(() => {
