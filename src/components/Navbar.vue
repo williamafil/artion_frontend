@@ -23,7 +23,7 @@
           </svg>
         </button>
       </div>
-
+      <div class="md:hidden bg-pink-100 h-full"></div>
       <div class="z-10 hidden md:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
         <router-link :to="{ name: 'Home' }" class="font-lora text-4xl font-extrabold mx-5 my-1 p-1">
           <h1>artion</h1>
