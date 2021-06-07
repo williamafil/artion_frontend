@@ -1,21 +1,7 @@
 <template>
   <div class="md:h-auto">
     <div class="bg-gray-200 w-full static top-32 md:static md:top-32">
-      <!-- <div class="mx-8"> -->
-      <div class="">
-        <!-- <div class="spacer h-20 md:h-16"></div> -->
-
-        <!-- <div class="relative overflow-hidden h-96">
-          <img
-            class="opacity-60 absolute left-0 top-0 w-full h-auto"
-            src="https://images.unsplash.com/photo-1595944569184-ef0d8e315249?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80"
-            alt=""
-          />
-          <div class="bg-pink-500 relative top-50 right-0 left-0">
-            <h1>Hello World!</h1>
-          </div>
-        </div> -->
-
+      <div>
         <div
           class="w-full bg-cover bg-center opacity-70"
           style="height:32rem; background-image: url(https://images.unsplash.com/photo-1595944569184-ef0d8e315249?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80)"
@@ -30,8 +16,8 @@
                 <li>2021年5月28日</li>
               </ul>
             </section>
-            <section class="bg-white w-1/2">
-              <div class="h-96 overflow-hidden">
+            <section class="w-1/2">
+              <div class="w-full h-96 overflow-hidden">
                 <img
                   class="transform scale-125"
                   src="https://collectionapi.metmuseum.org/api/collection/v1/iiif/10827/33433/main-image"
@@ -40,7 +26,7 @@
             </section>
           </div>
         </div>
-        <article class="mt-36 container mx-auto px-10 tracking-wide">
+        <article class="mt-36 container mx-auto md:w-3/4 px-10 tracking-wide">
           <p class="text-gray-600 mb-8">
             愛麗絲·尼爾（AliceNeel）：《人民至上》是二十年來美國藝術家愛麗絲·尼爾（1900--1984）在紐約進行的首次博物館回顧展。這項雄心勃勃的調查將Neel定位為本世紀最激進的畫家之一，是社會正義的擁護者，他對人本主義原則的長期承諾激發了她的生活以及她的藝術，這一點將在大約一百幅油畫，素描和水彩畫中得到印證。在大都會的調查中。
             <br /><br />
