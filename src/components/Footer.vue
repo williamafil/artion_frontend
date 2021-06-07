@@ -1,10 +1,12 @@
 <template>
-  <footer class="w-full h-80 sticky border-t-2 bg-gray-100">
-    <div class="container h-full mx-auto flex">
-      <section class="p-10 w-2/6 flex flex-col justify-start items-end">
-        <h2 class="mr-20 text-3xl font-black tracking-wide">artion</h2>
+  <footer class="w-full h-80 border-t-2 bg-gray-100">
+    <div class="container mx-auto h-full flex flex-col md:flex-row md:justify-center">
+      <section class="ml-10 mt-6">
+        <h2 class="mr-20 text-3xl font-black tracking-wide">
+          artion
+        </h2>
       </section>
-      <section class="p-10 w-4/6 flex">
+      <section class="p-10 pb-0 w-4/6 flex">
         <div class="h-full w-1/3">
           <ul class="text-left">
             <li class="mb-4 text-sm font-semibold">

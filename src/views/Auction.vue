@@ -1,11 +1,6 @@
 <template>
   <div>
     <div class="w-full bg-cover bg-center relative" style="height:32rem;">
-      <!-- <div
-      class="w-full bg-cover bg-center relative"
-      style="height:32rem;"
-      :style="{ 'background-image': 'url(' + auction.images_url[randomBgImage] + ')' }"
-    > -->
       <agile
         :navButtons="false"
         :initial-slide="3"

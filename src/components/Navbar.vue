@@ -1,5 +1,6 @@
 <template>
   <div class="z-50 w-full bg-gray-100 fixed md:relative">
+    <!-- Mobile Menu -->
     <div
       :class="{ 'hidden bg-blue-100': !isMenuOpen }"
       class="z-20 fixed top-16 bottom-0 left-0 right-0 md:hidden bg-gray-50 h-screen w-full"
@@ -72,6 +73,7 @@
     </div>
     <div class="absolute inset-0 shadow-lg opacity-50 z-40"></div>
 
+    <!-- Desktop Menu -->
     <header
       class="z-50 w-full h-16 z-thousand sticky top-0 px-5 py-3 flex justify-between
           items-center container mx-auto"
