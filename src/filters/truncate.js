@@ -5,5 +5,5 @@ export default (value, num) => {
     return value;
   }
   // Return str truncated with '...' concatenated to the end of str.
-  return `${value.slice(0, num)}...`;
+  return `${value.slice(0, num)} ...`;
 };
