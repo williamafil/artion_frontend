@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="w-full bg-cover bg-center relative" style="height:32rem;">
+    <div class="w-full bg-cover bg-center relative">
+      <!-- <div class="w-full bg-cover bg-center relative" style="height:32rem;"> -->
       <agile
         :navButtons="false"
         :initial-slide="3"
@@ -13,43 +14,62 @@
         <!-- <template slot="prevButton"></template>
       <template slot="nextButton"></template> -->
         <div
-          class="block w-full h-500px object-cover"
+          class="block w-full h-full object-cover"
           v-for="(img, index) in auction.images_url"
           :key="index"
         >
+          <!-- <div
+          class="block w-full h-500px object-cover"
+          v-for="(img, index) in auction.images_url"
+          :key="index"
+        > -->
           <img :src="img" alt="image" />
         </div>
       </agile>
 
       <div class="flex items-center justify-center w-full">
-        <article class="absolute w-4/6 px-10  -bottom-20 flex justify-center items-center">
+        <article
+          class="absolute w-full sm:w-5/6 px-10  -bottom-20 flex justify-center items-center"
+        >
           <div
-            class="flex flex-col justify-center items-end h-36 w-3/6 bg-gray-200 rounded-l-lg px-10"
+            class="flex flex-col justify-center items-end h-20 sm:h-36 w-full bg-gray-200 rounded-l-lg px-2 sm:px-4"
           >
             <div v-if="isAnyBid" class="flex flex-col justify-center items-end">
-              <h3 class="text-2xl font-extrabold">{{ currentHighestBid | separator | dollar }}</h3>
-              <label class="font-light text-sm">目前競標價格</label>
+              <h3
+                class="text-lg sm:text-3xl lg:text-4xl font-medium sm:font-bold lg:font-extrabold tracking-wider"
+              >
+                {{ currentHighestBid | separator | dollar }}
+              </h3>
+              <label class="font-light text-sm sm:text-lg">目前競標價格</label>
             </div>
             <div v-else class="flex flex-col justify-center items-end">
-              <h3 class="text-2xl font-extrabold">
+              <h3
+                class="text-base sm:text-3xl lg:text-4xl font-medium sm:font-bold lg:font-extrabold tracking-wider"
+              >
                 {{ parseInt(auction.bidding_price) | separator | dollar }}
               </h3>
-              <label class="font-light text-sm">此拍賣起標價</label>
+              <label class="font-light text-sm sm:text-lg">起標價格</label>
             </div>
           </div>
 
           <div
-            class="flex flex-col items-start justify-center h-36 w-3/6 bg-gray-100 rounded-r-lg px-10"
+            class="flex flex-col items-start justify-center h-20 sm:h-36  w-full bg-gray-100 rounded-r-lg px-2 sm:px-4"
           >
-            <h3 class="text-2xl font-extrabold">
+            <h3
+              class="text-base sm:text-3xl lg:text-4xl font-medium sm:font-bold lg:font-extrabold"
+            >
               <div v-if="!isPassedStartTime">
                 競標時間未開始
               </div>
               <div v-else>
                 <vac :end-time="auction.end_time">
                   <template v-slot:process="{ timeObj }">
-                    <h2 class="text-2xl font-extrabold">
-                      {{ `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}` }}
+                    <h2
+                      class="text-base sm:text-3xl lg:text-4xl font-medium sm:font-bold lg:font-extrabold"
+                    >
+                      {{
+                        `${timeObj.d}d ${timeObj.h}h ${timeObj.m}m ${timeObj.s}`
+                      }}
                     </h2>
                   </template>
                   <template v-slot:finish>
@@ -58,7 +78,11 @@
                 </vac>
               </div>
             </h3>
-            <label v-if="isPassedStartTime" class="font-light text-sm">競標結束時間</label>
+            <label
+              v-if="isPassedStartTime"
+              class="font-light text-sm sm:text-lg"
+              >競標結束時間</label
+            >
           </div>
         </article>
       </div>
@@ -68,22 +92,48 @@
       class="relative container mt-40 mb-2 flex flex-col mx-auto w-full items-center justify-center"
     >
       <div class="w-4/6 px-10 -bottom-20 flex justify-between items-center">
-        <h3 class=""></h3>
-        <h3 class="text-sm font-extralight leading-none">
-          <span class="block my-1">
-            開始：{{ new Date(auction.start_time).toLocaleString('zh-TW') }}
-          </span>
-          <span class="block my-1">
-            結束：{{ new Date(auction.end_time).toLocaleString('zh-TW') }}
-          </span>
+        <!-- <h3 class=""></h3> -->
+        <h3 class="text-sm font-extralight leading-none mb-4 mx-auto sm:mx-0">
+          <div
+            class="sm:border-b-2 sm:border-gray-100 sm:pb-1 block my-1 flex flex-col items-center sm:flex-row"
+          >
+            <span
+              class="border-b-2 border-gray-400 pb-1 mb-2 sm:border-0 sm:p-0 sm:mb-0"
+              >開始</span
+            >
+            <span class="hidden sm:inline">： </span>
+            <span class="tracking-wider">
+              {{ new Date(auction.start_time).toLocaleString('zh-TW') }}
+            </span>
+          </div>
+          <div class="block my-1 flex flex-col items-center sm:flex-row">
+            <span
+              class="border-b-2 border-gray-400 pb-1 mb-2 mt-2 sm:border-0 sm:p-0 sm:mb-0 sm:mt-0"
+              >結束</span
+            >
+            <span class="hidden sm:inline">： </span>
+            <span class="tracking-wider">
+              {{ new Date(auction.end_time).toLocaleString('zh-TW') }}
+            </span>
+          </div>
         </h3>
       </div>
-      <div class="w-4/6 px-10 mb-10 -bottom-20 flex justify-between items-center">
-        <h3 class="text-3xl font-extrabold">{{ auction.author_name }}</h3>
-        <h3 class="text-3xl font-extrabold">{{ auction.title }}</h3>
+      <div
+        class="w-4/6 px-10 mb-10 -bottom-20 flex justify-between items-center flex-col sm:flex-row"
+      >
+        <h3
+          class=" text-base sm:text-xl font-base sm:font-extrabold tracking-wider"
+        >
+          {{ auction.author_name }}
+        </h3>
+        <h3 class="text-xl sm:text-xl font-extrabold">{{ auction.title }}</h3>
       </div>
 
-      <TabNav :tabs="['競標資訊', '藝術品詳情']" :selected="selected" @selected="setSelected">
+      <TabNav
+        :tabs="['競標資訊', '藝術品詳情']"
+        :selected="selected"
+        @selected="setSelected"
+      >
         <Tab :isSelected="selected === '競標資訊'">
           <!-- 第一個 tab -->
           <div v-if="!isLoggedIn" class="my-10 ml-2">
@@ -102,7 +152,9 @@
             來進行競標或查看目前競標狀態！
           </div>
           <div v-else>
-            <div v-if="bidDetail.length === 0" class="text-center mt-4">目前沒有人參與競標</div>
+            <div v-if="bidDetail.length === 0" class="text-center mt-4">
+              目前沒有人參與競標
+            </div>
             <ul v-else class="flex w-full flex-col">
               <li
                 v-for="(bid, index) in bidDetail"
@@ -113,9 +165,14 @@
                   class="select-none flex flex-1 items-center p-4 transition
                         duration-300 ease-in-out transform hover:-translate-y-1
                         border-b border-b-1 border-light-blue-500 hover:shadow-lg"
-                  :class="{ 'bg-red-100 rounded-t': isEnd && index === bidDetail.length - 1 }"
+                  :class="{
+                    'bg-red-100 rounded-t':
+                      isEnd && index === bidDetail.length - 1,
+                  }"
                 >
-                  <div class="flex flex-col justify-center items-center mr-2 w-1/5">
+                  <div
+                    class="flex flex-col justify-center items-center mr-2 w-1/5"
+                  >
                     <img
                       class="h-8 w-8 rounded-full object-cover"
                       :src="
@@ -126,12 +183,18 @@
                       alt="頭像"
                     />
                   </div>
-                  <div class="flex flex-col justify-center items-start mr-4 w-2/5">
+                  <div
+                    class="flex flex-col justify-center items-start mr-4 w-2/5"
+                  >
                     <h3 class="text-md font-semibold">{{ bid.user.name }}</h3>
-                    <p class="text-xs font-extralight">{{ bid.created_at | date }}</p>
+                    <p class="text-xs font-extralight">
+                      {{ bid.created_at | date }}
+                    </p>
                   </div>
 
-                  <div class="flex-1 flex-col justify-start self-start pl-1 mr-16">
+                  <div
+                    class="flex-1 flex-col justify-start self-start pl-1 mr-16"
+                  >
                     <div class="font-medium"></div>
                   </div>
                   <div
@@ -171,7 +234,9 @@
       class="fixed overflow-x-hidden overflow-y-hidden inset-0 flex justify-center items-center z-50"
     >
       <div class="relative mx-auto w-auto max-w-2xl">
-        <div class="bg-yellow-300 h-52 w-full px-8 py-10 border-2 border-gray-50 rounded-md">
+        <div
+          class="bg-yellow-300 h-52 w-full px-8 py-10 border-2 border-gray-50 rounded-md"
+        >
           <form @submit.prevent="submitBid">
             <input
               type="number"
@@ -199,7 +264,10 @@
         </div>
       </div>
     </div>
-    <div v-if="toggleModal" class="absolute top-0 h-2000px inset-0 z-40 opacity-50 bg-black"></div>
+    <div
+      v-if="toggleModal"
+      class="absolute top-0 h-2000px inset-0 z-40 opacity-50 bg-black"
+    ></div>
   </div>
 </template>
 
