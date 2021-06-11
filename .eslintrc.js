@@ -21,16 +21,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
     'no-confusing-arrow': ['error', { allowParens: true }],
-    // 'operator-linebreak': [
-    //   'error',
-    //   'after',
-    //   {
-    //     overrides: {
-    //       ':': 'before',
-    //     },
-    //   },
-    // ],
-    // 'operator-linebreak': [2, 'before', { overrides: { '?': 'before', ':': 'before' } }],
+    'arrow-body-style': ['error', 'as-needed'],
+    // 'implicit-arrow-linebreak': [2, 'below'],
     'operator-linebreak': [
       2,
       'after',
@@ -41,27 +33,14 @@ module.exports = {
         },
       },
     ],
-    // 'operator-linebreak': [2, 'before', { overrides: { '?': 'after', '+=': 'none' } }],
-    // 'vue/no-parsing-error': [
-    //   'error',
-    //   {
-    //     'control-character-in-input-stream': true,
-    //   },
-    // ],
-    // 'comma-dangle': [
-    //   'error',
-    //   {
-    //     arrays: 'never',
-    //     objects: 'always',
-    //     imports: 'never',
-    //     exports: 'never',
-    //     functions: 'never',
-    //   },
-    // ],
+    'function-paren-newline': ['error', 'multiline'],
   },
   overrides: [
     {
-      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+      ],
       env: {
         jest: true,
       },

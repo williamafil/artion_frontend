@@ -3,7 +3,9 @@
     <header>
       <div class="container mx-auto px-6 py-3">
         <div class="flex items-center justify-center">
-          <h2 class=" mt-20 text-5xl font-extrabold tracking-widest w-full md:text-center md:mt-4">
+          <h2
+            class=" mt-20 text-5xl font-extrabold tracking-widest w-full md:text-center md:mt-4"
+          >
             藝術家
           </h2>
         </div>
@@ -24,7 +26,7 @@
 
           <input
             v-model="keyword"
-            class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
+            class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-gray-500 focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="搜尋"
           />
@@ -44,7 +46,9 @@
             :to="{ name: 'Artist', params: { id: artist.artist_info.name } }"
           >
             <div class="w-2/6 sm:w-3/6 h-52 py-2 flex flex-col justify-around">
-              <div class=" relative circle-responsive object-cover overflow-hidden">
+              <div
+                class=" relative circle-responsive object-cover overflow-hidden"
+              >
                 <img class="object-cover" :src="artist.avatar_url" />
               </div>
               <h3 class="text-center mt-4">{{ artist.artist_info.name }}</h3>
@@ -83,7 +87,9 @@ export default {
   },
   computed: {
     filteredArtist() {
-      return this.artistList.filter((x) => x.artist_info.name.includes(this.keyword));
+      return this.artistList.filter((x) =>
+        x.artist_info.name.includes(this.keyword),
+      );
     },
   },
 };
