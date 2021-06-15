@@ -23,6 +23,7 @@ module.exports = {
     'no-confusing-arrow': ['error', { allowParens: true }],
     'arrow-body-style': ['error', 'as-needed'],
     'implicit-arrow-linebreak': [2, 'beside'],
+    'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     'operator-linebreak': [
       2,
       'after',

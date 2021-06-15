@@ -87,9 +87,7 @@ export default {
   },
   computed: {
     filteredArtist() {
-      return this.artistList.filter((x) =>
-        x.artist_info.name.includes(this.keyword),
-      );
+      return this.artistList.filter((x) => x.artist_info.name.includes(this.keyword));
     },
   },
 };

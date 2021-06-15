@@ -27,9 +27,9 @@ module.exports = {
         '32rem': '32rem',
       },
       flexGrow: {
-        '0': 0,
+        0: 0,
         Default: 2,
-        '1': 1,
+        1: 1,
       },
       fontFamily: {
         lora: ['Lora', 'serif'],
