@@ -22,7 +22,7 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-confusing-arrow': ['error', { allowParens: true }],
     'arrow-body-style': ['error', 'as-needed'],
-    'implicit-arrow-linebreak': [2, 'below'],
+    'implicit-arrow-linebreak': [2, 'beside'],
     'operator-linebreak': [
       2,
       'after',
