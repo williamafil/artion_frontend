@@ -11,8 +11,11 @@
           所有拍賣
         </h2>
         <article
-          class="absolute -bottom-20 lg:-bottom-14 h-52  w-3/4 sm:w-2/4 md:w-3/4 lg:w-5/6 lg:h-28 bg-gray-100 rounded-lg p-6"
+          class="absolute -bottom-20 lg:-bottom-14 h-80  w-3/4 sm:w-2/4 md:w-3/4 lg:w-5/6 lg:h-28 bg-gray-100 rounded-lg p-6"
         >
+          <!-- <article
+          class="absolute -bottom-20 lg:-bottom-14 h-52  w-3/4 sm:w-2/4 md:w-3/4 lg:w-5/6 lg:h-28 bg-gray-100 rounded-lg p-6"
+        > -->
           <div class="flex w-full h-full items-center flex-col lg:flex-row">
             <select
               v-model="conditions.genre"
@@ -63,33 +66,29 @@
                   step="100"
                 />
               </div> -->
-              <div class="middle">
-                <div class="multi-range-slider">
-                  <input
-                    id="input-left"
-                    ref="input-left"
-                    type="range"
-                    v-model="conditions.minRange"
-                    :min="priceRange.min"
-                    :max="priceRange.max"
-                    @input="setLeftValue"
-                    step="100"
-                  />
-                  <input
-                    id="input-right"
-                    ref="input-right"
-                    type="range"
-                    v-model="conditions.maxRange"
-                    :min="priceRange.min"
-                    :max="priceRange.max"
-                    @input="setRightValue"
-                  />
-
-                  <div class="slider">
-                    <div class="track"></div>
-                    <div ref="range" class="range"></div>
-                    <div ref="left-handle" class="thumb left"></div>
-                    <div ref="right-handle" class="thumb right"></div>
+              <div class="slider-body">
+                <div class="wrapper">
+                  <div class="values">
+                    <span id="left-range">0</span>
+                    <span>&dash;</span>
+                    <span id="right-range">100</span>
+                  </div>
+                  <div class="container">
+                    <div class="slider-track"></div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="30"
+                      id="slider-left"
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="70"
+                      id="slider-right"
+                    />
                   </div>
                 </div>
               </div>
@@ -211,6 +210,13 @@ export default {
       const leftHandle = this.$refs['input-left'].value;
       const rightHandle = this.$refs['input-right'].value;
 
+      console.log(
+        'current leftHand: ',
+        leftHandle,
+        'current rightHand:',
+        rightHandle,
+      );
+
       const thisVal = Math.max(
         parseInt(rightHandle, 0),
         parseInt(leftHandle, 0) + 1,
@@ -250,61 +256,184 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input[type='range']::-webkit-slider-thumb {
-  //   // pointer-events: all;
-  //   // width: 24px;
-  //   // height: 24px;
-  //   // -webkit-appearance: none;
+// .middle {
+//   @apply relative w-full p-2  max-w-lg h-10;
+// }
 
-  //   @apply w-6 h-6 appearance-none pointer-events-auto;
-}
+// .slider {
+//   @apply relative z-10 h-4;
+// }
 
-.middle {
-  @apply relative w-full p-2  max-w-lg h-10;
-}
+// .slider > .track {
+//   @apply absolute z-10 left-0 right-0 top-0 bottom-0 rounded-md bg-gray-300;
+// }
 
-.slider {
-  @apply relative z-10 h-4;
-}
+// .slider > .range {
+//   @apply absolute z-20 left-0 right-0 top-0 bottom-0 rounded-md bg-gray-500;
+// }
 
-.slider > .track {
-  @apply absolute z-10 left-0 right-0 top-0 bottom-0 rounded-md bg-gray-300;
-}
+// .slider > .thumb {
+//   @apply absolute z-30 w-6 h-6 bg-gray-700 rounded-full;
+// }
 
-.slider > .range {
-  @apply absolute z-20 left-0 right-0 top-0 bottom-0 rounded-md bg-gray-500;
-}
+// .slider > .thumb.left {
+//   @apply left-0 transform -translate-x-2 -translate-y-1;
+// }
 
-.slider > .thumb {
-  @apply absolute z-30 w-6 h-6 bg-gray-700 rounded-full;
-}
+// .slider > .thumb.right {
+//   @apply right-0 transform translate-x-2 -translate-y-1;
+// }
 
-.slider > .thumb.left {
-  @apply left-0 transform -translate-x-2 -translate-y-1;
-}
+// input[type='range'] {
+//   @apply absolute z-20 h-3 w-full appearance-none pointer-events-none opacity-100;
+//   // @apply absolute z-20 h-3 w-full appearance-none pointer-events-none opacity-0;
+// }
 
-.slider > .thumb.right {
-  @apply right-0 transform translate-x-2 -translate-y-1;
-}
+// input[type='range']::-webkit-slider-thumb {
+//   //   // pointer-events: all;
+//   //   // width: 24px;
+//   //   // height: 24px;
+//   //   // -webkit-appearance: none;
 
-input[type='range'] {
-  @apply absolute z-20 h-3 w-full appearance-none pointer-events-none opacity-0;
-}
-
-input[type='range']::-webkit-slider-thumb {
-  //   // pointer-events: all;
-  //   // width: 24px;
-  //   // height: 24px;
-  //   // -webkit-appearance: none;
-
-  @apply w-6 h-6 rounded-none border-0 bg-red-400  appearance-none pointer-events-auto;
-}
+//   // @apply w-6 h-6 rounded-none border-0 bg-red-400  appearance-none pointer-events-auto;
+//   @apply w-6 h-6 rounded-full  bg-green-400  appearance-none pointer-events-auto;
+// }
 
 // #input-left {
-//   @apply top-11;
+//   @apply top-16;
 // }
 
 // #input-right {
 //   @apply top-16;
 // }
+
+.slider-body {
+  height: 100px;
+  display: grid;
+  display: -ms-grid;
+  background-color: #3264fe;
+  place-items: center;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  // height: 100%;
+  background-color: #fff;
+  padding: 0;
+  // padding: 20px 14px 10px 14px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  // border: 1px solid #000;
+  margin-top: 0px;
+  // margin-top: 20px;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.slider-track {
+  width: 100%;
+  height: 5px;
+  background-color: #d5d5d5;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+  // background-color: #ccc;
+}
+
+input[type='range']::-moz-range-track {
+  -moz-appearance: none;
+  height: 5px;
+}
+
+input[type='range']::-ms-track {
+  appearance: none;
+  height: 5px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #3264fe;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -9px;
+  pointer-events: auto;
+}
+
+input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #3264fe;
+  pointer-events: auto;
+}
+
+input[type='range']::-ms-thumb {
+  appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #3264fe;
+  pointer-events: auto;
+}
+
+input[type='range']:active::-webkit-slider-thumb {
+  background-color: #ffffff;
+  border: 4px solid #3264fe;
+}
+
+.values {
+  background-color: #3264fe;
+  width: 32%;
+  position: relative;
+  margin: auto;
+  padding: 10px 0;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+  color: #fff;
+}
+
+.values:before {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top: 15px solid #3264fe;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  margin: auto;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+}
 </style>
