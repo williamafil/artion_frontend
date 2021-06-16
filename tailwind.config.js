@@ -34,6 +34,9 @@ module.exports = {
       fontFamily: {
         lora: ['Lora', 'serif'],
       },
+      margin: {
+        '-10px': '-10px',
+      },
     },
   },
   variants: {
