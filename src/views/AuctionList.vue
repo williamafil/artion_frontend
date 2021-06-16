@@ -47,22 +47,6 @@
             <div
               class="flex flex-col rounded mx-6 w-full sm:w-full mt-4 lg:m-0"
             >
-              <!-- <div class="flex">
-                <input
-                  type="range"
-                  v-model="conditions.minRange"
-                  :min="priceRange.min"
-                  :max="priceRange.max"
-                  step="100"
-                />
-                <input
-                  type="range"
-                  v-model="conditions.maxRange"
-                  :min="conditions.minRange"
-                  :max="priceRange.max"
-                  step="100"
-                />
-              </div> -->
               <div class="slider-body">
                 <div class="wrapper">
                   <label

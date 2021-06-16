@@ -41,8 +41,8 @@
               </div>
             </div>
             <img
-              alt="Placeholder"
-              class="block object-cover h-56 w-full rounded-t-md"
+              alt="auction image"
+              class="block object-cover h-56 w-full rounded-t-md bg-gray-50"
               :src="item.images_url[0]"
             />
           </div>
