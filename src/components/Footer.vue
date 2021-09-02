@@ -1,13 +1,13 @@
 <template>
-  <footer class="w-full h-80 border-t-2 bg-gray-100">
-    <div class="container mx-auto h-full flex flex-col md:flex-row md:justify-center">
-      <section class="ml-10 mt-6">
+  <footer class="w-full h-80 border-t-2 pl-4">
+    <div class="container h-full flex flex-col md:flex-row md:justify-center">
+      <section class="mt-6">
         <h2 class="mr-20 text-3xl font-black tracking-wide">
           artion
         </h2>
       </section>
-      <section class="p-10 pb-0 w-4/6 flex">
-        <div class="h-full w-1/3">
+      <section class="mt-4 md:pt-4 w-full flex justify-between">
+        <div class="h-full w-1/3 ">
           <ul class="text-left">
             <li class="mb-4 text-sm font-semibold">
               <router-link :to="{ name: 'AuctionList' }">
@@ -50,8 +50,14 @@
         <div class="flex flex-col h-full w-1/3 text-left">
           <form @submit.prevent="subscribe">
             <label class="mb-2 text-sm">訂閱最新消息</label>
-            <input type="email" class="mb-2 h-10 p-2 border rounded-md" placeholder="e-mail" />
-            <button class="self-end border-2 w-16 p-1 text-sm">訂閱</button>
+            <input
+              type="email"
+              class="mb-2 w-11/12 h-10 p-2 border rounded-md"
+              placeholder="e-mail"
+            />
+            <button class="self-end border-2 w-16 p-1 text-sm rounded">
+              訂閱
+            </button>
           </form>
         </div>
       </section>
