@@ -64,7 +64,7 @@
         <li>
           <button
             @click.prevent="toggleMenu"
-            class="font-medium text-md p-2 rounded-lg border-2 border-gray-200 tracking-wide"
+            class="font-medium text-md p-2 rounded border-2 border-gray-200 tracking-wide"
           >
             關閉選單
           </button>
@@ -79,26 +79,30 @@
           items-center container mx-auto"
     >
       <div class="flex">
-        <button class="md:hidden" @click="toggleMenu">
+        <button class="md:hidden focus:outline-none" @click="toggleMenu">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8"
-            fill="none"
+            class="h-8 w-8 bg-gray-100"
             viewBox="0 0 24 24"
-            stroke="currentColor"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16"
+              stroke="black"
             />
           </svg>
         </button>
       </div>
 
-      <div class="z-10 hidden md:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4">
-        <router-link :to="{ name: 'Home' }" class="font-lora text-4xl font-extrabold mx-5 my-1 p-1">
+      <div
+        class="z-10 hidden md:block w-34 bg-yellow-200 border-b-4 border-yellow-300 px-4"
+      >
+        <router-link
+          :to="{ name: 'Home' }"
+          class="font-lora text-4xl font-extrabold mx-5 my-1 p-1"
+        >
           <h1>artion</h1>
         </router-link>
       </div>
@@ -142,7 +146,11 @@
         </div>
       </div>
       <div class="z-10 hidden sm:block flex-none w-68">
-        <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }" class="px-4 py-2 border-2">
+        <router-link
+          v-if="!isLoggedIn"
+          :to="{ name: 'Login' }"
+          class="px-4 py-2 border-2 rounded"
+        >
           登入
         </router-link>
         <div v-if="isLoggedIn" class="flex items-center justify-end">
@@ -156,7 +164,11 @@
           "
             >
               <span class="sr-only">Open user menu</span>
-              <img class="h-8 w-8 rounded-full object-cover" :src="user.avatar" alt="Avatar" />
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                :src="user.avatar"
+                alt="Avatar"
+              />
               <!-- <img
               class="h-8 w-8 rounded-full object-cover"
               :src="user.avatar || 'https://caat.thu.edu.tw/wp-content/uploads/avatar-icon.png'"
