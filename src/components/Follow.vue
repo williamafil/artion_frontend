@@ -1,10 +1,10 @@
 <template>
-  <div class="rounded-full border-2 border-white p-1 hover:bg-white">
+  <div class="p-0 rounded-full w-10 h-10 border-2 border-white hover:bg-white">
     <svg
       v-if="!state"
       @click.prevent="heartHandler"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-8 w-8 hover:text-red-500"
+      class="rounded-full bg-white bg-opacity-30 w-9 h-auto hover:text-red-500"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -20,7 +20,7 @@
       v-else
       @click.prevent="heartHandler"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-8 w-8 text-red-500"
+      class="rounded-full bg-white bg-opacity-30 w-9 h-auto text-red-500"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
